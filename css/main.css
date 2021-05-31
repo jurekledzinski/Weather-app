@@ -217,12 +217,27 @@ body {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
+.slider__time {
+  padding-left: 5px;
+  color: #5f5f5f;
+}
+
+.slider__icon-hour-weather {
+  color: #5f5f5f;
+  font-size: 2.8rem;
+  text-align: center;
+}
+
+.slider__hour-weather-description {
+  color: #5f5f5f;
+}
+
 .slider__box-2-title,
 .slider__box-3-title,
 .slider__box-4-title {
   width: 100%;
   padding: 10px;
-  color: #303030;
+  color: #3f3f3f;
   font-size: 1.4rem;
   font-weight: 300;
   font-family: "Nunito", sans-serif;
@@ -244,6 +259,58 @@ body {
   grid-template-areas:
     "boxHourlyWeatherOne boxHourlyWeatherTwo"
     "boxHourlyWeatherThree boxHourlyWeatherFour";
+}
+
+.slider__box-3 {
+  width: 100%;
+}
+
+.slider__box-3-wrapper {
+  display: flex;
+}
+
+.slider__box-3-left {
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.slider__hourly-weather-time {
+  padding: 3px;
+  color: #5f5f5f;
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.slider__hourly-weather-description {
+  color: #5f5f5f;
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.slider__hourly-weather-temperature-wrapper {
+  color: #5f5f5f;
+  font-size: 3rem;
+}
+
+.slider__hourly-icon-celsius {
+  margin-left: -3px;
+  color: #5f5f5f;
+  font-size: 2.8rem;
+}
+
+.slider__box-3-right {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider__hourly-icon-weather {
+  color: #5f5f5f;
+  font-size: 4rem;
 }
 
 .slider__box-3:nth-child(1) {
@@ -299,9 +366,12 @@ body {
 
 .slider__box-details-icon {
   display: block;
-  /* color: #080808; */
   color: #5f5f5f;
   font-size: 1rem;
+}
+
+.slider__box-details-text-icon {
+  margin-left: -3px;
 }
 
 .slider__box-4-part2 {
