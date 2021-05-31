@@ -22,6 +22,7 @@
       href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Nunito:wght@300;400&family=Roboto:wght@300;400&display=swap"
       rel="stylesheet"
     />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <main class="main">
@@ -70,7 +71,9 @@
               </div>
               <div class="slider__inner-box">
                 <h3 class="slider__box-2-title">Hourly temperature</h3>
-                <div class="slider__box-2-boxes"></div>
+                <div class="slider__box-2-boxes">
+                  <canvas id="myChart"></canvas>
+                </div>
               </div>
               <div class="slider__inner-box">
                 <h3 class="slider__box-3-title">Hourly weather</h3>
