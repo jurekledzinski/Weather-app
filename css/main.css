@@ -440,13 +440,13 @@ body {
   font-size: 1rem;
   outline: none;
   cursor: pointer;
-  transition: 0.4s ease;
+  transition: 0.4s linear;
   font-family: "Nunito", sans-serif;
   font-weight: 300;
   align-self: center;
 }
 
-.slider__bottom-btn:hover {
+.slider__bottom-btn.active-btn-bottom {
   background-color: rgba(255, 255, 255, 0.4);
   font-weight: 400;
 }
