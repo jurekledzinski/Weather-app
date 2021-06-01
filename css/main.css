@@ -232,6 +232,13 @@ body {
   color: #5f5f5f;
 }
 
+.slider__box-2-boxes {
+  position: relative;
+  margin: auto;
+  height: 80%;
+  width: 99%;
+}
+
 .slider__box-2-title,
 .slider__box-3-title,
 .slider__box-4-title {
