@@ -3,7 +3,7 @@ const data = {
   labels: labels,
   datasets: [
     {
-      label: "Temperatures",
+      label: "Temperature",
       backgroundColor: "rgb(255, 99, 0)",
       borderColor: "rgb(255, 99, 132)",
       data: [0, 10, 5, 2, 20, 30],
