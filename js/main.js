@@ -1,10 +1,7 @@
-// const sixDaysForecast = document.querySelector(
-//   ".slider__box-4-boxes--days-forecast"
-// );
-// const hourlyWeather = document.querySelector(
-//   ".slider__box-4-boxes--hourly-weather"
-// );
-
+const sliderBoxes3 = document.querySelectorAll(".slider__box-3");
+const sliderBoxes3Mobile = document.querySelectorAll(".slider__box-3-mobile");
+const sliderBoxes4 = document.querySelectorAll(".slider__box-4");
+const sliderBoxesDays4 = document.querySelectorAll(".slider__box-4-days");
 const detailsTitle = document.querySelector(".slider__box-4-title");
 
 const detailsWeather = document.querySelectorAll(
@@ -16,10 +13,12 @@ const innerBoxFour = document.querySelector(".slider__inner-box-4");
 const buttonsButtom = document.querySelectorAll(".slider__bottom-btn");
 
 const handleContentLoaded = () => {
-  const firstDetailsWeather = detailsWeather[0];
   const firstButtonCheckWeatherDetails = buttonsButtom[0];
   firstButtonCheckWeatherDetails.classList.add("active-btn-bottom");
-  firstDetailsWeather.classList.add("details-visible");
+
+  sliderBoxes4.forEach((item, index) => {
+    item.classList.add("details-visible");
+  });
 
   const labels = ["2 p.m.", "3 p.m.", "4 p.m.", "5 p.m.", "6 p.m.", "7 p.m."];
 
@@ -65,13 +64,40 @@ const handleContentLoaded = () => {
     innerBoxFour.style.transform = `translateX(-${indexBtn}00%)`;
 
     detailsWeather.forEach((item, index) => {
-      item.classList.remove("details-visible");
+      sliderBoxes3Mobile.forEach((item, index) => {
+        item.classList.remove("details-visible");
+      });
+
+      sliderBoxesDays4.forEach((item, index) => {
+        item.classList.remove("details-visible");
+      });
+
+      sliderBoxes4.forEach((item, index) => {
+        item.classList.remove("details-visible");
+      });
+
+      switch (indexBtn) {
+        case 0:
+          sliderBoxes4.forEach((item, index) => {
+            item.classList.add("details-visible");
+          });
+          break;
+        case 1:
+          sliderBoxesDays4.forEach((item, index) => {
+            item.classList.add("details-visible");
+          });
+          break;
+        case 2:
+          sliderBoxes3Mobile.forEach((item, index) => {
+            item.classList.add("details-visible");
+          });
+          break;
+        default:
+          break;
+      }
 
       if (index === indexBtn) {
-        const sliderBox4 = document.querySelectorAll(".slider__box-4");
         detailsTitle.textContent = btn.innerHTML;
-        item.classList.add("details-visible");
-        console.log(sliderBox4);
       }
     });
   };
@@ -88,11 +114,18 @@ const handleContentLoaded = () => {
         item.classList.remove("active-btn-bottom");
       });
 
-      detailsWeather.forEach((item, index) => {
+      sliderBoxes3Mobile.forEach((item, index) => {
         item.classList.remove("details-visible");
       });
 
-      firstDetailsWeather.classList.add("details-visible");
+      sliderBoxesDays4.forEach((item, index) => {
+        item.classList.remove("details-visible");
+      });
+
+      sliderBoxes4.forEach((item, index) => {
+        item.classList.add("details-visible");
+      });
+
       innerBoxFour.style.transform = `translateX(0%)`;
       firstButtonCheckWeatherDetails.classList.add("active-btn-bottom");
       detailsTitle.textContent = "Details";
