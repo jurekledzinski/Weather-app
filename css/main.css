@@ -31,6 +31,7 @@ body {
   align-items: center;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 .app-wrapper {
@@ -123,7 +124,7 @@ body {
 
 .slider__image-wrapper {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 100%;
   grid-template-rows: 150px 200px 150px 25px;
   min-width: 100%;
   height: 100%;
@@ -773,10 +774,37 @@ body {
   opacity: 1;
 }
 
+.slider__dots-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.slider__dots-inner-wrapper {
+  display: flex;
+  justify-content: space-around;
+  min-width: 100px;
+}
+
+.slider__dot {
+  display: block;
+  width: 25px;
+  height: 8px;
+  background-color: #5f5f5f;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 @media (min-width: 260px) and (orientation: portrait) {
   body {
+    min-height: initial;
     height: 100vh;
   }
+  /* body {
+    min-height: initial;
+    height: 100vh;
+  } */
 
   .slider__image-wrapper {
     grid-template-rows: 30% 28% 35% 7%;
@@ -1341,9 +1369,71 @@ body {
   }
 }
 
+@media (orientation: portrait) and (min-width: 768px) and (max-width: 855px) {
+  .slider__temperature {
+    font-size: 4rem;
+  }
+
+  .slider__celsius-icon {
+    font-size: 3rem;
+  }
+
+  .slider__weather-icon {
+    top: -63px;
+    right: 30px;
+    font-size: 5rem;
+  }
+
+  .slider__image-description {
+    top: 1px;
+    right: 40px;
+  }
+
+  .slider__box-3-left {
+    width: 55%;
+  }
+
+  .slider__box-3-right {
+    width: 40%;
+  }
+
+  .slider__hourly-weather-temperature-wrapper,
+  .slider__hourly-temperature-mobile {
+    font-size: 2.5rem;
+  }
+
+  .slider__hourly-weather-description,
+  .slider__hourly-weather-description-mobile {
+    font-size: 1.4rem;
+  }
+
+  .slider__hourly-icon-weather,
+  .slider__hourly-icon-weather-mobile {
+    font-size: 2.5rem;
+  }
+
+  .slider__hourly-weather-time,
+  .slider__hourly-time-mobile {
+    font-size: 1.4rem;
+  }
+
+  .slider__box-details-text {
+    font-size: 2.5rem;
+  }
+
+  .slider__box-details-description {
+    font-size: 1.4rem;
+  }
+
+  .slider__box-details-icon {
+    font-size: 2.5rem;
+  }
+}
+
 @media (orientation: landscape) and (min-width: 855px) {
   body {
     height: 100vh;
+    min-height: initial;
   }
 }
 
@@ -1351,11 +1441,76 @@ body {
   body {
     min-height: 100vh;
   }
+
+  .app-wrapper {
+    width: 100%;
+  }
+}
+
+@media (orientation: landscape) and (min-width: 767px) and (max-width: 855px) {
+  .slider__temperature {
+    font-size: 4rem;
+  }
+
+  .slider__celsius-icon {
+    font-size: 3rem;
+  }
+
+  .slider__weather-icon {
+    top: -63px;
+    right: 30px;
+    font-size: 5rem;
+  }
+
+  .slider__image-description {
+    top: 1px;
+    right: 40px;
+  }
+
+  .slider__box-3-left {
+    width: 55%;
+  }
+
+  .slider__box-3-right {
+    width: 40%;
+  }
+
+  .slider__hourly-weather-temperature-wrapper,
+  .slider__hourly-temperature-mobile {
+    font-size: 2.5rem;
+  }
+
+  .slider__hourly-weather-description,
+  .slider__hourly-weather-description-mobile {
+    font-size: 1.4rem;
+  }
+
+  .slider__hourly-icon-weather,
+  .slider__hourly-icon-weather-mobile {
+    font-size: 2.5rem;
+  }
+
+  .slider__hourly-weather-time,
+  .slider__hourly-time-mobile {
+    font-size: 1.4rem;
+  }
+
+  .slider__box-details-text {
+    font-size: 2.5rem;
+  }
+
+  .slider__box-details-description {
+    font-size: 1.4rem;
+  }
+
+  .slider__box-details-icon {
+    font-size: 2.5rem;
+  }
 }
 
 @media (orientation: landscape) and (max-width: 767px) {
   body {
-    height: 100vh;
+    min-height: 100vh;
   }
 
   .main {
@@ -1410,6 +1565,10 @@ body {
 }
 
 @media (orientation: landscape) and (max-width: 480px) {
+  body {
+    min-height: 100vh;
+  }
+
   .slider__image-wrapper {
     grid-template-rows: 180px 150px 180px 40px;
   }
@@ -1443,6 +1602,10 @@ body {
 }
 
 @media (orientation: landscape) and (max-width: 320px) {
+  body {
+    min-height: 100vh;
+  }
+
   .slider__image-wrapper {
     grid-template-rows: 150px 150px 150px 25px;
     height: initial;
