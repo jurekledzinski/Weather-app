@@ -1,0 +1,24 @@
+{
+  "name": "project-weahter-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "start_local": "nodemon -r dotenv/config app.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client"
+  },
+  "author": "Jerzy Ledziński",
+  "license": "ISC",
+  "homepage": "https://github.com/jurekledzinski/Weather-app#readme",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0"
+  }
+}
