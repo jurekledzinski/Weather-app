@@ -20,6 +20,7 @@ app.disable("x-powered-by");
 app.use(
   cors({
     credentials: true,
+    origin: "http://localhost:1234",
   })
 );
 
