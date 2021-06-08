@@ -67,6 +67,11 @@ body {
   flex-wrap: wrap;
 }
 
+.form {
+  display: flex;
+  width: 100%;
+}
+
 .search-bar__input {
   width: 33.3%;
   padding: 8px 0;
@@ -794,13 +799,14 @@ body {
 .slider__dots-inner-wrapper {
   display: flex;
   justify-content: space-around;
-  min-width: 100px;
+  min-width: 60px;
 }
 
 .slider__dot {
   display: block;
   width: 25px;
   height: 8px;
+  margin: 0 2px 0 2px;
   background-color: #5f5f5f;
   border-radius: 4px;
   cursor: pointer;
@@ -1157,25 +1163,33 @@ body {
 }
 
 @media (min-width: 500px) {
+  .form {
+    width: 60%;
+  }
+
   .slider__box-2-title,
   .slider__box-3-title,
   .slider__box-4-title {
     font-size: 1.9rem;
   }
 
+  .search-bar__wrapper {
+    justify-content: initial;
+  }
+
   .search-bar__input {
-    width: 27.5%;
+    width: 33.4%;
     margin-bottom: initial;
   }
 
   .search-bar__button-search {
+    width: 33.3%;
     margin-bottom: 0;
   }
 
-  .search-bar__button-search,
   .search-bar__button-add,
   .search-bar__button-remove {
-    width: 15%;
+    width: 20%;
   }
 
   .slider__weather-icon {
