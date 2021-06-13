@@ -28,7 +28,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.post("/", function (req, res) {
-  console.log(req.body);
   const { cityInputValue, countryInputValue } = req.body;
 
   let nameCity = "";
@@ -38,8 +37,8 @@ app.post("/", function (req, res) {
     `${geoLocationApiKey}=${cityInputValue},$${countryInputValue}&format=json`
   )
     .then((res) => res.json())
-    .then((result) => {
-      const { display_name, lat, lon } = result[0];
+    .then((data) => {
+      const { display_name, lat, lon } = data[0];
       nameCity = display_name.slice(0, display_name.indexOf(","));
       nameCountry = display_name.slice(display_name.lastIndexOf(",") + 2);
 
@@ -74,6 +73,7 @@ app.post("/", function (req, res) {
           const weatherData = {
             city: nameCity,
             country: nameCountry,
+            timezone: result.timezone,
             current: {
               date: result.current.dt,
               sunrise: result.current.sunrise,
