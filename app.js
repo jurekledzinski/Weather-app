@@ -59,6 +59,7 @@ app.post("/", function (req, res) {
               tempDay: item.temp.day,
               tempNight: item.temp.night,
               description: item.weather[0].description,
+              idIcon: item.weather[0].id,
             };
           });
 
@@ -67,6 +68,7 @@ app.post("/", function (req, res) {
               data: item.dt,
               temp: item.temp,
               description: item.weather[0].description,
+              idIcon: item.weather[0].id,
             };
           });
 
@@ -86,6 +88,7 @@ app.post("/", function (req, res) {
               visibility: result.current.visibility,
               wind_speed: result.current.wind_speed,
               description: result.current.weather[0].description,
+              idIcon: result.current.weather[0].id,
             },
             daily: sixDaysForecast,
             hourly: hourlyForecast,
