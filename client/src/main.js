@@ -450,80 +450,13 @@ const handleContentLoaded = () => {
     }
   }, 550);
 
-  const getStructureSlideWeather = (
-    result,
-    city,
-    country,
-    current,
-    timezone,
-    todayDate,
-    weatherFourHours
-  ) => {
-    console.log(result, "stuktura");
-
-    const currentDateUtc = utcToZonedTime(new Date(), timezone);
-    const timeCountry = format(currentDateUtc, "yyyy-MM-dd HH:mm:ssXXX");
-    let currentTimeCountry = new Date(timeCountry).getTime();
-
-    console.log(currentTimeCountry, "currentDate");
-
-    const dateUtcSunrise = utcToZonedTime(
-      new Date(result.current.sunrise * 1000),
-      timezone
-    );
-    const countryTimeSunrise = format(dateUtcSunrise, "yyyy-MM-dd HH:mm:ssXXX");
-    let dateSunrise = new Date(countryTimeSunrise);
-    let hourSunrise = dateSunrise.getHours();
-    let timeSunriseMilliseconds = dateSunrise.getTime();
-
-    console.log(
-      dateSunrise,
-      "date sunrise",
-      hourSunrise,
-      timeSunriseMilliseconds
-    );
-
-    const dateUtcSunset = utcToZonedTime(
-      new Date(result.current.sunset * 1000),
-      timezone
-    );
-    const countryTimeSunset = format(dateUtcSunset, "yyyy-MM-dd HH:mm:ssXXX");
-    let dateSunset = new Date(countryTimeSunset);
-    let hourSunset = dateSunset.getHours();
-    let timeSunsetMilliseconds = dateSunset.getTime();
-
-    console.log(dateSunset, "date sunrise", hourSunset, timeSunsetMilliseconds);
-
-    if (
-      currentTimeCountry > timeSunriseMilliseconds &&
-      currentTimeCountry < timeSunsetMilliseconds
-    ) {
-      console.log("to jest dzień");
-    } else {
-      console.log("to jest noc");
-    }
-
-    // const idIntervalTime = setInterval(() => {
-    //   if (hourSunrise < hourSunset) {
-    //   } else {
-    //     clearInterval(idIntervalTime);
-    //   }
-    // }, 10);
-
-    let isDayOrNight =
-      currentTimeCountry > timeSunriseMilliseconds &&
-      currentTimeCountry < timeSunsetMilliseconds;
-
-    const currentWeatherIdIcon = result.current.idIcon;
-    let iconCurrentWeather;
-
-    console.log(isDayOrNight, "isDayOrNight");
-
+  const getCurrentIcon = (currentWeatherIdIcon, isDayOrNight) => {
+    console.log(currentWeatherIdIcon, isDayOrNight);
     switch (currentWeatherIdIcon) {
       case 200:
       case 201:
       case 202:
-        iconCurrentWeather = isDayOrNight
+        return isDayOrNight
           ? `<i class="wi wi-day-storm-showers"></i>`
           : `<i class="wi wi-night-alt-storm-showers"></i>`;
         break;
@@ -531,14 +464,14 @@ const handleContentLoaded = () => {
       case 211:
       case 212:
       case 221:
-        iconCurrentWeather = isDayOrNight
+        return isDayOrNight
           ? `<i class="wi wi-day-lightning"></i>`
           : `<i class="wi wi-night-alt-lightning"></i>`;
         break;
       case 230:
       case 231:
       case 232:
-        iconCurrentWeather = isDayOrNight
+        return isDayOrNight
           ? `<i class="wi wi-day-thunderstorm"></i>`
           : `<i class="wi wi-night-alt-thunderstorm"></i>`;
         break;
@@ -551,50 +484,50 @@ const handleContentLoaded = () => {
       case 313:
       case 314:
       case 321:
-        iconCurrentWeather = isDayOrNight
+        return isDayOrNight
           ? `<i class="wi wi-day-sprinkle"></i>`
           : `<i class="wi wi-night-alt-sprinkle"></i>`;
         break;
       case 500:
-        iconCurrentWeather = isDayOrNight
+        return isDayOrNight
           ? `<i class="wi wi-day-sprinkle"></i>`
           : `<i class="wi wi-night-alt-sprinkle"></i>`;
         break;
       case 501:
-        iconCurrentWeather = isDayOrNight
+        return isDayOrNight
           ? `<i class="wi wi-day-rain"></i>`
           : `<i class="wi wi-night-alt-rain"></i>`;
         break;
       case 502:
-        iconCurrentWeather = isDayOrNight
+        return isDayOrNight
           ? `<i class="wi wi-day-rain-wind"></i>`
           : `<i class="wi wi-night-alt-rain-wind"></i>`;
         break;
       case 503:
       case 504:
-        iconCurrentWeather = `<i class="wi wi-rain-wind"></i>`;
+        return `<i class="wi wi-rain-wind"></i>`;
         break;
       case 511:
-        iconCurrentWeather = `<i class="wi wi-rain-mix"></i>`;
+        return `<i class="wi wi-rain-mix"></i>`;
         break;
       case 520:
       case 521:
-        iconCurrentWeather = isDayOrNight
+        return isDayOrNight
           ? `<i class="wi wi-day-showers"></i>`
           : `<i class="wi wi-night-alt-showers"></i>`;
         break;
       case 522:
       case 531:
-        iconCurrentWeather = `<i class="wi wi-showers"></i>`;
+        return `<i class="wi wi-showers"></i>`;
         break;
       case 600:
       case 601:
-        iconCurrentWeather = isDayOrNight
+        return isDayOrNight
           ? `<i class="wi wi-day-snow"></i>`
           : `<i class="wi wi-night-alt-snow"></i>`;
         break;
       case 602:
-        iconCurrentWeather = isDayOrNight
+        return isDayOrNight
           ? `<i class="wi wi-day-snow-wind"></i>`
           : `<i class="wi wi-night-alt-snow-wind"></i>`;
         break;
@@ -605,79 +538,126 @@ const handleContentLoaded = () => {
       case 616:
       case 620:
       case 621:
-        iconCurrentWeather = isDayOrNight
+        return isDayOrNight
           ? `<i class="wi wi-day-sleet"></i>`
           : `<i class="wi wi-night-alt-sleet"></i>`;
         break;
       case 622:
-        iconCurrentWeather = isDayOrNight
+        return isDayOrNight
           ? `<i class="wi wi-day-snow-wind"></i>`
           : `<i class="wi wi-night-alt-snow-wind"></i>`;
         break;
       case 701:
-        iconCurrentWeather = isDayOrNight
+        return isDayOrNight
           ? `<i class="wi wi-day-fog"></i>`
           : `<i class="wi wi-night-fog"></i>`;
         break;
       case 711:
-        iconCurrentWeather = `<i class="wi wi-smoke"></i>`;
+        return `<i class="wi wi-smoke"></i>`;
         break;
       case 721:
-        iconCurrentWeather = isDayOrNight
+        return isDayOrNight
           ? `<i class="wi wi-day-haze"></i>`
           : `<i class="wi wi-night-fog"></i>`;
         break;
       case 731:
-        iconCurrentWeather = `<i class="wi wi-dust"></i>`;
+        return `<i class="wi wi-dust"></i>`;
         break;
       case 741:
-        iconCurrentWeather = isDayOrNight
+        return isDayOrNight
           ? `<i class="wi wi-day-fog"></i>`
           : `<i class="wi wi-night-fog"></i>`;
         break;
       case 751:
-        iconCurrentWeather = `<i class="wi wi-sandstorm"></i>`;
+        return `<i class="wi wi-sandstorm"></i>`;
         break;
       case 761:
-        iconCurrentWeather = `<i class="wi wi-dust"></i>`;
+        return `<i class="wi wi-dust"></i>`;
         break;
       case 762:
-        iconCurrentWeather = `<i class="wi wi-volcano"></i>`;
+        return `<i class="wi wi-volcano"></i>`;
         break;
       case 771:
-        iconCurrentWeather = `<i class="wi wi-strong-wind"></i>`;
+        return `<i class="wi wi-strong-wind"></i>`;
         break;
       case 781:
-        iconCurrentWeather = `<i class="wi wi-tornado"></i>`;
+        return `<i class="wi wi-tornado"></i>`;
         break;
       case 800:
-        iconCurrentWeather = isDayOrNight
+        return isDayOrNight
           ? `<i class="wi wi-day-sunny"></i>`
           : `<i class="wi wi-night-clear"></i>`;
         break;
       case 801:
-        iconCurrentWeather = isDayOrNight
+        return isDayOrNight
           ? `<i class="wi wi-day-sunny-overcast"></i>`
           : `<i class="wi wi-night-alt-partly-cloudy"></i>`;
         break;
       case 802:
-        iconCurrentWeather = isDayOrNight
+        return isDayOrNight
           ? `<i class="wi wi-day-cloudy"></i>`
           : `<i class="wi wi-night-alt-cloudy"></i>`;
         break;
       case 803:
-        iconCurrentWeather = isDayOrNight
+        return isDayOrNight
           ? `<i class="wi wi-day-cloudy-high"></i>`
           : `<i class="wi wi-night-alt-cloudy-high"></i>`;
         break;
       case 804:
-        iconCurrentWeather = isDayOrNight
+        return isDayOrNight
           ? `<i class="wi wi-cloudy"></i>`
           : `<i class="wi wi-cloudy"></i>`;
         break;
       default:
         break;
     }
+  };
+
+  const getStructureSlideWeather = (
+    result,
+    city,
+    country,
+    current,
+    timezone,
+    todayDate,
+    weatherFourHours
+  ) => {
+    const currentDateUtc = utcToZonedTime(new Date(), timezone);
+    const timeCountry = format(currentDateUtc, "yyyy-MM-dd HH:mm:ssXXX");
+    let currentTimeCountry = new Date(timeCountry).getTime();
+
+    const dateUtcSunrise = utcToZonedTime(
+      new Date(result.current.sunrise * 1000),
+      timezone
+    );
+    const countryTimeSunrise = format(dateUtcSunrise, "yyyy-MM-dd HH:mm:ssXXX");
+    let dateSunrise = new Date(countryTimeSunrise);
+    let timeSunriseMilliseconds = dateSunrise.getTime();
+
+    const dateUtcSunset = utcToZonedTime(
+      new Date(result.current.sunset * 1000),
+      timezone
+    );
+    const countryTimeSunset = format(dateUtcSunset, "yyyy-MM-dd HH:mm:ssXXX");
+    let dateSunset = new Date(countryTimeSunset);
+    let timeSunsetMilliseconds = dateSunset.getTime();
+
+    let isDayOrNight =
+      currentTimeCountry > timeSunriseMilliseconds &&
+      currentTimeCountry < timeSunsetMilliseconds;
+
+    const currentWeatherIdIcon = result.current.idIcon;
+
+    const checkTimeHourly = (hourlyTime) => {
+      const dateHourly = utcToZonedTime(new Date(hourlyTime * 1000), timezone);
+      const timeHourly = format(dateHourly, "yyyy-MM-dd HH:mm:ssXXX");
+      let dateSunrise = new Date(timeHourly);
+      let timeMilliseconds = dateSunrise.getTime();
+      let checkDayNight =
+        timeMilliseconds > timeSunriseMilliseconds &&
+        timeMilliseconds < timeSunsetMilliseconds;
+      return checkDayNight;
+    };
 
     return `
         <div class="slider__inner-box">
@@ -699,7 +679,7 @@ const handleContentLoaded = () => {
             <div class="slider__inner-box-one-right">
                 <div class="slider__icon-wrapper">
                     <span class="slider__weather-icon"
-                    >${iconCurrentWeather}
+                    >${getCurrentIcon(currentWeatherIdIcon, isDayOrNight)}
                     </span>
                 </div>
                 <div class="slider__description-wrapper">
@@ -908,8 +888,7 @@ const handleContentLoaded = () => {
                                 </span>
                             </p>
                             <span class="slider__box-4-days-icon-weather"
-                            ><i class="wi wi-day-sunny"></i
-                            ></span>
+                            >${getCurrentIcon(item.idIcon, true)}</span>
                         </div>
                         <div class="slider__box-4-days-right">
                             <p class="slider__box-4-day-time">Night</p>
@@ -920,8 +899,7 @@ const handleContentLoaded = () => {
                                 </span>
                             </p>
                             <span class="slider__box-4-days-icon-weather"
-                                ><i class="wi wi-day-sunny"></i
-                            ></span>
+                                >${getCurrentIcon(item.idIcon, false)}</span>
                         </div>
                     </div>`
             )}
@@ -961,8 +939,10 @@ const handleContentLoaded = () => {
                                     </div>
                                     <div class="slider__box-3-right-mobile">
                                         <span class="slider__hourly-icon-weather-mobile"
-                                            ><i class="wi wi-day-cloudy"></i
-                                        ></span>
+                                            >${getCurrentIcon(
+                                              currentWeatherIdIcon,
+                                              checkTimeHourly(item.data)
+                                            )}</span>
                                     </div>
                                 </div>
                             <p class="slider__hourly-weather-description-mobile">
@@ -1003,8 +983,6 @@ const handleContentLoaded = () => {
   } else if (window.innerWidth <= 767) {
     appWrapper.removeAttribute("style");
   }
-
-  //   --------------------------------------------
 
   const events = {
     swipeUp: new Event("swipeUp"),
