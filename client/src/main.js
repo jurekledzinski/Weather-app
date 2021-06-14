@@ -14,6 +14,7 @@ const handleContentLoaded = () => {
   // ---------
   const msgAlert = document.querySelector(".input-message");
   const appWrapper = document.querySelector(".app-wrapper");
+  const logoStart = document.querySelector(".slider__wrapper-img");
   const sliderContent = document.querySelector(".slider__content");
   const dotsWrapper = document.querySelector(".slider__dots-inner-wrapper");
 
@@ -320,6 +321,8 @@ const handleContentLoaded = () => {
           throw new Error("Can't find location");
         })
         .then((result) => {
+          logoStart.style.display = "none";
+
           const { city, country, current, timezone } = result;
           const todayDate = getCurrentDate();
 
@@ -456,6 +459,226 @@ const handleContentLoaded = () => {
     todayDate,
     weatherFourHours
   ) => {
+    console.log(result, "stuktura");
+
+    const currentDateUtc = utcToZonedTime(new Date(), timezone);
+    const timeCountry = format(currentDateUtc, "yyyy-MM-dd HH:mm:ssXXX");
+    let currentTimeCountry = new Date(timeCountry).getTime();
+
+    console.log(currentTimeCountry, "currentDate");
+
+    const dateUtcSunrise = utcToZonedTime(
+      new Date(result.current.sunrise * 1000),
+      timezone
+    );
+    const countryTimeSunrise = format(dateUtcSunrise, "yyyy-MM-dd HH:mm:ssXXX");
+    let dateSunrise = new Date(countryTimeSunrise);
+    let hourSunrise = dateSunrise.getHours();
+    let timeSunriseMilliseconds = dateSunrise.getTime();
+
+    console.log(
+      dateSunrise,
+      "date sunrise",
+      hourSunrise,
+      timeSunriseMilliseconds
+    );
+
+    const dateUtcSunset = utcToZonedTime(
+      new Date(result.current.sunset * 1000),
+      timezone
+    );
+    const countryTimeSunset = format(dateUtcSunset, "yyyy-MM-dd HH:mm:ssXXX");
+    let dateSunset = new Date(countryTimeSunset);
+    let hourSunset = dateSunset.getHours();
+    let timeSunsetMilliseconds = dateSunset.getTime();
+
+    console.log(dateSunset, "date sunrise", hourSunset, timeSunsetMilliseconds);
+
+    if (
+      currentTimeCountry > timeSunriseMilliseconds &&
+      currentTimeCountry < timeSunsetMilliseconds
+    ) {
+      console.log("to jest dzień");
+    } else {
+      console.log("to jest noc");
+    }
+
+    // const idIntervalTime = setInterval(() => {
+    //   if (hourSunrise < hourSunset) {
+    //   } else {
+    //     clearInterval(idIntervalTime);
+    //   }
+    // }, 10);
+
+    let isDayOrNight =
+      currentTimeCountry > timeSunriseMilliseconds &&
+      currentTimeCountry < timeSunsetMilliseconds;
+
+    const currentWeatherIdIcon = result.current.idIcon;
+    let iconCurrentWeather;
+
+    console.log(isDayOrNight, "isDayOrNight");
+
+    switch (currentWeatherIdIcon) {
+      case 200:
+      case 201:
+      case 202:
+        iconCurrentWeather = isDayOrNight
+          ? `<i class="wi wi-day-storm-showers"></i>`
+          : `<i class="wi wi-night-alt-storm-showers"></i>`;
+        break;
+      case 210:
+      case 211:
+      case 212:
+      case 221:
+        iconCurrentWeather = isDayOrNight
+          ? `<i class="wi wi-day-lightning"></i>`
+          : `<i class="wi wi-night-alt-lightning"></i>`;
+        break;
+      case 230:
+      case 231:
+      case 232:
+        iconCurrentWeather = isDayOrNight
+          ? `<i class="wi wi-day-thunderstorm"></i>`
+          : `<i class="wi wi-night-alt-thunderstorm"></i>`;
+        break;
+      case 300:
+      case 301:
+      case 302:
+      case 310:
+      case 311:
+      case 312:
+      case 313:
+      case 314:
+      case 321:
+        iconCurrentWeather = isDayOrNight
+          ? `<i class="wi wi-day-sprinkle"></i>`
+          : `<i class="wi wi-night-alt-sprinkle"></i>`;
+        break;
+      case 500:
+        iconCurrentWeather = isDayOrNight
+          ? `<i class="wi wi-day-sprinkle"></i>`
+          : `<i class="wi wi-night-alt-sprinkle"></i>`;
+        break;
+      case 501:
+        iconCurrentWeather = isDayOrNight
+          ? `<i class="wi wi-day-rain"></i>`
+          : `<i class="wi wi-night-alt-rain"></i>`;
+        break;
+      case 502:
+        iconCurrentWeather = isDayOrNight
+          ? `<i class="wi wi-day-rain-wind"></i>`
+          : `<i class="wi wi-night-alt-rain-wind"></i>`;
+        break;
+      case 503:
+      case 504:
+        iconCurrentWeather = `<i class="wi wi-rain-wind"></i>`;
+        break;
+      case 511:
+        iconCurrentWeather = `<i class="wi wi-rain-mix"></i>`;
+        break;
+      case 520:
+      case 521:
+        iconCurrentWeather = isDayOrNight
+          ? `<i class="wi wi-day-showers"></i>`
+          : `<i class="wi wi-night-alt-showers"></i>`;
+        break;
+      case 522:
+      case 531:
+        iconCurrentWeather = `<i class="wi wi-showers"></i>`;
+        break;
+      case 600:
+      case 601:
+        iconCurrentWeather = isDayOrNight
+          ? `<i class="wi wi-day-snow"></i>`
+          : `<i class="wi wi-night-alt-snow"></i>`;
+        break;
+      case 602:
+        iconCurrentWeather = isDayOrNight
+          ? `<i class="wi wi-day-snow-wind"></i>`
+          : `<i class="wi wi-night-alt-snow-wind"></i>`;
+        break;
+      case 611:
+      case 612:
+      case 613:
+      case 615:
+      case 616:
+      case 620:
+      case 621:
+        iconCurrentWeather = isDayOrNight
+          ? `<i class="wi wi-day-sleet"></i>`
+          : `<i class="wi wi-night-alt-sleet"></i>`;
+        break;
+      case 622:
+        iconCurrentWeather = isDayOrNight
+          ? `<i class="wi wi-day-snow-wind"></i>`
+          : `<i class="wi wi-night-alt-snow-wind"></i>`;
+        break;
+      case 701:
+        iconCurrentWeather = isDayOrNight
+          ? `<i class="wi wi-day-fog"></i>`
+          : `<i class="wi wi-night-fog"></i>`;
+        break;
+      case 711:
+        iconCurrentWeather = `<i class="wi wi-smoke"></i>`;
+        break;
+      case 721:
+        iconCurrentWeather = isDayOrNight
+          ? `<i class="wi wi-day-haze"></i>`
+          : `<i class="wi wi-night-fog"></i>`;
+        break;
+      case 731:
+        iconCurrentWeather = `<i class="wi wi-dust"></i>`;
+        break;
+      case 741:
+        iconCurrentWeather = isDayOrNight
+          ? `<i class="wi wi-day-fog"></i>`
+          : `<i class="wi wi-night-fog"></i>`;
+        break;
+      case 751:
+        iconCurrentWeather = `<i class="wi wi-sandstorm"></i>`;
+        break;
+      case 761:
+        iconCurrentWeather = `<i class="wi wi-dust"></i>`;
+        break;
+      case 762:
+        iconCurrentWeather = `<i class="wi wi-volcano"></i>`;
+        break;
+      case 771:
+        iconCurrentWeather = `<i class="wi wi-strong-wind"></i>`;
+        break;
+      case 781:
+        iconCurrentWeather = `<i class="wi wi-tornado"></i>`;
+        break;
+      case 800:
+        iconCurrentWeather = isDayOrNight
+          ? `<i class="wi wi-day-sunny"></i>`
+          : `<i class="wi wi-night-clear"></i>`;
+        break;
+      case 801:
+        iconCurrentWeather = isDayOrNight
+          ? `<i class="wi wi-day-sunny-overcast"></i>`
+          : `<i class="wi wi-night-alt-partly-cloudy"></i>`;
+        break;
+      case 802:
+        iconCurrentWeather = isDayOrNight
+          ? `<i class="wi wi-day-cloudy"></i>`
+          : `<i class="wi wi-night-alt-cloudy"></i>`;
+        break;
+      case 803:
+        iconCurrentWeather = isDayOrNight
+          ? `<i class="wi wi-day-cloudy-high"></i>`
+          : `<i class="wi wi-night-alt-cloudy-high"></i>`;
+        break;
+      case 804:
+        iconCurrentWeather = isDayOrNight
+          ? `<i class="wi wi-cloudy"></i>`
+          : `<i class="wi wi-cloudy"></i>`;
+        break;
+      default:
+        break;
+    }
+
     return `
         <div class="slider__inner-box">
             <div class="slider__inner-box-one-left">
@@ -476,7 +699,7 @@ const handleContentLoaded = () => {
             <div class="slider__inner-box-one-right">
                 <div class="slider__icon-wrapper">
                     <span class="slider__weather-icon"
-                    ><i class="wi wi-day-sunny"></i>
+                    >${iconCurrentWeather}
                     </span>
                 </div>
                 <div class="slider__description-wrapper">
@@ -828,6 +1051,10 @@ const handleContentLoaded = () => {
         throw new Error("Can't find location");
       })
       .then((result) => {
+        logoStart.style.display = "none";
+
+        console.log(result);
+
         const localStorageWeather = JSON.parse(
           localStorage.getItem("weather") || "[]"
         );
@@ -984,6 +1211,7 @@ const handleContentLoaded = () => {
       e.path[3].childNodes[7].firstElementChild.attributes[1] &&
       localStorageData.length > 0
     ) {
+      buttonRemove.disabled = true;
       const elementStyle =
         e.path[3].childNodes[7].firstElementChild.attributes[1].nodeValue;
       const partElementStyle = elementStyle.slice(
@@ -1000,7 +1228,10 @@ const handleContentLoaded = () => {
 
       const nameDeletedCity = localStorageData[indexSlide - 1].city;
       msgAlert.innerHTML = `${nameDeletedCity} removed successfully`;
-      setTimeout(() => (msgAlert.innerHTML = ""), 2000);
+      setTimeout(() => {
+        msgAlert.innerHTML = "";
+        buttonRemove.disabled = false;
+      }, 2000);
 
       const updatedWeatherSlides = localStorageData.filter(
         (item, index) => index !== indexSlide - 1
@@ -1044,6 +1275,10 @@ const handleContentLoaded = () => {
       counter = 1;
       dotsWrapper.innerHTML = "";
       createDots(localStoragSlidesData);
+
+      if (localStoragSlidesData.length === 0) {
+        logoStart.style.display = "flex";
+      }
     }
   };
 
