@@ -451,7 +451,6 @@ const handleContentLoaded = () => {
   }, 550);
 
   const getCurrentIcon = (currentWeatherIdIcon, isDayOrNight) => {
-    console.log(currentWeatherIdIcon, isDayOrNight);
     switch (currentWeatherIdIcon) {
       case 200:
       case 201:
@@ -1030,8 +1029,6 @@ const handleContentLoaded = () => {
       })
       .then((result) => {
         logoStart.style.display = "none";
-
-        console.log(result);
 
         const localStorageWeather = JSON.parse(
           localStorage.getItem("weather") || "[]"
