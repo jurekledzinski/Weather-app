@@ -16,22 +16,103 @@ html {
 }
 
 body {
+  position: relative;
   width: 100%;
   min-height: 100vh;
   font-size: 1.6rem;
-  font-family: "Lato", sans-serif;
+  /* font-family: "Lato", sans-serif; */
+  font-family: "Roboto", sans-serif;
+  background-color: #333;
+  /* background: #ff8008;
+  background: -webkit-linear-gradient(to right, #ffc837, #ff8008);
+  background: linear-gradient(to right, #ffc837, #ff8008); */
+}
 
-  background: #ff8008; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #ffc837,
-    #ff8008
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #ffc837,
-    #ff8008
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+.bgiContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: "";
+  /* background-image: url("https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Clear-day-1.jpg?alt=media&token=8834f4e8-a226-4173-b5b2-b890025976c5"); */
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+  z-index: -1;
+  /* background: #ff8008;
+  background: -webkit-linear-gradient(to right, #ffc837, #ff8008);
+  background: linear-gradient(to right, #ffc837, #ff8008); */
+}
+
+.bgiContainer.thunderstorm-day {
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Thunderstorm-day.jpg?alt=media&token=206107f9-9a19-4173-8759-7b704aa96fc4");
+}
+
+.bgiContainer.thunderstorm-night {
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Thunderstorm-night.jpg?alt=media&token=9fcd179b-31a4-48eb-93d5-bc7f6058cfde");
+}
+
+.bgiContainer.rain-day {
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Rain-day.jpg?alt=media&token=bd119570-5618-4817-84a4-80615dc834ef");
+}
+
+.bgiContainer.rain-night {
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Rain-night.jpg?alt=media&token=899c8047-6f43-4589-ab6d-1bde2f02e72f");
+}
+
+.bgiContainer.snow-day {
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Snow-day.jpg?alt=media&token=442f207f-ed45-47c2-a8a9-e217a9c19f21");
+}
+
+.bgiContainer.snow-night {
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Snow-night.jpg?alt=media&token=064812b3-2975-4001-bce8-dca50d2f42ca");
+}
+
+.bgiContainer.fog-day {
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Fog-day.jpg?alt=media&token=201d3d94-5615-4a71-a191-94e7091b4eab");
+}
+
+.bgiContainer.fog-night {
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Fog-nigth.jpg?alt=media&token=10958719-f5ee-4f2b-b1d1-6c02c8a85fb1");
+}
+
+.bgiContainer.squall-day-night {
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Squall-day-night.jpg?alt=media&token=4ffc0d9d-96f5-429f-95d7-6a641cdef4f6");
+}
+
+.bgiContainer.tornado {
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Tornado.jpg?alt=media&token=f78abe9e-bfd4-4af5-919c-5fc0fb516260");
+}
+
+.bgiContainer.clear-sky-day {
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Clear-day-1.jpg?alt=media&token=8834f4e8-a226-4173-b5b2-b890025976c5");
+}
+
+.bgiContainer.clear-sky-night {
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Clear-night.jpg?alt=media&token=197080c1-f461-45b1-9b4b-d68b20967418");
+}
+
+.bgiContainer.clouds-day {
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Clouds-day.jpg?alt=media&token=81afcae1-f9a5-414e-8c3f-c4244da3e1fb");
+}
+
+.bgiContainer.clouds-night {
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Clouds-night.jpg?alt=media&token=17cbae71-3f03-490f-aa63-2e08f720cffc");
+}
+
+.bgiContainer.time-day {
+  background: #ff8008;
+  background: -webkit-linear-gradient(to right, #ffc837, #ff8008);
+  background: linear-gradient(to right, #ffc837, #ff8008);
+}
+
+.bgiContainer.time-night {
+  background: #0f2027;
+  background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
 }
 
 .main {
@@ -90,7 +171,7 @@ body {
   background-color: transparent;
   font-size: 1.1rem;
   outline: none;
-  font-family: "Nunito", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 300;
   caret-color: rgba(95, 95, 95, 0.8);
 }
@@ -120,7 +201,7 @@ body {
 .search-bar__button-remove {
   transition: 0.4s ease;
   font-size: 1.1rem;
-  font-family: "Nunito", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 300;
 }
 
@@ -135,6 +216,7 @@ body {
   width: 100%;
   height: 89%;
   overflow: hidden;
+  border-radius: 10px;
 }
 
 .slider__content {
@@ -182,10 +264,7 @@ body {
 .slider__inner-box:nth-child(1) {
   display: flex;
   grid-area: box1;
-  background-image: url("https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Background-sunny-1.png?alt=media&token=0fc47038-1b1b-47d5-8be3-70773a44cc09");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
 .slider__inner-box-one-left {
@@ -307,7 +386,7 @@ body {
   color: #3f3f3f;
   font-size: 1.4rem;
   font-weight: 300;
-  font-family: "Nunito", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 .slider__inner-box:nth-child(3) {
@@ -816,7 +895,7 @@ body {
   outline: none;
   cursor: pointer;
   transition: 0.4s linear;
-  font-family: "Nunito", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 300;
   align-self: center;
 }
