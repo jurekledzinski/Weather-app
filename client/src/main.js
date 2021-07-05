@@ -3,12 +3,14 @@ import { utcToZonedTime, format } from "date-fns-tz";
 let weathersArray = [];
 const widthDiv = 100;
 let counter = 1;
+let localCounter = 0;
 let initialX;
 let initialY;
 let num = 0;
 let indexWeather = 0;
 
 const handleContentLoaded = () => {
+  const bgImageContainer = document.querySelector(".bgiContainer");
   const buttonRemove = document.querySelector(".search-bar__button-remove");
   const form = document.querySelector(".form");
   // ---------
@@ -57,6 +59,31 @@ const handleContentLoaded = () => {
   const localStorageWeather = JSON.parse(
     localStorage.getItem("weather") || "[]"
   );
+
+  const checkPeriodOfCurrentDay = () => {
+    if (new Date().getHours() <= 21 && new Date().getHours() >= 6) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const setDefaultLogoPage = () => {
+    if (localStorageWeather.length <= 0) {
+      const dayTime = checkPeriodOfCurrentDay();
+      if (dayTime) {
+        bgImageContainer.className = "bgiContainer time-day";
+        bgImageContainer.style.filter = "initial";
+        bgImageContainer.style.webkitFilter = "initial";
+      } else {
+        bgImageContainer.className = "bgiContainer time-night";
+        bgImageContainer.style.filter = "initial";
+        bgImageContainer.style.webkitFilter = "initial";
+      }
+    }
+  };
+
+  setDefaultLogoPage();
 
   const getCurrentDate = (timezone) => {
     const utcDate = utcToZonedTime(new Date(), timezone);
@@ -324,6 +351,8 @@ const handleContentLoaded = () => {
           logoStart.style.display = "none";
 
           const { city, country, current, timezone } = result;
+          const { sunrise, sunset } = current;
+
           const todayDate = getCurrentDate();
 
           if (sliderContent.children.length > 1) {
@@ -349,6 +378,19 @@ const handleContentLoaded = () => {
           slide.innerHTML = structureSlide;
 
           sliderContent.appendChild(slide);
+
+          if (indexWeather - 1 === 0) {
+            const { isDayOrNight } = checkCurrentDayOrNight(
+              timezone,
+              sunrise,
+              sunset
+            );
+
+            console.log(isDayOrNight, " isDayOrNight fetch refresh");
+            const iconId = current.idIcon;
+            const nameClassBg = getCurrentImage(iconId, isDayOrNight);
+            bgImageContainer.className = nameClassBg;
+          }
 
           setInterval(() => clock(result, timezone), 1000);
 
@@ -449,6 +491,32 @@ const handleContentLoaded = () => {
       window.clearInterval(idInterval);
     }
   }, 550);
+
+  //   TODO: sprawdzemie lokalizacji by wyliczyc z paczka wschod i zachod
+
+  const checkCurrentDayOrNight = (timezone, sunrise, sunset) => {
+    const currentDateUtc = utcToZonedTime(new Date(), timezone);
+    const timeCountry = format(currentDateUtc, "yyyy-MM-dd HH:mm:ssXXX");
+    let currentTimeCountry = new Date(timeCountry).getTime();
+
+    const dateUtcSunrise = utcToZonedTime(new Date(sunrise * 1000), timezone);
+    const countryTimeSunrise = format(dateUtcSunrise, "yyyy-MM-dd HH:mm:ssXXX");
+    let dateSunrise = new Date(countryTimeSunrise);
+    let timeSunriseMilliseconds = dateSunrise.getTime();
+
+    const dateUtcSunset = utcToZonedTime(new Date(sunset * 1000), timezone);
+    const countryTimeSunset = format(dateUtcSunset, "yyyy-MM-dd HH:mm:ssXXX");
+    let dateSunset = new Date(countryTimeSunset);
+    let timeSunsetMilliseconds = dateSunset.getTime();
+
+    let isDayOrNight =
+      currentTimeCountry > timeSunriseMilliseconds &&
+      currentTimeCountry < timeSunsetMilliseconds;
+
+    console.log(isDayOrNight, "czy dzien czy noc obecnie");
+
+    return { isDayOrNight, timeSunriseMilliseconds, timeSunsetMilliseconds };
+  };
 
   const getCurrentIcon = (currentWeatherIdIcon, isDayOrNight) => {
     switch (currentWeatherIdIcon) {
@@ -612,6 +680,95 @@ const handleContentLoaded = () => {
     }
   };
 
+  const getCurrentImage = (weatherIdIcon, isDayOrNight) => {
+    switch (weatherIdIcon) {
+      case 200:
+      case 201:
+      case 202:
+      case 210:
+      case 211:
+      case 212:
+      case 221:
+      case 230:
+      case 231:
+      case 232:
+        return isDayOrNight
+          ? "bgiContainer thunderstorm-day"
+          : "bgiContainer thunderstorm-night";
+        break;
+      case 300:
+      case 301:
+      case 302:
+      case 310:
+      case 311:
+      case 312:
+      case 313:
+      case 314:
+      case 321:
+      case 500:
+      case 501:
+      case 502:
+      case 503:
+      case 504:
+      case 511:
+      case 520:
+      case 521:
+      case 522:
+      case 531:
+        return isDayOrNight
+          ? "bgiContainer rain-day"
+          : "bgiContainer rain-night";
+        break;
+      case 600:
+      case 601:
+      case 602:
+      case 611:
+      case 612:
+      case 613:
+      case 615:
+      case 616:
+      case 620:
+      case 621:
+      case 622:
+        return isDayOrNight
+          ? "bgiContainer snow-day"
+          : "bgiContainer snow-night";
+        break;
+      case 701:
+      case 721:
+      case 741:
+        return isDayOrNight ? "bgiContainer fog-day" : "bgiContainer fog-night";
+        break;
+      case 771:
+        return "bgiContainer squall-day-night";
+        break;
+      case 781:
+        return "bgiContainer tornado";
+        break;
+      case 800:
+        return isDayOrNight
+          ? "bgiContainer clear-sky-day"
+          : "bgiContainer clear-sky-night";
+        break;
+      case 711:
+      case 731:
+      case 751:
+      case 761:
+      case 762:
+      case 801:
+      case 802:
+      case 803:
+      case 804:
+        return isDayOrNight
+          ? "bgiContainer clouds-day"
+          : "bgiContainer clouds-night";
+        break;
+      default:
+        return isDayOrNight ? "" : "";
+        break;
+    }
+  };
+
   const getStructureSlideWeather = (
     result,
     city,
@@ -621,29 +778,9 @@ const handleContentLoaded = () => {
     todayDate,
     weatherFourHours
   ) => {
-    const currentDateUtc = utcToZonedTime(new Date(), timezone);
-    const timeCountry = format(currentDateUtc, "yyyy-MM-dd HH:mm:ssXXX");
-    let currentTimeCountry = new Date(timeCountry).getTime();
-
-    const dateUtcSunrise = utcToZonedTime(
-      new Date(result.current.sunrise * 1000),
-      timezone
-    );
-    const countryTimeSunrise = format(dateUtcSunrise, "yyyy-MM-dd HH:mm:ssXXX");
-    let dateSunrise = new Date(countryTimeSunrise);
-    let timeSunriseMilliseconds = dateSunrise.getTime();
-
-    const dateUtcSunset = utcToZonedTime(
-      new Date(result.current.sunset * 1000),
-      timezone
-    );
-    const countryTimeSunset = format(dateUtcSunset, "yyyy-MM-dd HH:mm:ssXXX");
-    let dateSunset = new Date(countryTimeSunset);
-    let timeSunsetMilliseconds = dateSunset.getTime();
-
-    let isDayOrNight =
-      currentTimeCountry > timeSunriseMilliseconds &&
-      currentTimeCountry < timeSunsetMilliseconds;
+    const { sunrise, sunset } = current;
+    const { isDayOrNight, timeSunriseMilliseconds, timeSunsetMilliseconds } =
+      checkCurrentDayOrNight(timezone, sunrise, sunset);
 
     const currentWeatherIdIcon = result.current.idIcon;
 
@@ -655,6 +792,7 @@ const handleContentLoaded = () => {
       let checkDayNight =
         timeMilliseconds > timeSunriseMilliseconds &&
         timeMilliseconds < timeSunsetMilliseconds;
+
       return checkDayNight;
     };
 
@@ -1030,6 +1168,19 @@ const handleContentLoaded = () => {
       .then((result) => {
         logoStart.style.display = "none";
 
+        const { isDayOrNight } = checkCurrentDayOrNight(
+          result.timezone,
+          result.current.sunrise,
+          result.current.sunset
+        );
+
+        console.log(isDayOrNight, "checkerkDayOrNight gdy szukamy");
+
+        const iconId = result.current.idIcon;
+
+        const nameClass = getCurrentImage(iconId, isDayOrNight);
+        console.log(nameClass, "nameClass gdy szukam");
+
         const localStorageWeather = JSON.parse(
           localStorage.getItem("weather") || "[]"
         );
@@ -1049,14 +1200,18 @@ const handleContentLoaded = () => {
           country: result.country,
           hourly: result.hourly,
           timezone: result.timezone,
+          nameClass: nameClass,
         };
 
         weathersArray = [...weathersArray, detailsLocation];
 
         if (localStorageWeather.length > 0) {
+          console.log(localStorageWeather[0].nameClass, " local");
+          bgImageContainer.className = localStorageWeather[0].nameClass;
           weathersArray = [...localStorageWeather, detailsLocation];
           localStorage.setItem("weather", JSON.stringify(weathersArray));
         } else {
+          bgImageContainer.className = nameClass;
           localStorage.setItem("weather", JSON.stringify(weathersArray));
         }
 
@@ -1165,6 +1320,7 @@ const handleContentLoaded = () => {
 
         createCopySlides(result, config);
 
+        localCounter = 0;
         counter = 1;
         e.target[0].value = "";
         e.target[1].value = "";
@@ -1242,11 +1398,18 @@ const handleContentLoaded = () => {
 
       const result = localStoragSlidesData[localStoragSlidesData.length - 1];
 
+      if (localStoragSlidesData.length > 0) {
+        bgImageContainer.className = localStoragSlidesData[0].nameClass;
+      } else {
+        setDefaultLogoPage();
+      }
+
       if (result) {
         const config = getChartData(result, result.timezone);
         createCopySlides(result, config);
       }
 
+      localCounter = 0;
       counter = 1;
       dotsWrapper.innerHTML = "";
       createDots(localStoragSlidesData);
@@ -1355,12 +1518,30 @@ const handleContentLoaded = () => {
   };
 
   const moveLeft = (e) => {
+    const localStoragSlidesData = JSON.parse(
+      localStorage.getItem("weather") || "[]"
+    );
+
+    localCounter++;
+    if (localCounter >= localStoragSlidesData.length) localCounter = 0;
+    bgImageContainer.className = localStoragSlidesData[localCounter].nameClass;
+
     if (counter >= sliderContent.children.length - 1) return;
+
     counter++;
+
     slideTransition();
   };
 
   const moveRight = (e) => {
+    const localStoragSlidesData = JSON.parse(
+      localStorage.getItem("weather") || "[]"
+    );
+
+    localCounter--;
+    if (localCounter < 0) localCounter = localStoragSlidesData.length - 1;
+    bgImageContainer.className = localStoragSlidesData[localCounter].nameClass;
+
     if (counter <= 0) return;
     counter--;
     slideTransition();
@@ -1390,9 +1571,11 @@ const handleContentLoaded = () => {
   });
 
   const handleClickDot = (index) => {
+    const lStorageSlide = JSON.parse(localStorage.getItem("weather") || "[]");
     sliderContent.style.transitionDuration = "0.6s";
     sliderContent.style.transform = `translateX(-${index + 1}00%)`;
     counter = index + 1;
+    bgImageContainer.className = lStorageSlide[index].nameClass;
   };
 };
 
