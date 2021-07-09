@@ -8,11 +8,42 @@ let initialX;
 let initialY;
 let num = 0;
 let indexWeather = 0;
+let box3HourCelsius = [];
+let box3HourTime = [];
+let box3HourTemp = [];
+let box3HourIcon = [];
+let box3HourDescription = [];
+let box4CurrentIcons = [];
+let box4CurrentTemp = [];
+let box4CurrentDescription = [];
+let box4DaysLable = [];
+let box4DayTimes = [];
+let box4NightTimes = [];
+let box4TempDay = [];
+let box4TempNight = [];
+let box4IconsDay = [];
+let box4IconsNight = [];
+let box4HourTimes = [];
+let box4HourTemps = [];
+let box4HourIcons = [];
+let box4HourDescription = [];
+let box4HourCelsious = [];
+let buttons = [];
+let flag = true;
 
 const handleContentLoaded = () => {
   const bgImageContainer = document.querySelector(".bgiContainer");
   const buttonRemove = document.querySelector(".search-bar__button-remove");
+  const buttonSearch = document.querySelector(".search-bar__button-search");
   const form = document.querySelector(".form");
+  const infoMessage = document.querySelector(".input-message");
+  const searchInputCity = document.querySelector(
+    ".search-bar__input.search-bar__input--city"
+  );
+  const searchInputCountry = document.querySelector(
+    ".search-bar__input.search-bar__input--country"
+  );
+
   // ---------
   const msgAlert = document.querySelector(".input-message");
   const appWrapper = document.querySelector(".app-wrapper");
@@ -20,8 +51,32 @@ const handleContentLoaded = () => {
   const sliderContent = document.querySelector(".slider__content");
   const dotsWrapper = document.querySelector(".slider__dots-inner-wrapper");
 
+  //   DO usuniecia
+
+  const getAppElements = () => {
+    const innerBox1 = document.querySelector(".slider__inner-box:nth-child(1)");
+    const boxes1 = document.querySelectorAll(".slider__inner-box:nth-child(1)");
+    console.log(boxes1, " all innerBoxes 1");
+
+    return { innerBox1 };
+  };
+
   const getElementsApp = (result) => {
     const dotsWrapper = document.querySelector(".slider__dots-inner-wrapper");
+    const innerBox1All = document.querySelectorAll(
+      ".slider__inner-box:nth-child(1)"
+    );
+    const innerBox2All = document.querySelectorAll(
+      ".slider__inner-box:nth-child(2)"
+    );
+    const innerBox3All = document.querySelectorAll(
+      ".slider__inner-box:nth-child(3)"
+    );
+    const innerBox4All = document.querySelectorAll(
+      ".slider__inner-box:nth-child(4)"
+    );
+    const innerBox1CityAll = document.querySelectorAll(".slider__city");
+    const innerBox1DateAll = document.querySelectorAll(".slider__current-date");
     const sliderBoxes3Mobile = document.querySelectorAll(
       `.slider__box-3-mobile-${result.city.replace(/\s/g, "-")}`
     );
@@ -31,6 +86,99 @@ const handleContentLoaded = () => {
     const sliderBoxesDays4 = document.querySelectorAll(
       `.slider__box-4-days-${result.city.replace(/\s/g, "-")}`
     );
+    const sliderBox4DetailsIcon = document.querySelectorAll(
+      ".slider__box-details-icon"
+    );
+    const sliderBox4TempCurrent = document.querySelectorAll(
+      ".slider__box-details-text"
+    );
+    const sliderBox4Description = document.querySelectorAll(
+      ".slider__box-details-description"
+    );
+    const sliderBox4Days1 = document.querySelectorAll(
+      ".slider__box-4-days-day"
+    );
+    const sliderBox4DayTime = document.querySelectorAll(
+      ".slider__box-4-day-time"
+    );
+
+    // -----------------------
+    const sliderBox3HourCelsius = document.querySelectorAll(
+      ".slider__hourly-icon-celsius"
+    );
+    const sliderBox3HourTime = document.querySelectorAll(
+      ".slider__hourly-weather-time"
+    );
+    const sliderBox3HourTemp = document.querySelectorAll(
+      ".slider__hourly-weather-temperature-wrapper"
+    );
+    const sliderBox3HourIcon = document.querySelectorAll(
+      ".slider__hourly-icon-weather"
+    );
+    const sliderBox3HourDesc = document.querySelectorAll(
+      ".slider__hourly-weather-description"
+    );
+
+    // -----------------------
+    const sliderButtons = document.querySelectorAll(
+      `.slider__bottom-btn.slider__bottom-btn-${result.city.replace(
+        /\s/g,
+        "-"
+      )}`
+    );
+    // -----------------------
+
+    const sliderBox4HourTimes = document.querySelectorAll(
+      ".slider__hourly-time-mobile"
+    );
+
+    const sliderBox4HourTemps = document.querySelectorAll(
+      ".slider__hourly-temperature-mobile"
+    );
+
+    const sliderBox4HourIcons = document.querySelectorAll(
+      ".slider__hourly-icon-weather-mobile"
+    );
+
+    const sliderBox4HourDescriptions = document.querySelectorAll(
+      ".slider__hourly-weather-description-mobile"
+    );
+
+    const sliderBox4HourCelsius = document.querySelectorAll(
+      ".slider__hourly-icon-mobile"
+    );
+
+    const sliderBox4IconDay = document.querySelectorAll(
+      ".slider__box-4-days-icon-weather-day"
+    );
+    const sliderBox4IconNight = document.querySelectorAll(
+      ".slider__box-4-days-icon-weather-night"
+    );
+
+    const sliderButtonsPanel = document.querySelectorAll(
+      ".slider__bottom-panel"
+    );
+
+    const sliderBox4NightTime = document.querySelectorAll(
+      ".slider__box-4-day-night"
+    );
+    const sliderBox4TempDay = document.querySelectorAll(
+      ".slider__box-4-days-details-text-day"
+    );
+    const sliderBox4TempNight = document.querySelectorAll(
+      ".slider__box-4-days-details-text-night"
+    );
+
+    const sliderBox2Title = document.querySelectorAll(".slider__box-2-title");
+    const sliderBox3Title = document.querySelectorAll(".slider__box-3-title");
+    const sliderBox4Title = document.querySelectorAll(".slider__box-4-title");
+
+    const sliderCelsius1 = document.querySelectorAll(".slider__celsius-icon");
+    const sliderDesc1 = document.querySelectorAll(".slider__image-description");
+    const sliderDots = document.querySelectorAll(".slider__dot");
+    const sliderIcon1 = document.querySelectorAll(".slider__weather-icon");
+    const sliderTemp1 = document.querySelectorAll(".slider__temperature");
+
     const detailsTitle = document.querySelector(".slider__box-4-title");
     const detailsWeather = document.querySelectorAll(
       ".slider__box-4-boxes,.slider__box-4-boxes--days-forecast,.slider__box-4-boxes--hourly-weather"
@@ -42,11 +190,99 @@ const handleContentLoaded = () => {
       `.slider__bottom-btn-${result.city.replace(/\s/g, "-")}`
     );
 
+    const timesCountry = document.querySelectorAll(".slider__country-time");
+
+    const cutArray1 = [...sliderBox4DetailsIcon].slice(-6);
+    const curArray2 = [...sliderBox4TempCurrent].slice(-6);
+    const cutArray3 = [...sliderBox4Description].slice(-6);
+    const cutArray4 = [...sliderBox4Days1].slice(-6);
+    const cutArray5 = [...sliderBox4DayTime].slice(-6);
+    const cutArray6 = [...sliderBox4NightTime].slice(-6);
+    const cutArray7 = [...sliderBox4TempDay].slice(-6);
+    const cutArray8 = [...sliderBox4TempNight].slice(-6);
+    const cutArray9 = [...sliderBox4IconDay].slice(-6);
+    const cutArray10 = [...sliderBox4IconNight].slice(-6);
+    const cutArray11 = [...sliderBox4HourTimes].slice(-6);
+    const cutArray12 = [...sliderBox4HourTemps].slice(-6);
+    const cutArray13 = [...sliderBox4HourIcons].slice(-6);
+    const cutArray14 = [...sliderBox4HourDescriptions].slice(-6);
+    const cutArray15 = [...sliderBox4HourCelsius].slice(-6);
+    const cutArray16 = [...sliderBox3HourTime].slice(-4);
+    const cutArray17 = [...sliderBox3HourTemp].slice(-4);
+    const cutArray18 = [...sliderBox3HourIcon].slice(-4);
+    const cutArray19 = [...sliderBox3HourDesc].slice(-4);
+    const cutArray20 = [...sliderBox3HourCelsius].slice(-4);
+    const cutArray21 = [...sliderButtons].slice(-3);
+
+    if (flag) {
+      box4CurrentIcons.push({ detailsIcons: cutArray1 });
+      box4CurrentTemp.push({ currentTemp: curArray2 });
+      box4CurrentDescription.push({ currentDescription: cutArray3 });
+      box4DaysLable.push({ dayLabel: cutArray4 });
+      box4DayTimes.push({ dayTime: cutArray5 });
+      box4NightTimes.push({ nightTime: cutArray6 });
+      box4TempDay.push({ dayTemp: cutArray7 });
+      box4TempNight.push({ dayNight: cutArray8 });
+      box4IconsDay.push({ iconDay: cutArray9 });
+      box4IconsNight.push({ iconNight: cutArray10 });
+      box4HourTimes.push({ hours: cutArray11 });
+      box4HourTemps.push({ hoursTemps: cutArray12 });
+      box4HourIcons.push({ hoursIcons: cutArray13 });
+      box4HourDescription.push({ hoursDesc: cutArray14 });
+      box4HourCelsious.push({ hoursCelsiusIcon: cutArray15 });
+      box3HourTime.push({ hours: cutArray16 });
+      box3HourTemp.push({ hourTemp: cutArray17 });
+      box3HourIcon.push({ hourIcon: cutArray18 });
+      box3HourDescription.push({ hourDesc: cutArray19 });
+      box3HourCelsius.push({ iconsCelsius: cutArray20 });
+      buttons.push({ buttons: cutArray21 });
+      flag = false;
+
+      console.log(buttons, "buttons po push");
+    }
+
     return {
+      buttons,
+      box3HourCelsius,
+      box3HourTime,
+      box3HourTemp,
+      box3HourIcon,
+      box3HourDescription,
+      box4HourCelsious,
+      box4CurrentDescription,
+      box4CurrentIcons,
+      box4CurrentTemp,
+      box4DaysLable,
+      box4DayTimes,
+      box4HourTimes,
+      box4HourTemps,
+      box4HourIcons,
+      box4HourDescription,
+      box4IconsDay,
+      box4IconsNight,
+      box4NightTimes,
+      box4TempDay,
+      box4TempNight,
+      innerBox1All,
+      innerBox2All,
+      innerBox3All,
+      innerBox4All,
+      innerBox1CityAll,
+      innerBox1DateAll,
       dotsWrapper,
       sliderBoxes3Mobile,
       sliderBoxes4,
       sliderBoxesDays4,
+      sliderBox2Title,
+      sliderBox3Title,
+      sliderBox4Title,
+      sliderButtonsPanel,
+      sliderCelsius1,
+      sliderDesc1,
+      sliderDots,
+      sliderIcon1,
+      sliderTemp1,
+      timesCountry,
       detailsTitle,
       detailsWeather,
       innerBoxFour,
@@ -69,18 +305,26 @@ const handleContentLoaded = () => {
   };
 
   const setDefaultLogoPage = () => {
-    if (localStorageWeather.length <= 0) {
-      const dayTime = checkPeriodOfCurrentDay();
-      if (dayTime) {
-        bgImageContainer.className = "bgiContainer time-day";
-        bgImageContainer.style.filter = "initial";
-        bgImageContainer.style.webkitFilter = "initial";
-      } else {
-        bgImageContainer.className = "bgiContainer time-night";
-        bgImageContainer.style.filter = "initial";
-        bgImageContainer.style.webkitFilter = "initial";
-      }
+    console.log("default page");
+    const dayTime = checkPeriodOfCurrentDay();
+    if (dayTime) {
+      console.log("default page day");
+      bgImageContainer.className = "bgiContainer time-day";
+      bgImageContainer.style.filter = "initial";
+      bgImageContainer.style.webkitFilter = "initial";
+    } else {
+      console.log("default page night");
+      bgImageContainer.className = "bgiContainer time-night";
+      bgImageContainer.style.filter = "initial";
+      bgImageContainer.style.webkitFilter = "initial";
     }
+
+    buttonRemove.className = "search-bar__button-remove";
+    buttonSearch.className = "search-bar__button-search";
+    infoMessage.className = "input-message";
+    searchInputCity.className = "search-bar__input search-bar__input--city";
+    searchInputCountry.className =
+      "search-bar__input search-bar__input--country";
   };
 
   setDefaultLogoPage();
@@ -122,11 +366,13 @@ const handleContentLoaded = () => {
       datasets: [
         {
           label: "Temperature",
-          backgroundColor: "rgb(255, 99, 0)",
-          borderColor: "rgb(255, 99, 132)",
+          backgroundColor: "rgb(255,255,255)",
+          borderColor: "rgb(255,255,255)",
           data: tempHourly,
           cubicInterpolationMode: "monotone",
           borderWidth: 0.7,
+          yAxisID: "yAxes",
+          XAxisID: "xAxes",
         },
       ],
     };
@@ -138,11 +384,23 @@ const handleContentLoaded = () => {
         maintainAspectRatio: false,
         plugins: {
           legend: {
-            display: true,
+            display: false,
             position: "top",
             align: "end",
             labels: {
-              color: "rgb(95,95,95)",
+              color: "rgb(255,255,255)",
+            },
+          },
+        },
+        scales: {
+          xAxes: {
+            ticks: {
+              color: "#ffffff", // this here
+            },
+          },
+          yAxes: {
+            ticks: {
+              color: "#ffffff", // this here
             },
           },
         },
@@ -276,6 +534,9 @@ const handleContentLoaded = () => {
   };
 
   const createCopySlides = (result, config) => {
+    const localStorageWeather = JSON.parse(
+      localStorage.getItem("weather") || "[]"
+    );
     setTimeout(() => {
       num++;
       if (sliderContent.children[0]) {
@@ -297,7 +558,9 @@ const handleContentLoaded = () => {
         sliderContent.children[0].children[0].children[1].children[2].children[0].className = `slider__country-time slider__country-time-${result.city.replace(
           /\s/g,
           "-"
-        )}-${num}`;
+        )}-${num} ${
+          localStorageWeather[localStorageWeather.length - 1].nameClass
+        }`;
 
         new Chart(
           document.querySelector(
@@ -315,6 +578,566 @@ const handleContentLoaded = () => {
         sliderContent.style.transform = `translateX(-${100}%)`;
       }
     }, 300);
+  };
+
+  const setActiveStylesWhenRefresh = (result, isDayOrNight) => {
+    const {
+      buttons,
+      box3HourCelsius,
+      box3HourTime,
+      box3HourTemp,
+      box3HourIcon,
+      box3HourDescription,
+      box4HourCelsious,
+      box4CurrentDescription,
+      box4CurrentIcons,
+      box4CurrentTemp,
+      box4DaysLable,
+      box4DayTimes,
+      box4HourTimes,
+      box4HourTemps,
+      box4HourIcons,
+      box4HourDescription,
+      box4IconsDay,
+      box4IconsNight,
+      box4NightTimes,
+      box4TempDay,
+      box4TempNight,
+      innerBox1All,
+      innerBox2All,
+      innerBox3All,
+      innerBox4All,
+      innerBox1CityAll,
+      innerBox1DateAll,
+      sliderBox2Title,
+      sliderBox3Title,
+      sliderBox4Title,
+      sliderCelsius1,
+      sliderButtonsPanel,
+      sliderDesc1,
+      sliderDots,
+      sliderIcon1,
+      sliderTemp1,
+      timesCountry,
+    } = getElementsApp(result);
+
+    const localStorageWeather = JSON.parse(
+      localStorage.getItem("weather") || "[]"
+    );
+
+    const btnSearchClass = buttonSearch.className.split(" ")[0];
+    const btnRemoveClass = buttonRemove.className.split(" ")[0];
+    const searchInputCityClass = searchInputCity.className;
+    const searchInputCountryClass = searchInputCountry.className;
+    buttonSearch.className = `${btnSearchClass} ${localStorageWeather[0].nameClass}`;
+    buttonRemove.className = `${btnRemoveClass} ${localStorageWeather[0].nameClass}`;
+    searchInputCity.className = `${searchInputCityClass} ${localStorageWeather[0].nameClass}`;
+    searchInputCountry.className = `${searchInputCountryClass} ${localStorageWeather[0].nameClass}`;
+
+    let classInnerBox1 = innerBox1All[indexWeather - 1].className.split(" ")[0];
+    innerBox1All[indexWeather - 1].className = getCurrentImage(
+      result.current.idIcon,
+      isDayOrNight,
+      classInnerBox1
+    );
+
+    // innerBox1All.forEach((item, index) => {
+    //   if (indexWeather - 1 === index) {
+    //     let classInnerBox1 = item.className.split(" ")[0];
+    //     item.className = getCurrentImage(
+    //       result.current.idIcon,
+    //       isDayOrNight,
+    //       classInnerBox1
+    //     );
+    //   }
+    // });
+
+    let classDate = innerBox1DateAll[indexWeather - 1].className.split(" ")[0];
+    innerBox1DateAll[indexWeather - 1].className = getCurrentImage(
+      result.current.idIcon,
+      isDayOrNight,
+      classDate
+    );
+
+    // innerBox1DateAll.forEach((item, index) => {
+    //   if (indexWeather - 1 === index) {
+    //     let classDate = item.className.split(" ")[0];
+    //     item.className = getCurrentImage(
+    //       result.current.idIcon,
+    //       isDayOrNight,
+    //       classDate
+    //     );
+    //   }
+    // });
+
+    let classCity = innerBox1CityAll[indexWeather - 1].className.split(" ")[0];
+    innerBox1CityAll[indexWeather - 1].className = getCurrentImage(
+      result.current.idIcon,
+      isDayOrNight,
+      classCity
+    );
+
+    // innerBox1CityAll.forEach((item, index) => {
+    //   if (indexWeather - 1 === index) {
+    //     let classCity = item.className.split(" ")[0];
+    //     item.className = getCurrentImage(
+    //       result.current.idIcon,
+    //       isDayOrNight,
+    //       classCity
+    //     );
+    //   }
+    // });
+
+    let classTime = timesCountry[indexWeather - 1].className;
+    timesCountry[indexWeather - 1].className = getCurrentImage(
+      result.current.idIcon,
+      isDayOrNight,
+      classTime
+    );
+
+    // timesCountry.forEach((item, index) => {
+    //   if (indexWeather - 1 === index) {
+    //     let classTime = item.className;
+    //     item.className = getCurrentImage(
+    //       result.current.idIcon,
+    //       isDayOrNight,
+    //       classTime
+    //     );
+    //   }
+    // });
+
+    let classTemp1 = sliderTemp1[indexWeather - 1].className;
+    sliderTemp1[indexWeather - 1].className = getCurrentImage(
+      result.current.idIcon,
+      isDayOrNight,
+      classTemp1
+    );
+
+    // sliderTemp1.forEach((item, index) => {
+    //   if (indexWeather - 1 === index) {
+    //     let classTemp1 = item.className;
+    //     item.className = getCurrentImage(
+    //       result.current.idIcon,
+    //       isDayOrNight,
+    //       classTemp1
+    //     );
+    //   }
+    // });
+
+    let classCel1 = sliderCelsius1[indexWeather - 1].className;
+    sliderCelsius1[indexWeather - 1].className = getCurrentImage(
+      result.current.idIcon,
+      isDayOrNight,
+      classCel1
+    );
+
+    // sliderCelsius1.forEach((item, index) => {
+    //   if (indexWeather - 1 === index) {
+    //     let classCel1 = item.className;
+    //     item.className = getCurrentImage(
+    //       result.current.idIcon,
+    //       isDayOrNight,
+    //       classCel1
+    //     );
+    //   }
+    // });
+
+    let classDec1 = sliderDesc1[indexWeather - 1].className;
+    sliderDesc1[indexWeather - 1].className = getCurrentImage(
+      result.current.idIcon,
+      isDayOrNight,
+      classDec1
+    );
+
+    // sliderDesc1.forEach((item, index) => {
+    //   if (indexWeather - 1 === index) {
+    //     let classDec1 = item.className;
+    //     item.className = getCurrentImage(
+    //       result.current.idIcon,
+    //       isDayOrNight,
+    //       classDec1
+    //     );
+    //   }
+    // });
+
+    let classIco1 = sliderIcon1[indexWeather - 1].className;
+    sliderIcon1[indexWeather - 1].className = getCurrentImage(
+      result.current.idIcon,
+      isDayOrNight,
+      classIco1
+    );
+
+    // sliderIcon1.forEach((item, index) => {
+    //   if (indexWeather - 1 === index) {
+    //     let classIco1 = item.className;
+    //     item.className = getCurrentImage(
+    //       result.current.idIcon,
+    //       isDayOrNight,
+    //       classIco1
+    //     );
+    //   }
+    // });
+
+    let classInnerBox2 = innerBox2All[indexWeather - 1].className;
+    innerBox2All[indexWeather - 1].className = getCurrentImage(
+      result.current.idIcon,
+      isDayOrNight,
+      classInnerBox2
+    );
+
+    // innerBox2All.forEach((item, index) => {
+    //   if (indexWeather - 1 === index) {
+    //     let classInnerBox2 = item.className;
+    //     item.className = getCurrentImage(
+    //       result.current.idIcon,
+    //       isDayOrNight,
+    //       classInnerBox2
+    //     );
+    //   }
+    // });
+
+    let classInnerBox3 = innerBox3All[indexWeather - 1].className;
+    innerBox3All[indexWeather - 1].className = getCurrentImage(
+      result.current.idIcon,
+      isDayOrNight,
+      classInnerBox3
+    );
+
+    // innerBox3All.forEach((item, index) => {
+    //   if (indexWeather - 1 === index) {
+    //     let classInnerBox3 = item.className;
+    //     item.className = getCurrentImage(
+    //       result.current.idIcon,
+    //       isDayOrNight,
+    //       classInnerBox3
+    //     );
+    //   }
+    // });
+
+    let classInnerBox4 = innerBox4All[indexWeather - 1].className;
+    innerBox4All[indexWeather - 1].className = getCurrentImage(
+      result.current.idIcon,
+      isDayOrNight,
+      classInnerBox4
+    );
+
+    // innerBox4All.forEach((item, index) => {
+    //   if (indexWeather - 1 === index) {
+    //     let classInnerBox4 = item.className;
+    //     item.className = getCurrentImage(
+    //       result.current.idIcon,
+    //       isDayOrNight,
+    //       classInnerBox4
+    //     );
+    //   }
+    // });
+
+    let classBtnPan = sliderButtonsPanel[indexWeather - 1].className;
+    sliderButtonsPanel[indexWeather - 1].className = getCurrentImage(
+      result.current.idIcon,
+      isDayOrNight,
+      classBtnPan
+    );
+
+    // sliderButtonsPanel.forEach((item, index) => {
+    //   if (indexWeather - 1 === index) {
+    //     let classBtnPan = item.className;
+    //     item.className = getCurrentImage(
+    //       result.current.idIcon,
+    //       isDayOrNight,
+    //       classBtnPan
+    //     );
+    //   }
+    // });
+
+    sliderDots.forEach((item, index) => {
+      let classDot = item.className;
+      item.className = `${classDot} ${localStorageWeather[0].nameClass}`;
+    });
+
+    let classTitle1 = sliderBox2Title[indexWeather - 1].className;
+    sliderBox2Title[indexWeather - 1].className = getCurrentImage(
+      result.current.idIcon,
+      isDayOrNight,
+      classTitle1
+    );
+
+    // sliderBox2Title.forEach((item, index) => {
+    //   if (indexWeather - 1 === index) {
+    //     let classTitle1 = item.className;
+    //     item.className = getCurrentImage(
+    //       result.current.idIcon,
+    //       isDayOrNight,
+    //       classTitle1
+    //     );
+    //   }
+    // });
+
+    let classTitle2 = sliderBox3Title[indexWeather - 1].className;
+    sliderBox3Title[indexWeather - 1].className = getCurrentImage(
+      result.current.idIcon,
+      isDayOrNight,
+      classTitle2
+    );
+
+    // sliderBox3Title.forEach((item, index) => {
+    //   if (indexWeather - 1 === index) {
+    //     let classTitle2 = item.className;
+    //     item.className = getCurrentImage(
+    //       result.current.idIcon,
+    //       isDayOrNight,
+    //       classTitle2
+    //     );
+    //   }
+    // });
+
+    let classTitle3 = sliderBox4Title[indexWeather - 1].className;
+    sliderBox4Title[indexWeather - 1].className = getCurrentImage(
+      result.current.idIcon,
+      isDayOrNight,
+      classTitle3
+    );
+
+    // sliderBox4Title.forEach((item, index) => {
+    //   if (indexWeather - 1 === index) {
+    //     let classTitle3 = item.className;
+    //     item.className = getCurrentImage(
+    //       result.current.idIcon,
+    //       isDayOrNight,
+    //       classTitle3
+    //     );
+    //   }
+    // });
+
+    console.log(
+      box4CurrentIcons[indexWeather - 1].detailsIcons,
+      " setstylesearch"
+    );
+
+    box4CurrentIcons[indexWeather - 1].detailsIcons.forEach((item) => {
+      let classDetails1 = item.className.split(" ")[0];
+      console.log(classDetails1, " refresh");
+      item.className = getCurrentImage(
+        result.current.idIcon,
+        isDayOrNight,
+        classDetails1
+      );
+    });
+
+    // box4CurrentIcons.forEach((item, index) => {
+    //   if (indexWeather - 1 === index) {
+    //     item.detailsIcons.forEach((item1) => {
+    //       let classDetails1 = item1.className;
+    //       item1.className = getCurrentImage(
+    //         result.current.idIcon,
+    //         isDayOrNight,
+    //         classDetails1
+    //       );
+    //     });
+    //   }
+    // });
+
+    box4CurrentTemp[indexWeather - 1].currentTemp.forEach((item) => {
+      let classTemp = item.className.split(" ")[0];
+      console.log(classTemp, " refresh classTemp");
+      item.className = getCurrentImage(
+        result.current.idIcon,
+        isDayOrNight,
+        classTemp
+      );
+    });
+
+    box4CurrentDescription[indexWeather - 1].currentDescription.forEach(
+      (item) => {
+        let classDescription = item.className.split(" ")[0];
+        console.log(classDescription, " refresh classDescription");
+        item.className = getCurrentImage(
+          result.current.idIcon,
+          isDayOrNight,
+          classDescription
+        );
+      }
+    );
+
+    box4DaysLable[indexWeather - 1].dayLabel.forEach((item) => {
+      let classLabel1 = item.className.split(" ")[0];
+      console.log(classLabel1, " refresh classLabel1");
+      item.className = getCurrentImage(
+        result.current.idIcon,
+        isDayOrNight,
+        classLabel1
+      );
+    });
+
+    box4DayTimes[indexWeather - 1].dayTime.forEach((item) => {
+      let classDayTime = item.className.split(" ")[0];
+      console.log(classDayTime, " refresh classDayTime");
+      item.className = getCurrentImage(
+        result.current.idIcon,
+        isDayOrNight,
+        classDayTime
+      );
+    });
+
+    box4NightTimes[indexWeather - 1].nightTime.forEach((item) => {
+      let classNightTime = item.className.split(" ")[0];
+      console.log(classNightTime, " refresh classNightTime");
+      item.className = getCurrentImage(
+        result.current.idIcon,
+        isDayOrNight,
+        classNightTime
+      );
+    });
+
+    box4TempDay[indexWeather - 1].dayTemp.forEach((item) => {
+      let classDayTemp = item.className.split(" ")[0];
+      console.log(classDayTemp, " refresh classDayTemp");
+      item.className = getCurrentImage(
+        result.current.idIcon,
+        isDayOrNight,
+        classDayTemp
+      );
+    });
+
+    box4TempNight[indexWeather - 1].dayNight.forEach((item) => {
+      let classNightTemp = item.className.split(" ")[0];
+      console.log(classNightTemp, " refresh classNightTemp");
+      item.className = getCurrentImage(
+        result.current.idIcon,
+        isDayOrNight,
+        classNightTemp
+      );
+    });
+
+    box4IconsDay[indexWeather - 1].iconDay.forEach((item) => {
+      let classDayIcon = item.className.split(" ")[0];
+      console.log(classDayIcon, " refresh classDayIcon");
+      item.className = getCurrentImage(
+        result.current.idIcon,
+        isDayOrNight,
+        classDayIcon
+      );
+    });
+
+    box4IconsNight[indexWeather - 1].iconNight.forEach((item) => {
+      let classNightIcon = item.className.split(" ")[0];
+      console.log(classNightIcon, " refresh classNightIcon");
+      item.className = getCurrentImage(
+        result.current.idIcon,
+        isDayOrNight,
+        classNightIcon
+      );
+    });
+
+    box4HourTimes[indexWeather - 1].hours.forEach((item) => {
+      let classHour = item.className.split(" ")[0];
+      console.log(classHour, " refresh classHour");
+      item.className = getCurrentImage(
+        result.current.idIcon,
+        isDayOrNight,
+        classHour
+      );
+    });
+
+    box4HourTemps[indexWeather - 1].hoursTemps.forEach((item) => {
+      let classHourTemp = item.className.split(" ")[0];
+      console.log(classHourTemp, " refresh classHourTemp");
+      item.className = getCurrentImage(
+        result.current.idIcon,
+        isDayOrNight,
+        classHourTemp
+      );
+    });
+
+    box4HourIcons[indexWeather - 1].hoursIcons.forEach((item) => {
+      let classHourIcons = item.className.split(" ")[0];
+      console.log(classHourIcons, " refresh classHourIcons");
+      item.className = getCurrentImage(
+        result.current.idIcon,
+        isDayOrNight,
+        classHourIcons
+      );
+    });
+
+    box4HourDescription[indexWeather - 1].hoursDesc.forEach((item) => {
+      let classHourDesc = item.className.split(" ")[0];
+      console.log(classHourDesc, " refresh classHourDesc");
+      item.className = getCurrentImage(
+        result.current.idIcon,
+        isDayOrNight,
+        classHourDesc
+      );
+    });
+
+    box4HourCelsious[indexWeather - 1].hoursCelsiusIcon.forEach((item) => {
+      let classHourCelsius = item.className.split(" ")[0];
+      console.log(classHourCelsius, " refresh classHourCelsious");
+      item.className = getCurrentImage(
+        result.current.idIcon,
+        isDayOrNight,
+        classHourCelsius
+      );
+    });
+
+    box3HourTime[indexWeather - 1].hours.forEach((item) => {
+      let classHour = item.className.split(" ")[0];
+      console.log(classHour, " refresh classHourCelsious");
+      item.className = getCurrentImage(
+        result.current.idIcon,
+        isDayOrNight,
+        classHour
+      );
+    });
+
+    box3HourTemp[indexWeather - 1].hourTemp.forEach((item) => {
+      let classHourTemp = item.className.split(" ")[0];
+      console.log(classHourTemp, " refresh classHourCelsious");
+      item.className = getCurrentImage(
+        result.current.idIcon,
+        isDayOrNight,
+        classHourTemp
+      );
+    });
+
+    box3HourIcon[indexWeather - 1].hourIcon.forEach((item) => {
+      let classHourIcon = item.className.split(" ")[0];
+      console.log(classHourIcon, " refresh classHourCelsious");
+      item.className = getCurrentImage(
+        result.current.idIcon,
+        isDayOrNight,
+        classHourIcon
+      );
+    });
+
+    box3HourDescription[indexWeather - 1].hourDesc.forEach((item) => {
+      let classHourDesc = item.className.split(" ")[0];
+      console.log(classHourDesc, " refresh classHourCelsious");
+      item.className = getCurrentImage(
+        result.current.idIcon,
+        isDayOrNight,
+        classHourDesc
+      );
+    });
+
+    box3HourCelsius[indexWeather - 1].iconsCelsius.forEach((item) => {
+      let classHourCelsius = item.className.split(" ")[0];
+      console.log(classHourCelsius, " refresh classHourCelsious");
+      item.className = getCurrentImage(
+        result.current.idIcon,
+        isDayOrNight,
+        classHourCelsius
+      );
+    });
+
+    buttons[indexWeather - 1].buttons.forEach((item) => {
+      let classBtn = item.className;
+      console.log(classBtn, " refresh classHourCelsious");
+      item.className = getCurrentImage(
+        result.current.idIcon,
+        isDayOrNight,
+        classBtn
+      );
+    });
   };
 
   //   --------------------------------------------------------
@@ -349,6 +1172,9 @@ const handleContentLoaded = () => {
         })
         .then((result) => {
           logoStart.style.display = "none";
+          flag = true;
+
+          console.log(result.current.idIcon, " result");
 
           const { city, country, current, timezone } = result;
           const { sunrise, sunset } = current;
@@ -379,6 +1205,28 @@ const handleContentLoaded = () => {
 
           sliderContent.appendChild(slide);
 
+          const {
+            dotsWrapper,
+            sliderBoxes3Mobile,
+            sliderBoxes4,
+            sliderBoxesDays4,
+            detailsTitle,
+            detailsWeather,
+            innerBoxFour,
+            buttonsButtom,
+          } = getElementsApp(result);
+
+          const { isDayOrNight } = checkCurrentDayOrNight(
+            timezone,
+            sunrise,
+            sunset
+          );
+
+          dotsWrapper.innerHTML = "";
+          createDots(localStorageWeather);
+
+          setActiveStylesWhenRefresh(result, isDayOrNight);
+
           if (indexWeather - 1 === 0) {
             const { isDayOrNight } = checkCurrentDayOrNight(
               timezone,
@@ -386,9 +1234,15 @@ const handleContentLoaded = () => {
               sunset
             );
 
-            console.log(isDayOrNight, " isDayOrNight fetch refresh");
             const iconId = current.idIcon;
-            const nameClassBg = getCurrentImage(iconId, isDayOrNight);
+
+            const currentClass = bgImageContainer.className.split(" ")[0];
+
+            const nameClassBg = getCurrentImage(
+              iconId,
+              isDayOrNight,
+              currentClass
+            );
             bgImageContainer.className = nameClassBg;
           }
 
@@ -400,7 +1254,7 @@ const handleContentLoaded = () => {
           sliderBox2Boxes.className = `slider__box-2-boxes-${result.city}`;
           sliderBox2Boxes.style.position = "relative";
           sliderBox2Boxes.style.margin = "auto";
-          sliderBox2Boxes.style.height = 80 + "%";
+          sliderBox2Boxes.style.height = `calc(${80}% - ${9}px)`;
           sliderBox2Boxes.style.width = 99 + "%";
 
           const elementCanvas = document.createElement("canvas");
@@ -419,19 +1273,8 @@ const handleContentLoaded = () => {
             config
           );
 
-          const {
-            dotsWrapper,
-            sliderBoxes3Mobile,
-            sliderBoxes4,
-            sliderBoxesDays4,
-            detailsTitle,
-            detailsWeather,
-            innerBoxFour,
-            buttonsButtom,
-          } = getElementsApp(result);
-
-          dotsWrapper.innerHTML = "";
-          createDots(localStorageWeather);
+          //   dotsWrapper.innerHTML = "";
+          //   createDots(localStorageWeather);
           defaultVisiblityDetailsButton(buttonsButtom, sliderBoxes4);
 
           buttonsButtom.forEach((item, index) => {
@@ -474,6 +1317,9 @@ const handleContentLoaded = () => {
               detailsTitle
             )
           );
+
+          bgImageContainer.style.color = `blur(${2}px)`;
+          bgImageContainer.style.webkitFilter = `blur(${2}px)`;
         })
         .catch((err) => {
           msgAlert.innerHTML = err.message;
@@ -516,6 +1362,445 @@ const handleContentLoaded = () => {
     console.log(isDayOrNight, "czy dzien czy noc obecnie");
 
     return { isDayOrNight, timeSunriseMilliseconds, timeSunsetMilliseconds };
+  };
+
+  const setClassSearchBar = (iconId, isDayOrNight) => {
+    const classButtonRemove = buttonRemove.className;
+    const classButtonSearch = buttonSearch.className;
+    const classSearchInputCity = searchInputCity.className;
+    const classSearchInputCountry = searchInputCountry.className;
+
+    searchInputCity.className = getCurrentImage(
+      iconId,
+      isDayOrNight,
+      classSearchInputCity
+    );
+    searchInputCountry.className = getCurrentImage(
+      iconId,
+      isDayOrNight,
+      classSearchInputCountry
+    );
+    buttonRemove.className = getCurrentImage(
+      iconId,
+      isDayOrNight,
+      classButtonRemove
+    );
+    buttonSearch.className = getCurrentImage(
+      iconId,
+      isDayOrNight,
+      classButtonSearch
+    );
+  };
+
+  const setClassActiveStyles = (iconId, isDayOrNight, result, localIndex) => {
+    const {
+      buttons,
+      box3HourCelsius,
+      box3HourTime,
+      box3HourTemp,
+      box3HourIcon,
+      box3HourDescription,
+      box4HourCelsious,
+      box4CurrentDescription,
+      box4CurrentIcons,
+      box4CurrentTemp,
+      box4DaysLable,
+      box4DayTimes,
+      box4HourTimes,
+      box4HourTemps,
+      box4HourIcons,
+      box4HourDescription,
+      box4IconsDay,
+      box4IconsNight,
+      box4NightTimes,
+      box4TempDay,
+      box4TempNight,
+      innerBox1All,
+      innerBox2All,
+      innerBox3All,
+      innerBox4All,
+      innerBox1CityAll,
+      innerBox1DateAll,
+      sliderBox2Title,
+      sliderBox3Title,
+      sliderBox4Title,
+      sliderButtonsPanel,
+      sliderCelsius1,
+      sliderDesc1,
+      sliderDots,
+      sliderIcon1,
+      sliderTemp1,
+      timesCountry,
+    } = getElementsApp(result);
+
+    const localStorageWeather = JSON.parse(
+      localStorage.getItem("weather") || "[]"
+    );
+
+    console.log(localIndex, "localIndex po search");
+
+    const boxClass = innerBox1All[localIndex].className;
+    innerBox1All[localIndex].className = getCurrentImage(
+      iconId,
+      isDayOrNight,
+      boxClass
+    );
+
+    // innerBox1All.forEach((item, index) => {
+    //   if (index === localIndex) {
+    //     const boxClass = item.className;
+    //     item.className = getCurrentImage(iconId, isDayOrNight, boxClass);
+    //   }
+    // });
+
+    const boxDateclass = innerBox1DateAll[localIndex].className;
+    innerBox1DateAll[localIndex].className = getCurrentImage(
+      iconId,
+      isDayOrNight,
+      boxDateclass
+    );
+
+    // innerBox1DateAll.forEach((item, index) => {
+    //   if (index === localIndex) {
+    //     const boxDateclass = item.className;
+    //     item.className = getCurrentImage(iconId, isDayOrNight, boxDateclass);
+    //   }
+    // });
+
+    const boxCityclass = innerBox1CityAll[localIndex].className;
+    innerBox1CityAll[localIndex].className = getCurrentImage(
+      iconId,
+      isDayOrNight,
+      boxCityclass
+    );
+
+    // innerBox1CityAll.forEach((item, index) => {
+    //   if (index === localIndex) {
+    //     const boxCityclass = item.className;
+    //     item.className = getCurrentImage(iconId, isDayOrNight, boxCityclass);
+    //   }
+    // });
+
+    const boxClassTime = timesCountry[localIndex].className;
+    timesCountry[localIndex].className = getCurrentImage(
+      iconId,
+      isDayOrNight,
+      boxClassTime
+    );
+
+    // timesCountry.forEach((item, index) => {
+    //   if (index === localIndex) {
+    //     const boxClassTime = item.className;
+    //     item.className = getCurrentImage(iconId, isDayOrNight, boxClassTime);
+    //   }
+    // });
+
+    const boxClassTemp1 = sliderTemp1[localIndex].className;
+    sliderTemp1[localIndex].className = getCurrentImage(
+      iconId,
+      isDayOrNight,
+      boxClassTemp1
+    );
+
+    // sliderTemp1.forEach((item, index) => {
+    //   if (index === localIndex) {
+    //     const boxClassTemp1 = item.className;
+    //     item.className = getCurrentImage(iconId, isDayOrNight, boxClassTemp1);
+    //   }
+    // });
+
+    const boxClassCel1 = sliderCelsius1[localIndex].className;
+    sliderCelsius1[localIndex].className = getCurrentImage(
+      iconId,
+      isDayOrNight,
+      boxClassCel1
+    );
+
+    // sliderCelsius1.forEach((item, index) => {
+    //   if (index === localIndex) {
+    //     const boxClassCel1 = item.className;
+    //     item.className = getCurrentImage(iconId, isDayOrNight, boxClassCel1);
+    //   }
+    // });
+
+    const boxClassDec1 = sliderDesc1[localIndex].className;
+    sliderDesc1[localIndex].className = getCurrentImage(
+      iconId,
+      isDayOrNight,
+      boxClassDec1
+    );
+
+    // sliderDesc1.forEach((item, index) => {
+    //   if (index === localIndex) {
+    //     const boxClassDec1 = item.className;
+    //     item.className = getCurrentImage(iconId, isDayOrNight, boxClassDec1);
+    //   }
+    // });
+
+    const boxClassIco1 = sliderIcon1[localIndex].className;
+    sliderIcon1[localIndex].className = getCurrentImage(
+      iconId,
+      isDayOrNight,
+      boxClassIco1
+    );
+
+    // sliderIcon1.forEach((item, index) => {
+    //   if (index === localIndex) {
+    //     const boxClassIco1 = item.className;
+    //     item.className = getCurrentImage(iconId, isDayOrNight, boxClassIco1);
+    //   }
+    // });
+
+    const boxClass2 = innerBox2All[localIndex].className;
+    innerBox2All[localIndex].className = getCurrentImage(
+      iconId,
+      isDayOrNight,
+      boxClass2
+    );
+
+    // innerBox2All.forEach((item, index) => {
+    //   if (index === localIndex) {
+    //     const boxClass2 = item.className;
+    //     item.className = getCurrentImage(iconId, isDayOrNight, boxClass2);
+    //   }
+    // });
+
+    const boxClass3 = innerBox3All[localIndex].className;
+    innerBox3All[localIndex].className = getCurrentImage(
+      iconId,
+      isDayOrNight,
+      boxClass3
+    );
+
+    // innerBox3All.forEach((item, index) => {
+    //   if (index === localIndex) {
+    //     const boxClass3 = item.className;
+    //     item.className = getCurrentImage(iconId, isDayOrNight, boxClass3);
+    //   }
+    // });
+
+    const boxClass4 = innerBox4All[localIndex].className;
+    innerBox4All[localIndex].className = getCurrentImage(
+      iconId,
+      isDayOrNight,
+      boxClass4
+    );
+
+    // innerBox4All.forEach((item, index) => {
+    //   if (index === localIndex) {
+    //     const boxClass4 = item.className;
+    //     item.className = getCurrentImage(iconId, isDayOrNight, boxClass4);
+    //   }
+    // });
+
+    const btnPanelClass = sliderButtonsPanel[localIndex].className;
+    sliderButtonsPanel[localIndex].className = getCurrentImage(
+      iconId,
+      isDayOrNight,
+      btnPanelClass
+    );
+
+    // sliderButtonsPanel.forEach((item, index) => {
+    //   if (index === localIndex) {
+    //     const btnPanelClass = item.className;
+    //     item.className = getCurrentImage(iconId, isDayOrNight, btnPanelClass);
+    //   }
+    // });
+
+    sliderDots.forEach((item, index) => {
+      const dotClass = item.className;
+      item.className = `${dotClass} ${localStorageWeather[0].nameClass}`;
+    });
+
+    const classTitleBox2 = sliderBox2Title[localIndex].className;
+    sliderBox2Title[localIndex].className = getCurrentImage(
+      iconId,
+      isDayOrNight,
+      classTitleBox2
+    );
+
+    // sliderBox2Title.forEach((item, index) => {
+    //   if (index === localIndex) {
+    //     const boxTitle1 = item.className;
+    //     item.className = getCurrentImage(iconId, isDayOrNight, boxTitle1);
+    //   }
+    // });
+
+    const classTitleBox3 = sliderBox3Title[localIndex].className;
+    sliderBox3Title[localIndex].className = getCurrentImage(
+      iconId,
+      isDayOrNight,
+      classTitleBox3
+    );
+
+    // sliderBox3Title.forEach((item, index) => {
+    //   if (index === localIndex) {
+    //     const boxTitle2 = item.className;
+    //     item.className = getCurrentImage(iconId, isDayOrNight, boxTitle2);
+    //   }
+    // });
+
+    const classTitleBox4 = sliderBox4Title[localIndex].className;
+    sliderBox4Title[localIndex].className = getCurrentImage(
+      iconId,
+      isDayOrNight,
+      classTitleBox4
+    );
+
+    // sliderBox4Title.forEach((item, index) => {
+    //   if (index === localIndex) {
+    //     console.log(item, " petla title box 4");
+    //     const boxTitle3 = item.className;
+    //     item.className = getCurrentImage(iconId, isDayOrNight, boxTitle3);
+    //   }
+    // });
+
+    box4CurrentIcons[localIndex].detailsIcons.forEach((item) => {
+      const boxDetails = item.className;
+
+      item.className = getCurrentImage(iconId, isDayOrNight, boxDetails);
+      console.log(item.className, " boxDetails petla");
+    });
+
+    box4CurrentTemp[localIndex].currentTemp.forEach((item) => {
+      const classTemp = item.className;
+
+      item.className = getCurrentImage(iconId, isDayOrNight, classTemp);
+      console.log(item.className, " classTemp petla");
+    });
+
+    box4CurrentDescription[localIndex].currentDescription.forEach((item) => {
+      const classDescription = item.className;
+
+      item.className = getCurrentImage(iconId, isDayOrNight, classDescription);
+      console.log(item.className, "currentDescription petla");
+    });
+
+    box4DaysLable[localIndex].dayLabel.forEach((item) => {
+      const classLabel1 = item.className;
+
+      item.className = getCurrentImage(iconId, isDayOrNight, classLabel1);
+      console.log(item.className, "classLabel1 petla");
+    });
+
+    box4DayTimes[localIndex].dayTime.forEach((item) => {
+      const classDayTime = item.className;
+
+      item.className = getCurrentImage(iconId, isDayOrNight, classDayTime);
+      console.log(item.className, "classDayTime petla");
+    });
+
+    box4NightTimes[localIndex].nightTime.forEach((item) => {
+      const classNightTime = item.className;
+
+      item.className = getCurrentImage(iconId, isDayOrNight, classNightTime);
+      console.log(item.className, "classNightTime petla");
+    });
+
+    box4TempDay[localIndex].dayTemp.forEach((item) => {
+      const classTempDay = item.className;
+
+      item.className = getCurrentImage(iconId, isDayOrNight, classTempDay);
+      console.log(item.className, "classTempDay petla");
+    });
+
+    box4TempNight[localIndex].dayNight.forEach((item) => {
+      const classTempNight = item.className;
+
+      item.className = getCurrentImage(iconId, isDayOrNight, classTempNight);
+      console.log(item.className, "classTempNight petla");
+    });
+
+    box4IconsDay[localIndex].iconDay.forEach((item) => {
+      const classIconDay = item.className;
+
+      item.className = getCurrentImage(iconId, isDayOrNight, classIconDay);
+      console.log(item.className, "classTempNight petla");
+    });
+
+    box4IconsNight[localIndex].iconNight.forEach((item) => {
+      const classIconNight = item.className;
+
+      item.className = getCurrentImage(iconId, isDayOrNight, classIconNight);
+      console.log(item.className, "classTempNight petla");
+    });
+
+    box4HourTimes[localIndex].hours.forEach((item) => {
+      const classHour = item.className;
+
+      item.className = getCurrentImage(iconId, isDayOrNight, classHour);
+      console.log(item.className, "classHour petla");
+    });
+
+    box4HourTemps[localIndex].hoursTemps.forEach((item) => {
+      const classHourTemp = item.className;
+
+      item.className = getCurrentImage(iconId, isDayOrNight, classHourTemp);
+      console.log(item.className, "classHourTemp petla");
+    });
+
+    box4HourIcons[localIndex].hoursIcons.forEach((item) => {
+      const classHourIcon = item.className;
+
+      item.className = getCurrentImage(iconId, isDayOrNight, classHourIcon);
+      console.log(item.className, "classHourIcon petla");
+    });
+
+    box4HourDescription[localIndex].hoursDesc.forEach((item) => {
+      const classHourDesc = item.className;
+
+      item.className = getCurrentImage(iconId, isDayOrNight, classHourDesc);
+      console.log(item.className, "classHourDesc petla");
+    });
+
+    box4HourCelsious[localIndex].hoursCelsiusIcon.forEach((item) => {
+      const classHourCelsius = item.className;
+
+      item.className = getCurrentImage(iconId, isDayOrNight, classHourCelsius);
+      console.log(item.className, "classHourCelsius petla");
+    });
+
+    box3HourTime[localIndex].hours.forEach((item) => {
+      const classHour = item.className;
+
+      item.className = getCurrentImage(iconId, isDayOrNight, classHour);
+      console.log(item.className, "classHour petla");
+    });
+
+    box3HourTemp[localIndex].hourTemp.forEach((item) => {
+      const classHourTemp = item.className;
+
+      item.className = getCurrentImage(iconId, isDayOrNight, classHourTemp);
+      console.log(item.className, "classHourTemp petla");
+    });
+
+    box3HourIcon[localIndex].hourIcon.forEach((item) => {
+      const classHourIcon = item.className;
+
+      item.className = getCurrentImage(iconId, isDayOrNight, classHourIcon);
+      console.log(item.className, "classHourIcon petla");
+    });
+
+    box3HourDescription[localIndex].hourDesc.forEach((item) => {
+      const classHourDesc = item.className;
+
+      item.className = getCurrentImage(iconId, isDayOrNight, classHourDesc);
+      console.log(item.className, "classHourDesc petla");
+    });
+
+    box3HourCelsius[localIndex].iconsCelsius.forEach((item) => {
+      const classHourCelsius = item.className;
+
+      item.className = getCurrentImage(iconId, isDayOrNight, classHourCelsius);
+      console.log(item.className, "classHourCelsius petla");
+    });
+
+    buttons[localIndex].buttons.forEach((item) => {
+      const classBtn = item.className;
+
+      item.className = getCurrentImage(iconId, isDayOrNight, classBtn);
+      console.log(item.className, "classBtn search petla");
+    });
   };
 
   const getCurrentIcon = (currentWeatherIdIcon, isDayOrNight) => {
@@ -680,7 +1965,7 @@ const handleContentLoaded = () => {
     }
   };
 
-  const getCurrentImage = (weatherIdIcon, isDayOrNight) => {
+  const getCurrentImage = (weatherIdIcon, isDayOrNight, currentClass) => {
     switch (weatherIdIcon) {
       case 200:
       case 201:
@@ -693,8 +1978,8 @@ const handleContentLoaded = () => {
       case 231:
       case 232:
         return isDayOrNight
-          ? "bgiContainer thunderstorm-day"
-          : "bgiContainer thunderstorm-night";
+          ? `${currentClass} thunderstorm-day`
+          : `${currentClass} thunderstorm-night`;
         break;
       case 300:
       case 301:
@@ -716,8 +2001,8 @@ const handleContentLoaded = () => {
       case 522:
       case 531:
         return isDayOrNight
-          ? "bgiContainer rain-day"
-          : "bgiContainer rain-night";
+          ? `${currentClass} rain-day`
+          : `${currentClass} rain-night`;
         break;
       case 600:
       case 601:
@@ -731,24 +2016,26 @@ const handleContentLoaded = () => {
       case 621:
       case 622:
         return isDayOrNight
-          ? "bgiContainer snow-day"
-          : "bgiContainer snow-night";
+          ? `${currentClass} snow-day`
+          : `${currentClass} snow-night`;
         break;
       case 701:
       case 721:
       case 741:
-        return isDayOrNight ? "bgiContainer fog-day" : "bgiContainer fog-night";
+        return isDayOrNight
+          ? `${currentClass} fog-day`
+          : `${currentClass} fog-night`;
         break;
       case 771:
-        return "bgiContainer squall-day-night";
+        return `${currentClass} squall-day-night`;
         break;
       case 781:
-        return "bgiContainer tornado";
+        return `${currentClass} tornado`;
         break;
       case 800:
         return isDayOrNight
-          ? "bgiContainer clear-sky-day"
-          : "bgiContainer clear-sky-night";
+          ? `${currentClass} clear-sky-day`
+          : `${currentClass} clear-sky-night`;
         break;
       case 711:
       case 731:
@@ -760,11 +2047,13 @@ const handleContentLoaded = () => {
       case 803:
       case 804:
         return isDayOrNight
-          ? "bgiContainer clouds-day"
-          : "bgiContainer clouds-night";
+          ? `${currentClass} clouds-day`
+          : `${currentClass} clouds-night`;
         break;
       default:
-        return isDayOrNight ? "" : "";
+        return isDayOrNight
+          ? `${currentClass} clear-sky-day`
+          : `${currentClass} clear-sky-night`;
         break;
     }
   };
@@ -841,8 +2130,9 @@ const handleContentLoaded = () => {
         <div class="slider__inner-box">
           <h3 class="slider__box-3-title">Hourly weather</h3>
           <div class="slider__box-3-boxes">
-          ${weatherFourHours.map(
-            (item) => `<div class="slider__box-3">
+          ${weatherFourHours
+            .map(
+              (item) => `<div class="slider__box-3">
             <p class="slider__hourly-weather-time">${new Date(
               format(
                 utcToZonedTime(new Date(item.data * 1000), timezone),
@@ -859,21 +2149,22 @@ const handleContentLoaded = () => {
                       <div class="slider__box-3-left">
                           <p class="slider__hourly-weather-temperature-wrapper">
                               ${item.temp.toFixed(1)}
-                              <span class="slider__hourly-icon-celsius"
-                                  ><i class="wi wi-degrees"></i>c</span>
+                              <span class="slider__hourly-icon-celsius"><i class="wi wi-degrees"></i>c</span>
                           </p>
                       </div>
                       <div class="slider__box-3-right">
-                          <span class="slider__hourly-icon-weather"
-                              ><i class="wi wi-day-cloudy"></i
-                          ></span>
+                          <span class="slider__hourly-icon-weather">${getCurrentIcon(
+                            item.idIcon,
+                            checkTimeHourly(item.data)
+                          )}</span>
                       </div>
                   </div>
-              <p class="slider__hourly-weather-description">
+                  <p class="slider__hourly-weather-description">
                   ${item.description}
-              </p>
+                  </p>
             </div>`
-          )}
+            )
+            .join("\n")}
           </div>
         </div>
         <div class="slider__inner-box">
@@ -1006,51 +2297,54 @@ const handleContentLoaded = () => {
 
             <div class="slider__box-4-boxes--days-forecast">
         
-            ${result.daily.map(
-              (
-                item
-              ) => `<div class="slider__box-4-days slider__box-4-days-${result.city.replace(
-                /\s/g,
-                "-"
-              )}">
+            ${result.daily
+              .map(
+                (
+                  item
+                ) => `<div class="slider__box-4-days slider__box-4-days-${result.city.replace(
+                  /\s/g,
+                  "-"
+                )}">
               <p class="slider__box-4-days-day">${new Date(item.data * 1000)
                 .toDateString()
                 .slice(0, 3)}</p>
                         <div class="slider__box-4-days-left">
                             <p class="slider__box-4-day-time">Day</p>
-                            <p class="slider__box-4-days-details-text">
+                            <p class="slider__box-4-days-details-text-day">
                             ${item.tempDay.toFixed(1)}
                                 <span class="slider__box-4-days-details-text-icon">
                                     <i class="wi wi-degrees"></i>c
                                 </span>
                             </p>
-                            <span class="slider__box-4-days-icon-weather"
+                            <span class="slider__box-4-days-icon-weather-day"
                             >${getCurrentIcon(item.idIcon, true)}</span>
                         </div>
                         <div class="slider__box-4-days-right">
-                            <p class="slider__box-4-day-time">Night</p>
-                            <p class="slider__box-4-days-details-text">
+                            <p class="slider__box-4-day-night">Night</p>
+                            <p class="slider__box-4-days-details-text-night">
                             ${item.tempNight.toFixed(1)}
                                 <span class="slider__box-4-days-details-text-icon">
                                     <i class="wi wi-degrees"></i>c
                                 </span>
                             </p>
-                            <span class="slider__box-4-days-icon-weather"
+                            <span class="slider__box-4-days-icon-weather-night"
                                 >${getCurrentIcon(item.idIcon, false)}</span>
                         </div>
                     </div>`
-            )}
+              )
+              .join("\n")}
           
             </div>
 
             <div class="slider__box-4-boxes--hourly-weather">
-                ${result.hourly.map(
-                  (
-                    item
-                  ) => `<div class="slider__box-3-mobile slider__box-3-mobile-${result.city.replace(
-                    /\s/g,
-                    "-"
-                  )}">
+                ${result.hourly
+                  .map(
+                    (
+                      item
+                    ) => `<div class="slider__box-3-mobile slider__box-3-mobile-${result.city.replace(
+                      /\s/g,
+                      "-"
+                    )}">
                             <p class="slider__hourly-time-mobile">${new Date(
                               format(
                                 utcToZonedTime(
@@ -1077,7 +2371,7 @@ const handleContentLoaded = () => {
                                     <div class="slider__box-3-right-mobile">
                                         <span class="slider__hourly-icon-weather-mobile"
                                             >${getCurrentIcon(
-                                              currentWeatherIdIcon,
+                                              item.idIcon,
                                               checkTimeHourly(item.data)
                                             )}</span>
                                     </div>
@@ -1086,7 +2380,8 @@ const handleContentLoaded = () => {
                                 ${item.description}
                             </p>
                         </div>`
-                )}
+                  )
+                  .join("\n")}
             </div>
           </div>
         </div>
@@ -1166,7 +2461,10 @@ const handleContentLoaded = () => {
         throw new Error("Can't find location");
       })
       .then((result) => {
+        const { city, country, current, timezone } = result;
         logoStart.style.display = "none";
+        flag = true;
+        console.log(result);
 
         const { isDayOrNight } = checkCurrentDayOrNight(
           result.timezone,
@@ -1178,8 +2476,13 @@ const handleContentLoaded = () => {
 
         const iconId = result.current.idIcon;
 
-        const nameClass = getCurrentImage(iconId, isDayOrNight);
-        console.log(nameClass, "nameClass gdy szukam");
+        // głowny bgimage
+        const currentClass = bgImageContainer.className.split(" ")[0];
+        const nameClass = getCurrentImage(iconId, isDayOrNight, currentClass);
+        const classMessage = infoMessage.className.split(" ")[0];
+        const alertClass = getCurrentImage(iconId, isDayOrNight, classMessage);
+
+        console.log(nameClass.split(" ")[1]);
 
         const localStorageWeather = JSON.parse(
           localStorage.getItem("weather") || "[]"
@@ -1200,22 +2503,11 @@ const handleContentLoaded = () => {
           country: result.country,
           hourly: result.hourly,
           timezone: result.timezone,
-          nameClass: nameClass,
+          nameClass: nameClass.split(" ")[1],
         };
-
         weathersArray = [...weathersArray, detailsLocation];
 
-        if (localStorageWeather.length > 0) {
-          console.log(localStorageWeather[0].nameClass, " local");
-          bgImageContainer.className = localStorageWeather[0].nameClass;
-          weathersArray = [...localStorageWeather, detailsLocation];
-          localStorage.setItem("weather", JSON.stringify(weathersArray));
-        } else {
-          bgImageContainer.className = nameClass;
-          localStorage.setItem("weather", JSON.stringify(weathersArray));
-        }
-
-        const { city, country, current, timezone } = result;
+        // tu juz nie musze dodawac gdy cos jest w localstorage poniewaz to sie nie zmienia potem do czasu klik dot swipe
 
         const todayDate = getCurrentDate(timezone);
 
@@ -1243,25 +2535,22 @@ const handleContentLoaded = () => {
 
         sliderContent.appendChild(slide);
 
-        setInterval(() => clock(result, timezone), 1000);
+        // setClassActiveStyles(iconId, isDayOrNight, result);
 
-        const sliderBox2Boxes = document.querySelector(".slider__box-2-boxes");
-        sliderBox2Boxes.className = `slider__box-2-boxes-${result.city}`;
-        sliderBox2Boxes.style.position = "relative";
-        sliderBox2Boxes.style.margin = "auto";
-        sliderBox2Boxes.style.height = 80 + "%";
-        sliderBox2Boxes.style.width = 99 + "%";
-
-        const elementCanvas = document.createElement("canvas");
-        elementCanvas.className = `myChart-${result.city.replace(/\s/g, "-")}`;
-        sliderBox2Boxes.appendChild(elementCanvas);
-
-        const config = getChartData(result, timezone);
-
-        new Chart(
-          document.querySelector(`.myChart-${result.city.replace(/\s/g, "-")}`),
-          config
-        );
+        if (localStorageWeather.length > 0) {
+          console.log(localStorageWeather[0].nameClass, " local");
+          bgImageContainer.className = `${currentClass} ${localStorageWeather[0].nameClass}`;
+          infoMessage.className = `${classMessage} ${localStorageWeather[0].nameClass}`;
+          weathersArray = [...localStorageWeather, detailsLocation];
+          localStorage.setItem("weather", JSON.stringify(weathersArray));
+        } else {
+          bgImageContainer.className = nameClass;
+          infoMessage.className = alertClass;
+          bgImageContainer.style.color = `blur(${2}px)`;
+          bgImageContainer.style.webkitFilter = `blur(${2}px)`;
+          setClassSearchBar(iconId, isDayOrNight);
+          localStorage.setItem("weather", JSON.stringify(weathersArray));
+        }
 
         const {
           dotsWrapper,
@@ -1276,6 +2565,70 @@ const handleContentLoaded = () => {
 
         dotsWrapper.innerHTML = "";
         createDots(weathersArray);
+
+        const localIndex = localStorageWeather.length;
+
+        setClassActiveStyles(iconId, isDayOrNight, result, localIndex);
+
+        // const todayDate = getCurrentDate(timezone);
+
+        // if (sliderContent.children.length > 1) {
+        //   sliderContent.style.transitionDuration = "0s";
+        //   sliderContent.children[0].remove();
+        //   sliderContent.children[sliderContent.children.length - 1].remove();
+        // }
+
+        // const weatherFourHours = result.hourly.slice(0, 4);
+
+        // const structureSlide = getStructureSlideWeather(
+        //   result,
+        //   city,
+        //   country,
+        //   current,
+        //   timezone,
+        //   todayDate,
+        //   weatherFourHours
+        // );
+
+        // const slide = document.createElement("div");
+        // slide.className = "slider__image-wrapper";
+        // slide.innerHTML = structureSlide;
+
+        // sliderContent.appendChild(slide);
+
+        setInterval(() => clock(result, timezone), 1000);
+
+        const sliderBox2Boxes = document.querySelector(".slider__box-2-boxes");
+        sliderBox2Boxes.className = `slider__box-2-boxes-${result.city}`;
+        sliderBox2Boxes.style.position = "relative";
+        sliderBox2Boxes.style.margin = "auto";
+        sliderBox2Boxes.style.height = `calc(${80}% - ${9}px)`;
+        sliderBox2Boxes.style.width = 99 + "%";
+
+        const elementCanvas = document.createElement("canvas");
+        elementCanvas.className = `myChart-${result.city.replace(/\s/g, "-")}`;
+        sliderBox2Boxes.appendChild(elementCanvas);
+
+        const config = getChartData(result, timezone);
+
+        new Chart(
+          document.querySelector(`.myChart-${result.city.replace(/\s/g, "-")}`),
+          config
+        );
+
+        // const {
+        //   dotsWrapper,
+        //   sliderBoxes3Mobile,
+        //   sliderBoxes4,
+        //   sliderBoxesDays4,
+        //   detailsTitle,
+        //   detailsWeather,
+        //   innerBoxFour,
+        //   buttonsButtom,
+        // } = getElementsApp(result);
+
+        // dotsWrapper.innerHTML = "";
+        // createDots(weathersArray);
 
         defaultVisiblityDetailsButton(buttonsButtom, sliderBoxes4);
 
@@ -1332,6 +2685,157 @@ const handleContentLoaded = () => {
   };
 
   form.addEventListener("submit", handleSearchWeather);
+
+  //   Tu innerbox1 inaczej tez
+
+  const setClassAfterRemove = (lcnameClass) => {
+    const firstClassBg = bgImageContainer.className.split(" ")[0];
+    const firstClassBtnR = buttonRemove.className.split(" ")[0];
+    const firstClassBtnS = buttonSearch.className.split(" ")[0];
+    const messageClass = infoMessage.className.split(" ")[0];
+    const oneClassCity = searchInputCity.className.split(" ")[0];
+    const twoClassCity = searchInputCity.className.split(" ")[1];
+    const oneClassCountry = searchInputCountry.className.split(" ")[0];
+    const twoClassCountry = searchInputCountry.className.split(" ")[1];
+
+    infoMessage.className = `${messageClass} ${lcnameClass}`;
+
+    bgImageContainer.className = `${firstClassBg} ${lcnameClass}`;
+    buttonRemove.className = `${firstClassBtnR} ${lcnameClass}`;
+    buttonSearch.className = `${firstClassBtnS} ${lcnameClass}`;
+    searchInputCity.className = `${oneClassCity} ${twoClassCity} ${lcnameClass}`;
+    searchInputCountry.className = `${oneClassCountry} ${twoClassCountry} ${lcnameClass}`;
+  };
+
+  const removeElementsArray = (indexNum) => {
+    const updateBox4CurrentIcons = box4CurrentIcons.filter(
+      (item, index) => index !== indexNum
+    );
+
+    const updateBox4CurrentTemp = box4CurrentTemp.filter(
+      (item, index) => index !== indexNum
+    );
+
+    const updatedBox4CurrentDesc = box4CurrentDescription.filter(
+      (item, index) => index !== indexNum
+    );
+
+    const updatedBox4DaysLabel = box4DaysLable.filter(
+      (item, index) => index !== indexNum
+    );
+
+    const updatedBox4DaysTimes = box4DayTimes.filter(
+      (item, index) => index !== indexNum
+    );
+
+    const updatedBox4NightTimes = box4NightTimes.filter(
+      (item, index) => index !== indexNum
+    );
+
+    const updatedBox4TempDay = box4TempDay.filter(
+      (item, index) => index !== indexNum
+    );
+
+    const updatedBox4TempNight = box4TempNight.filter(
+      (item, index) => index !== indexNum
+    );
+
+    const updatedBox4IconsDay = box4IconsDay.filter(
+      (item, index) => index !== indexNum
+    );
+
+    const updatedBox4IconsNight = box4IconsNight.filter(
+      (item, index) => index !== indexNum
+    );
+
+    const updatedBox4HourTimes = box4HourTimes.filter(
+      (item, index) => index !== indexNum
+    );
+
+    const updatedBox4HourTemps = box4HourTemps.filter(
+      (item, index) => index !== indexNum
+    );
+
+    const updatedBox4HourIcons = box4HourIcons.filter(
+      (item, index) => index !== indexNum
+    );
+
+    const updatedBox4HourDesc = box4HourDescription.filter(
+      (item, index) => index !== indexNum
+    );
+
+    const updatedBox4HourCelsius = box4HourCelsious.filter(
+      (item, index) => index !== indexNum
+    );
+
+    const updatedBox3HourTime = box3HourTime.filter(
+      (item, index) => index !== indexNum
+    );
+
+    const updatedBox3HourTemp = box3HourTemp.filter(
+      (item, index) => index !== indexNum
+    );
+
+    const updatedBox3HourIcon = box3HourIcon.filter(
+      (item, index) => index !== indexNum
+    );
+
+    const updatedBox3HourDesc = box3HourDescription.filter(
+      (item, index) => index !== indexNum
+    );
+
+    const updatedBox3HourCelsius = box3HourCelsius.filter(
+      (item, index) => index !== indexNum
+    );
+
+    const updatedButtons = buttons.filter((item, index) => index !== indexNum);
+
+    console.log(updateBox4CurrentIcons, " updateBox4CurrentIcons");
+    console.log(updateBox4CurrentTemp, " updateBox4CurrentTemp");
+    console.log(updatedBox4CurrentDesc, " updatedBox4CurrentDesc");
+    console.log(updatedBox4DaysLabel, " updatedBox4DaysLabel");
+    console.log(updatedBox4DaysTimes, " updatedBox4DaysTimes");
+    console.log(updatedBox4NightTimes, " updatedBox4NightTimes");
+    console.log(updatedBox4TempDay, " updatedBox4TempDay");
+    console.log(updatedBox4TempNight, " updatedBox4TempNight");
+    console.log(updatedBox4IconsDay, " updatedBox4IconsDay");
+    console.log(updatedBox4IconsNight, " updatedBox4IconsNight");
+    console.log(updatedBox4HourTimes, " updatedBox4HourTimes");
+    console.log(updatedBox4HourTemps, " updatedBox4HourTemps");
+    console.log(updatedBox4HourIcons, " updatedBox4HourIcons");
+    console.log(updatedBox4HourDesc, " updatedBox4HourDesc");
+    console.log(updatedBox4HourCelsius, " updatedBox4HourCelsius");
+    console.log(updatedBox3HourTime, " updatedBox3HourTime");
+    console.log(updatedBox3HourTemp, " updatedBox3HourTemp");
+    console.log(updatedBox3HourIcon, " updatedBox3HourIcon");
+    console.log(updatedBox3HourDesc, " updatedBox3HourDesc");
+    console.log(updatedBox3HourCelsius, " updatedBox3HourCelsius");
+    console.log(updatedButtons, " updatedButtons");
+
+    //    //      buttons.push({ buttons: cutArray21 });
+
+    box4CurrentIcons = updateBox4CurrentIcons;
+    box4CurrentTemp = updateBox4CurrentTemp;
+    box4CurrentDescription = updatedBox4CurrentDesc;
+    box4DaysLable = updatedBox4DaysLabel;
+    box4DayTimes = updatedBox4DaysTimes;
+    box4NightTimes = updatedBox4NightTimes;
+    box4TempDay = updatedBox4TempDay;
+    box4TempNight = updatedBox4TempNight;
+    box4IconsDay = updatedBox4IconsDay;
+    box4IconsNight = updatedBox4IconsNight;
+    box4HourTimes = updatedBox4HourTimes;
+    box4HourTemps = updatedBox4HourTemps;
+    box4HourIcons = updatedBox4HourIcons;
+    box4HourDescription = updatedBox4HourDesc;
+    box4HourCelsious = updatedBox4HourCelsius;
+    box3HourTime = updatedBox3HourTime;
+    box3HourTemp = updatedBox3HourTemp;
+    box3HourIcon = updatedBox3HourIcon;
+    box3HourDescription = updatedBox3HourDesc;
+    box3HourCelsius = updatedBox3HourCelsius;
+    buttons = updatedButtons;
+  };
 
   const handleRemoveWeatherSlide = (e) => {
     const localStorageData = JSON.parse(
@@ -1399,8 +2903,9 @@ const handleContentLoaded = () => {
       const result = localStoragSlidesData[localStoragSlidesData.length - 1];
 
       if (localStoragSlidesData.length > 0) {
-        bgImageContainer.className = localStoragSlidesData[0].nameClass;
+        setClassAfterRemove(localStoragSlidesData[0].nameClass);
       } else {
+        console.log("remove default");
         setDefaultLogoPage();
       }
 
@@ -1413,6 +2918,25 @@ const handleContentLoaded = () => {
       counter = 1;
       dotsWrapper.innerHTML = "";
       createDots(localStoragSlidesData);
+
+      const sliderDots = document.querySelectorAll(".slider__dot");
+
+      if (sliderDots.length > 0) {
+        sliderDots.forEach((item) => {
+          const classDot = item.className.split(" ")[0];
+          item.className = `${classDot} ${localStoragSlidesData[0].nameClass}`;
+        });
+      }
+
+      removeElementsArray(indexSlide - 1);
+
+      //   const updateBox4CurrentIcons = box4CurrentIcons.filter(
+      //     (item, index) => index !== indexSlide - 1
+      //   );
+
+      //   console.log(updateBox4CurrentIcons, " updateBox4CurrentIcons");
+
+      //   box4CurrentIcons = updateBox4CurrentIcons;
 
       if (localStoragSlidesData.length === 0) {
         logoStart.style.display = "flex";
@@ -1508,6 +3032,30 @@ const handleContentLoaded = () => {
   sliderContent.addEventListener("touchstart", startTouchDisplay);
   sliderContent.addEventListener("touchmove", moveTouchDisplay);
 
+  const setClassSingleSlide = (lcClassName) => {
+    const firstClassBgc = bgImageContainer.className.split(" ")[0];
+    const firstClassBtnR = buttonRemove.className.split(" ")[0];
+    const firstClassBtnS = buttonSearch.className.split(" ")[0];
+    const messageClass = infoMessage.className.split(" ")[0];
+    const oneClassCity = searchInputCity.className.split(" ")[0];
+    const twoClassCity = searchInputCity.className.split(" ")[1];
+    const oneClassCountry = searchInputCountry.className.split(" ")[0];
+    const twoClassCountry = searchInputCountry.className.split(" ")[1];
+    bgImageContainer.className = `${firstClassBgc} ${lcClassName}`;
+    buttonRemove.className = `${firstClassBtnR} ${lcClassName}`;
+    buttonSearch.className = `${firstClassBtnS} ${lcClassName}`;
+    infoMessage.className = `${messageClass} ${lcClassName}`;
+    searchInputCity.className = `${oneClassCity} ${twoClassCity} ${lcClassName}`;
+    searchInputCountry.className = `${oneClassCountry} ${twoClassCountry} ${lcClassName}`;
+    const sliderDots = document.querySelectorAll(".slider__dot");
+    console.log(sliderDots, " slide");
+
+    sliderDots.forEach((item) => {
+      const classDot = item.className.split(" ")[0];
+      item.className = `${classDot} ${lcClassName}`;
+    });
+  };
+
   const update = () => {
     sliderContent.style.transform = "translateX(" + -widthDiv * counter + "%)";
   };
@@ -1524,11 +3072,12 @@ const handleContentLoaded = () => {
 
     localCounter++;
     if (localCounter >= localStoragSlidesData.length) localCounter = 0;
-    bgImageContainer.className = localStoragSlidesData[localCounter].nameClass;
+    setClassSingleSlide(localStoragSlidesData[localCounter].nameClass);
 
     if (counter >= sliderContent.children.length - 1) return;
-
+    console.log(counter, " counter left  before ++");
     counter++;
+    console.log(counter, " counter left after ++ ");
 
     slideTransition();
   };
@@ -1540,7 +3089,7 @@ const handleContentLoaded = () => {
 
     localCounter--;
     if (localCounter < 0) localCounter = localStoragSlidesData.length - 1;
-    bgImageContainer.className = localStoragSlidesData[localCounter].nameClass;
+    setClassSingleSlide(localStoragSlidesData[localCounter].nameClass);
 
     if (counter <= 0) return;
     counter--;
@@ -1575,7 +3124,7 @@ const handleContentLoaded = () => {
     sliderContent.style.transitionDuration = "0.6s";
     sliderContent.style.transform = `translateX(-${index + 1}00%)`;
     counter = index + 1;
-    bgImageContainer.className = lStorageSlide[index].nameClass;
+    setClassSingleSlide(lStorageSlide[index].nameClass);
   };
 };
 
