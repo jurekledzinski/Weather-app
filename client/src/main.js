@@ -641,34 +641,12 @@ const handleContentLoaded = () => {
       classInnerBox1
     );
 
-    // innerBox1All.forEach((item, index) => {
-    //   if (indexWeather - 1 === index) {
-    //     let classInnerBox1 = item.className.split(" ")[0];
-    //     item.className = getCurrentImage(
-    //       result.current.idIcon,
-    //       isDayOrNight,
-    //       classInnerBox1
-    //     );
-    //   }
-    // });
-
     let classDate = innerBox1DateAll[indexWeather - 1].className.split(" ")[0];
     innerBox1DateAll[indexWeather - 1].className = getCurrentImage(
       result.current.idIcon,
       isDayOrNight,
       classDate
     );
-
-    // innerBox1DateAll.forEach((item, index) => {
-    //   if (indexWeather - 1 === index) {
-    //     let classDate = item.className.split(" ")[0];
-    //     item.className = getCurrentImage(
-    //       result.current.idIcon,
-    //       isDayOrNight,
-    //       classDate
-    //     );
-    //   }
-    // });
 
     let classCity = innerBox1CityAll[indexWeather - 1].className.split(" ")[0];
     innerBox1CityAll[indexWeather - 1].className = getCurrentImage(
@@ -677,34 +655,12 @@ const handleContentLoaded = () => {
       classCity
     );
 
-    // innerBox1CityAll.forEach((item, index) => {
-    //   if (indexWeather - 1 === index) {
-    //     let classCity = item.className.split(" ")[0];
-    //     item.className = getCurrentImage(
-    //       result.current.idIcon,
-    //       isDayOrNight,
-    //       classCity
-    //     );
-    //   }
-    // });
-
     let classTime = timesCountry[indexWeather - 1].className;
     timesCountry[indexWeather - 1].className = getCurrentImage(
       result.current.idIcon,
       isDayOrNight,
       classTime
     );
-
-    // timesCountry.forEach((item, index) => {
-    //   if (indexWeather - 1 === index) {
-    //     let classTime = item.className;
-    //     item.className = getCurrentImage(
-    //       result.current.idIcon,
-    //       isDayOrNight,
-    //       classTime
-    //     );
-    //   }
-    // });
 
     let classTemp1 = sliderTemp1[indexWeather - 1].className;
     sliderTemp1[indexWeather - 1].className = getCurrentImage(
@@ -713,34 +669,12 @@ const handleContentLoaded = () => {
       classTemp1
     );
 
-    // sliderTemp1.forEach((item, index) => {
-    //   if (indexWeather - 1 === index) {
-    //     let classTemp1 = item.className;
-    //     item.className = getCurrentImage(
-    //       result.current.idIcon,
-    //       isDayOrNight,
-    //       classTemp1
-    //     );
-    //   }
-    // });
-
     let classCel1 = sliderCelsius1[indexWeather - 1].className;
     sliderCelsius1[indexWeather - 1].className = getCurrentImage(
       result.current.idIcon,
       isDayOrNight,
       classCel1
     );
-
-    // sliderCelsius1.forEach((item, index) => {
-    //   if (indexWeather - 1 === index) {
-    //     let classCel1 = item.className;
-    //     item.className = getCurrentImage(
-    //       result.current.idIcon,
-    //       isDayOrNight,
-    //       classCel1
-    //     );
-    //   }
-    // });
 
     let classDec1 = sliderDesc1[indexWeather - 1].className;
     sliderDesc1[indexWeather - 1].className = getCurrentImage(
@@ -749,34 +683,12 @@ const handleContentLoaded = () => {
       classDec1
     );
 
-    // sliderDesc1.forEach((item, index) => {
-    //   if (indexWeather - 1 === index) {
-    //     let classDec1 = item.className;
-    //     item.className = getCurrentImage(
-    //       result.current.idIcon,
-    //       isDayOrNight,
-    //       classDec1
-    //     );
-    //   }
-    // });
-
     let classIco1 = sliderIcon1[indexWeather - 1].className;
     sliderIcon1[indexWeather - 1].className = getCurrentImage(
       result.current.idIcon,
       isDayOrNight,
       classIco1
     );
-
-    // sliderIcon1.forEach((item, index) => {
-    //   if (indexWeather - 1 === index) {
-    //     let classIco1 = item.className;
-    //     item.className = getCurrentImage(
-    //       result.current.idIcon,
-    //       isDayOrNight,
-    //       classIco1
-    //     );
-    //   }
-    // });
 
     let classInnerBox2 = innerBox2All[indexWeather - 1].className;
     innerBox2All[indexWeather - 1].className = getCurrentImage(
@@ -785,34 +697,12 @@ const handleContentLoaded = () => {
       classInnerBox2
     );
 
-    // innerBox2All.forEach((item, index) => {
-    //   if (indexWeather - 1 === index) {
-    //     let classInnerBox2 = item.className;
-    //     item.className = getCurrentImage(
-    //       result.current.idIcon,
-    //       isDayOrNight,
-    //       classInnerBox2
-    //     );
-    //   }
-    // });
-
     let classInnerBox3 = innerBox3All[indexWeather - 1].className;
     innerBox3All[indexWeather - 1].className = getCurrentImage(
       result.current.idIcon,
       isDayOrNight,
       classInnerBox3
     );
-
-    // innerBox3All.forEach((item, index) => {
-    //   if (indexWeather - 1 === index) {
-    //     let classInnerBox3 = item.className;
-    //     item.className = getCurrentImage(
-    //       result.current.idIcon,
-    //       isDayOrNight,
-    //       classInnerBox3
-    //     );
-    //   }
-    // });
 
     let classInnerBox4 = innerBox4All[indexWeather - 1].className;
     innerBox4All[indexWeather - 1].className = getCurrentImage(
@@ -821,34 +711,12 @@ const handleContentLoaded = () => {
       classInnerBox4
     );
 
-    // innerBox4All.forEach((item, index) => {
-    //   if (indexWeather - 1 === index) {
-    //     let classInnerBox4 = item.className;
-    //     item.className = getCurrentImage(
-    //       result.current.idIcon,
-    //       isDayOrNight,
-    //       classInnerBox4
-    //     );
-    //   }
-    // });
-
     let classBtnPan = sliderButtonsPanel[indexWeather - 1].className;
     sliderButtonsPanel[indexWeather - 1].className = getCurrentImage(
       result.current.idIcon,
       isDayOrNight,
       classBtnPan
     );
-
-    // sliderButtonsPanel.forEach((item, index) => {
-    //   if (indexWeather - 1 === index) {
-    //     let classBtnPan = item.className;
-    //     item.className = getCurrentImage(
-    //       result.current.idIcon,
-    //       isDayOrNight,
-    //       classBtnPan
-    //     );
-    //   }
-    // });
 
     sliderDots.forEach((item, index) => {
       let classDot = item.className;
@@ -862,17 +730,6 @@ const handleContentLoaded = () => {
       classTitle1
     );
 
-    // sliderBox2Title.forEach((item, index) => {
-    //   if (indexWeather - 1 === index) {
-    //     let classTitle1 = item.className;
-    //     item.className = getCurrentImage(
-    //       result.current.idIcon,
-    //       isDayOrNight,
-    //       classTitle1
-    //     );
-    //   }
-    // });
-
     let classTitle2 = sliderBox3Title[indexWeather - 1].className;
     sliderBox3Title[indexWeather - 1].className = getCurrentImage(
       result.current.idIcon,
@@ -880,34 +737,12 @@ const handleContentLoaded = () => {
       classTitle2
     );
 
-    // sliderBox3Title.forEach((item, index) => {
-    //   if (indexWeather - 1 === index) {
-    //     let classTitle2 = item.className;
-    //     item.className = getCurrentImage(
-    //       result.current.idIcon,
-    //       isDayOrNight,
-    //       classTitle2
-    //     );
-    //   }
-    // });
-
     let classTitle3 = sliderBox4Title[indexWeather - 1].className;
     sliderBox4Title[indexWeather - 1].className = getCurrentImage(
       result.current.idIcon,
       isDayOrNight,
       classTitle3
     );
-
-    // sliderBox4Title.forEach((item, index) => {
-    //   if (indexWeather - 1 === index) {
-    //     let classTitle3 = item.className;
-    //     item.className = getCurrentImage(
-    //       result.current.idIcon,
-    //       isDayOrNight,
-    //       classTitle3
-    //     );
-    //   }
-    // });
 
     console.log(
       box4CurrentIcons[indexWeather - 1].detailsIcons,
@@ -923,19 +758,6 @@ const handleContentLoaded = () => {
         classDetails1
       );
     });
-
-    // box4CurrentIcons.forEach((item, index) => {
-    //   if (indexWeather - 1 === index) {
-    //     item.detailsIcons.forEach((item1) => {
-    //       let classDetails1 = item1.className;
-    //       item1.className = getCurrentImage(
-    //         result.current.idIcon,
-    //         isDayOrNight,
-    //         classDetails1
-    //       );
-    //     });
-    //   }
-    // });
 
     box4CurrentTemp[indexWeather - 1].currentTemp.forEach((item) => {
       let classTemp = item.className.split(" ")[0];
@@ -1446,26 +1268,12 @@ const handleContentLoaded = () => {
       boxClass
     );
 
-    // innerBox1All.forEach((item, index) => {
-    //   if (index === localIndex) {
-    //     const boxClass = item.className;
-    //     item.className = getCurrentImage(iconId, isDayOrNight, boxClass);
-    //   }
-    // });
-
     const boxDateclass = innerBox1DateAll[localIndex].className;
     innerBox1DateAll[localIndex].className = getCurrentImage(
       iconId,
       isDayOrNight,
       boxDateclass
     );
-
-    // innerBox1DateAll.forEach((item, index) => {
-    //   if (index === localIndex) {
-    //     const boxDateclass = item.className;
-    //     item.className = getCurrentImage(iconId, isDayOrNight, boxDateclass);
-    //   }
-    // });
 
     const boxCityclass = innerBox1CityAll[localIndex].className;
     innerBox1CityAll[localIndex].className = getCurrentImage(
@@ -1474,26 +1282,12 @@ const handleContentLoaded = () => {
       boxCityclass
     );
 
-    // innerBox1CityAll.forEach((item, index) => {
-    //   if (index === localIndex) {
-    //     const boxCityclass = item.className;
-    //     item.className = getCurrentImage(iconId, isDayOrNight, boxCityclass);
-    //   }
-    // });
-
     const boxClassTime = timesCountry[localIndex].className;
     timesCountry[localIndex].className = getCurrentImage(
       iconId,
       isDayOrNight,
       boxClassTime
     );
-
-    // timesCountry.forEach((item, index) => {
-    //   if (index === localIndex) {
-    //     const boxClassTime = item.className;
-    //     item.className = getCurrentImage(iconId, isDayOrNight, boxClassTime);
-    //   }
-    // });
 
     const boxClassTemp1 = sliderTemp1[localIndex].className;
     sliderTemp1[localIndex].className = getCurrentImage(
@@ -1502,26 +1296,12 @@ const handleContentLoaded = () => {
       boxClassTemp1
     );
 
-    // sliderTemp1.forEach((item, index) => {
-    //   if (index === localIndex) {
-    //     const boxClassTemp1 = item.className;
-    //     item.className = getCurrentImage(iconId, isDayOrNight, boxClassTemp1);
-    //   }
-    // });
-
     const boxClassCel1 = sliderCelsius1[localIndex].className;
     sliderCelsius1[localIndex].className = getCurrentImage(
       iconId,
       isDayOrNight,
       boxClassCel1
     );
-
-    // sliderCelsius1.forEach((item, index) => {
-    //   if (index === localIndex) {
-    //     const boxClassCel1 = item.className;
-    //     item.className = getCurrentImage(iconId, isDayOrNight, boxClassCel1);
-    //   }
-    // });
 
     const boxClassDec1 = sliderDesc1[localIndex].className;
     sliderDesc1[localIndex].className = getCurrentImage(
@@ -1530,26 +1310,12 @@ const handleContentLoaded = () => {
       boxClassDec1
     );
 
-    // sliderDesc1.forEach((item, index) => {
-    //   if (index === localIndex) {
-    //     const boxClassDec1 = item.className;
-    //     item.className = getCurrentImage(iconId, isDayOrNight, boxClassDec1);
-    //   }
-    // });
-
     const boxClassIco1 = sliderIcon1[localIndex].className;
     sliderIcon1[localIndex].className = getCurrentImage(
       iconId,
       isDayOrNight,
       boxClassIco1
     );
-
-    // sliderIcon1.forEach((item, index) => {
-    //   if (index === localIndex) {
-    //     const boxClassIco1 = item.className;
-    //     item.className = getCurrentImage(iconId, isDayOrNight, boxClassIco1);
-    //   }
-    // });
 
     const boxClass2 = innerBox2All[localIndex].className;
     innerBox2All[localIndex].className = getCurrentImage(
@@ -1558,26 +1324,12 @@ const handleContentLoaded = () => {
       boxClass2
     );
 
-    // innerBox2All.forEach((item, index) => {
-    //   if (index === localIndex) {
-    //     const boxClass2 = item.className;
-    //     item.className = getCurrentImage(iconId, isDayOrNight, boxClass2);
-    //   }
-    // });
-
     const boxClass3 = innerBox3All[localIndex].className;
     innerBox3All[localIndex].className = getCurrentImage(
       iconId,
       isDayOrNight,
       boxClass3
     );
-
-    // innerBox3All.forEach((item, index) => {
-    //   if (index === localIndex) {
-    //     const boxClass3 = item.className;
-    //     item.className = getCurrentImage(iconId, isDayOrNight, boxClass3);
-    //   }
-    // });
 
     const boxClass4 = innerBox4All[localIndex].className;
     innerBox4All[localIndex].className = getCurrentImage(
@@ -1586,26 +1338,12 @@ const handleContentLoaded = () => {
       boxClass4
     );
 
-    // innerBox4All.forEach((item, index) => {
-    //   if (index === localIndex) {
-    //     const boxClass4 = item.className;
-    //     item.className = getCurrentImage(iconId, isDayOrNight, boxClass4);
-    //   }
-    // });
-
     const btnPanelClass = sliderButtonsPanel[localIndex].className;
     sliderButtonsPanel[localIndex].className = getCurrentImage(
       iconId,
       isDayOrNight,
       btnPanelClass
     );
-
-    // sliderButtonsPanel.forEach((item, index) => {
-    //   if (index === localIndex) {
-    //     const btnPanelClass = item.className;
-    //     item.className = getCurrentImage(iconId, isDayOrNight, btnPanelClass);
-    //   }
-    // });
 
     sliderDots.forEach((item, index) => {
       const dotClass = item.className;
@@ -1619,13 +1357,6 @@ const handleContentLoaded = () => {
       classTitleBox2
     );
 
-    // sliderBox2Title.forEach((item, index) => {
-    //   if (index === localIndex) {
-    //     const boxTitle1 = item.className;
-    //     item.className = getCurrentImage(iconId, isDayOrNight, boxTitle1);
-    //   }
-    // });
-
     const classTitleBox3 = sliderBox3Title[localIndex].className;
     sliderBox3Title[localIndex].className = getCurrentImage(
       iconId,
@@ -1633,27 +1364,12 @@ const handleContentLoaded = () => {
       classTitleBox3
     );
 
-    // sliderBox3Title.forEach((item, index) => {
-    //   if (index === localIndex) {
-    //     const boxTitle2 = item.className;
-    //     item.className = getCurrentImage(iconId, isDayOrNight, boxTitle2);
-    //   }
-    // });
-
     const classTitleBox4 = sliderBox4Title[localIndex].className;
     sliderBox4Title[localIndex].className = getCurrentImage(
       iconId,
       isDayOrNight,
       classTitleBox4
     );
-
-    // sliderBox4Title.forEach((item, index) => {
-    //   if (index === localIndex) {
-    //     console.log(item, " petla title box 4");
-    //     const boxTitle3 = item.className;
-    //     item.className = getCurrentImage(iconId, isDayOrNight, boxTitle3);
-    //   }
-    // });
 
     box4CurrentIcons[localIndex].detailsIcons.forEach((item) => {
       const boxDetails = item.className;
@@ -2616,20 +2332,6 @@ const handleContentLoaded = () => {
           config
         );
 
-        // const {
-        //   dotsWrapper,
-        //   sliderBoxes3Mobile,
-        //   sliderBoxes4,
-        //   sliderBoxesDays4,
-        //   detailsTitle,
-        //   detailsWeather,
-        //   innerBoxFour,
-        //   buttonsButtom,
-        // } = getElementsApp(result);
-
-        // dotsWrapper.innerHTML = "";
-        // createDots(weathersArray);
-
         defaultVisiblityDetailsButton(buttonsButtom, sliderBoxes4);
 
         buttonsButtom.forEach((item, index) => {
@@ -2811,8 +2513,6 @@ const handleContentLoaded = () => {
     console.log(updatedBox3HourDesc, " updatedBox3HourDesc");
     console.log(updatedBox3HourCelsius, " updatedBox3HourCelsius");
     console.log(updatedButtons, " updatedButtons");
-
-    //    //      buttons.push({ buttons: cutArray21 });
 
     box4CurrentIcons = updateBox4CurrentIcons;
     box4CurrentTemp = updateBox4CurrentTemp;
