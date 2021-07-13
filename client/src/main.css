@@ -99,6 +99,8 @@ body {
   background-image: url("https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Squall-day-night.jpg?alt=media&token=4ffc0d9d-96f5-429f-95d7-6a641cdef4f6");
 }
 
+/* Ok */
+
 .bgiContainer.tornado {
   background-image: url("https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Tornado.jpg?alt=media&token=f78abe9e-bfd4-4af5-919c-5fc0fb516260");
 }
@@ -119,7 +121,7 @@ body {
 
 .bgiContainer.clouds-day {
   background-image: url("https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Clouds-day.jpg?alt=media&token=81afcae1-f9a5-414e-8c3f-c4244da3e1fb");
-  background-image: url("https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Tornado.jpg?alt=media&token=f78abe9e-bfd4-4af5-919c-5fc0fb516260");
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Squall-day-night.jpg?alt=media&token=4ffc0d9d-96f5-429f-95d7-6a641cdef4f6");
 }
 
 /* Ok */
@@ -179,7 +181,8 @@ body {
 .input-message.fog-night,
 .input-message.thunderstorm-day,
 .input-message.thunderstorm-night,
-.input-message.tornado {
+.input-message.tornado,
+.input-message.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
 }
 
@@ -290,7 +293,9 @@ body {
 .search-bar__input--city.thunderstorm-night::placeholder,
 .search-bar__input--country.thunderstorm-night::placeholder,
 .search-bar__input--city.tornado::placeholder,
-.search-bar__input--country.tornado::placeholder {
+.search-bar__input--country.tornado::placeholder,
+.search-bar__input--city.squall-day-night::placeholder,
+.search-bar__input--country.squall-day-night::placeholder {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 100;
 }
@@ -314,7 +319,9 @@ body {
 .search-bar__input--city.thunderstorm-night:-ms-input-placeholder,
 .search-bar__input--country.thunderstorm-night:-ms-input-placeholder,
 .search-bar__input--city.tornado:-ms-input-placeholder,
-.search-bar__input--country.tornado:-ms-input-placeholder {
+.search-bar__input--country.tornado:-ms-input-placeholder,
+.search-bar__input--city.squall-day-night:-ms-input-placeholder,
+.search-bar__input--country.squall-day-night:-ms-input-placeholder {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 100;
 }
@@ -338,7 +345,9 @@ body {
 .search-bar__input--city.thunderstorm-night::-ms-input-placeholder,
 .search-bar__input--country.thunderstorm-night::-ms-input-placeholder,
 .search-bar__input--city.tornado::-ms-input-placeholder,
-.search-bar__input--country.tornado::-ms-input-placeholder {
+.search-bar__input--country.tornado::-ms-input-placeholder,
+.search-bar__input--city.squall-day-night::-ms-input-placeholder,
+.search-bar__input--country.squall-day-night:-ms-input-placeholder {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 100;
 }
@@ -434,7 +443,9 @@ body {
 }
 
 .search-bar__input--city.tornado,
-.search-bar__input--country.tornado {
+.search-bar__input--country.tornado,
+.search-bar__input--city.squall-day-night,
+.search-bar__input--country.squall-day-night {
   border-bottom: 1px solid #525252c7;
   color: rgba(255, 255, 255, 1);
   font-weight: 300;
@@ -531,7 +542,8 @@ body {
   color: rgba(255, 255, 255, 0.82);
 }
 
-.search-bar__button-search.tornado {
+.search-bar__button-search.tornado,
+.search-bar__button-search.squall-day-night {
   background-color: #3d72b48c;
   background: linear-gradient(to right, #525252c7, #525252c7);
   background: linear-gradient(to right, #525252c7, #525252c7);
@@ -623,7 +635,8 @@ body {
   color: rgba(255, 255, 255, 0.82);
 }
 
-.search-bar__button-remove.tornado {
+.search-bar__button-remove.tornado,
+.search-bar__button-remove.squall-day-night {
   background-color: #3d72b48c;
   background: linear-gradient(to right, #525252c7, #525252c7);
   background: linear-gradient(to right, #525252c7, #525252c7);
@@ -776,7 +789,8 @@ body {
   background: linear-gradient(to bottom, #516395a8, #61438585);
 }
 
-.slider__inner-box:nth-child(1).tornado {
+.slider__inner-box:nth-child(1).tornado,
+.slider__inner-box:nth-child(1).squall-day-night {
   background: #3d72b48c;
   background: -webkit-linear-gradient(to bottom, #525252c7, #3d72b48c);
   background: linear-gradient(to bottom, #525252c7, #3d72b48c);
@@ -843,7 +857,8 @@ body {
 .slider__current-date.fog-night,
 .slider__current-date.thunderstorm-day,
 .slider__current-date.thunderstorm-night,
-.slider__current-date.tornado {
+.slider__current-date.tornado,
+.slider__current-date.squall-day-night {
   color: rgba(255, 255, 255, 1);
   font-weight: 100;
 }
@@ -872,7 +887,8 @@ body {
 .slider__temperature.fog-night,
 .slider__temperature.thunderstorm-day,
 .slider__temperature.thunderstorm-night,
-.slider__temperature.tornado {
+.slider__temperature.tornado,
+.slider__temperature.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 100;
 }
@@ -899,7 +915,8 @@ body {
 .slider__celsius-icon.fog-night,
 .slider__celsius-icon.thunderstorm-day,
 .slider__celsius-icon.thunderstorm-night,
-.slider__celsius-icon.tornado {
+.slider__celsius-icon.tornado,
+.slider__celsius-icon.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 100;
 }
@@ -929,7 +946,8 @@ body {
 .slider__weather-icon.fog-night,
 .slider__weather-icon.thunderstorm-day,
 .slider__weather-icon.thunderstorm-night,
-.slider__weather-icon.tornado {
+.slider__weather-icon.tornado,
+.slider__weather-icon.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 100;
 }
@@ -959,7 +977,8 @@ body {
 .slider__image-description.fog-night,
 .slider__image-description.thunderstorm-day,
 .slider__image-description.thunderstorm-night,
-.slider__image-description.tornado {
+.slider__image-description.tornado,
+.slider__image-description.squall-day-night {
   color: rgba(255, 255, 255, 1);
   font-weight: 100;
 }
@@ -999,7 +1018,8 @@ body {
 .slider__city.fog-night,
 .slider__city.thunderstorm-day,
 .slider__city.thunderstorm-night,
-.slider__city.tornado {
+.slider__city.tornado,
+.slider__city.squall-day-night {
   color: rgba(255, 255, 255, 1);
   font-weight: 100;
 }
@@ -1029,7 +1049,8 @@ body {
 .slider__country-time.fog-night,
 .slider__country-time.thunderstorm-day,
 .slider__country-time.thunderstorm-night,
-.slider__country-time.tornado {
+.slider__country-time.tornado,
+.slider__country-time.squall-day-night {
   color: rgba(255, 255, 255, 1);
   font-weight: 100;
 }
@@ -1119,7 +1140,8 @@ body {
   background: linear-gradient(to bottom, #61438585, #61438585);
 }
 
-.slider__inner-box:nth-child(2).tornado {
+.slider__inner-box:nth-child(2).tornado,
+.slider__inner-box:nth-child(2).squall-day-night {
   background: #3d72b48c;
   background: -webkit-linear-gradient(to bottom, #3d72b48c, #3d72b48c);
   background: linear-gradient(to bottom, #3d72b48c, #3d72b48c);
@@ -1193,7 +1215,10 @@ body {
 .slider__box-4-title.thunderstorm-night,
 .slider__box-2-title.tornado,
 .slider__box-3-title.tornado,
-.slider__box-4-title.tornado {
+.slider__box-4-title.tornado,
+.slider__box-2-title.squall-day-night,
+.slider__box-3-title.squall-day-night,
+.slider__box-4-title.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 100;
 }
@@ -1276,7 +1301,8 @@ body {
 .slider__hourly-weather-time.fog-night,
 .slider__hourly-weather-time.thunderstorm-day,
 .slider__hourly-weather-time.thunderstorm-night,
-.slider__hourly-weather-time.tornado {
+.slider__hourly-weather-time.tornado,
+.slider__hourly-weather-time.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 300;
 }
@@ -1308,7 +1334,8 @@ body {
 .slider__hourly-weather-description.fog-night,
 .slider__hourly-weather-description.thunderstorm-day,
 .slider__hourly-weather-description.thunderstorm-night,
-.slider__hourly-weather-description.tornado {
+.slider__hourly-weather-description.tornado,
+.slider__hourly-weather-description.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 100;
 }
@@ -1344,7 +1371,8 @@ body {
 .slider__hourly-weather-temperature-wrapper.fog-night,
 .slider__hourly-weather-temperature-wrapper.thunderstorm-day,
 .slider__hourly-weather-temperature-wrapper.thunderstorm-night,
-.slider__hourly-weather-temperature-wrapper.tornado {
+.slider__hourly-weather-temperature-wrapper.tornado,
+.slider__hourly-weather-temperature-wrapper.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 100;
 }
@@ -1375,7 +1403,8 @@ body {
 .slider__hourly-icon-celsius.fog-night,
 .slider__hourly-icon-celsius.thunderstorm-day,
 .slider__hourly-icon-celsius.thunderstorm-night,
-.slider__hourly-icon-celsius.tornado {
+.slider__hourly-icon-celsius.tornado,
+.slider__hourly-icon-celsius.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
 }
 
@@ -1404,7 +1433,8 @@ body {
 .slider__hourly-icon-weather.fog-night,
 .slider__hourly-icon-weather.thunderstorm-day,
 .slider__hourly-icon-weather.thunderstorm-night,
-.slider__hourly-icon-weather.tornado {
+.slider__hourly-icon-weather.tornado,
+.slider__hourly-icon-weather.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 100;
 }
@@ -1523,7 +1553,8 @@ body {
   background: linear-gradient(to bottom, #61438585, #61438585);
 }
 
-.slider__inner-box:nth-child(4).tornado {
+.slider__inner-box:nth-child(4).tornado,
+.slider__inner-box:nth-child(4).squall-day-night {
   background: #3d72b48c;
   background: -webkit-linear-gradient(to bottom, #3d72b48c, #3d72b48c);
   background: linear-gradient(to bottom, #3d72b48c, #3d72b48c);
@@ -1615,7 +1646,8 @@ body {
 .slider__box-details-icon.fog-night,
 .slider__box-details-icon.thunderstorm-day,
 .slider__box-details-icon.thunderstorm-night,
-.slider__box-details-icon.tornado {
+.slider__box-details-icon.tornado,
+.slider__box-details-icon.squall-day-night {
   color: rgba(255, 255, 255, 0.75);
 }
 
@@ -1657,7 +1689,8 @@ body {
 .slider__box-details-text.fog-night,
 .slider__box-details-text.thunderstorm-day,
 .slider__box-details-text.thunderstorm-night,
-.slider__box-details-text.tornado {
+.slider__box-details-text.tornado,
+.slider__box-details-text.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 100;
 }
@@ -1695,7 +1728,8 @@ body {
 .slider__box-details-description.fog-night,
 .slider__box-details-description.thunderstorm-day,
 .slider__box-details-description.thunderstorm-night,
-.slider__box-details-description.tornado {
+.slider__box-details-description.tornado,
+.slider__box-details-description.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 100;
 }
@@ -1797,7 +1831,8 @@ body {
 .slider__box-4-day-time.fog-night,
 .slider__box-4-day-time.thunderstorm-day,
 .slider__box-4-day-time.thunderstorm-night,
-.slider__box-4-day-time.tornado {
+.slider__box-4-day-time.tornado,
+.slider__box-4-day-time.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 100;
 }
@@ -1821,7 +1856,8 @@ body {
 .slider__box-4-day-night.fog-night,
 .slider__box-4-day-night.thunderstorm-day,
 .slider__box-4-day-night.thunderstorm-night,
-.slider__box-4-day-night.tornado {
+.slider__box-4-day-night.tornado,
+.slider__box-4-day-night.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 100;
 }
@@ -1878,7 +1914,9 @@ body {
 .slider__box-4-days-details-text-day.thunderstorm-night,
 .slider__box-4-days-details-text-night.thunderstorm-night,
 .slider__box-4-days-details-text-day.tornado,
-.slider__box-4-days-details-text-night.tornado {
+.slider__box-4-days-details-text-night.tornado,
+.slider__box-4-days-details-text-day.squall-day-night,
+.slider__box-4-days-details-text-night.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 100;
 }
@@ -1916,7 +1954,8 @@ body {
 .slider__box-4-days-day.fog-night,
 .slider__box-4-days-day.thunderstorm-day,
 .slider__box-4-days-day.thunderstorm-night,
-.slider__box-4-days-day.tornado {
+.slider__box-4-days-day.tornado,
+.slider__box-4-days-day.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 300;
 }
@@ -1969,7 +2008,9 @@ body {
 .slider__box-4-days-icon-weather-day.thunderstorm-night,
 .slider__box-4-days-icon-weather-night.thunderstorm-night,
 .slider__box-4-days-icon-weather-day.tornado,
-.slider__box-4-days-icon-weather-night.tornado {
+.slider__box-4-days-icon-weather-night.tornado,
+.slider__box-4-days-icon-weather-day.squall-day-night,
+.slider__box-4-days-icon-weather-night.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
 }
 
@@ -2074,7 +2115,8 @@ body {
 .slider__hourly-time-mobile.fog-night,
 .slider__hourly-time-mobile.thunderstorm-day,
 .slider__hourly-time-mobile.thunderstorm-night,
-.slider__hourly-time-mobile.tornado {
+.slider__hourly-time-mobile.tornado,
+.slider__hourly-time-mobile.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 300;
 }
@@ -2116,7 +2158,8 @@ body {
 .slider__hourly-temperature-mobile.fog-night,
 .slider__hourly-temperature-mobile.thunderstorm-day,
 .slider__hourly-temperature-mobile.thunderstorm-night,
-.slider__hourly-temperature-mobile.tornado {
+.slider__hourly-temperature-mobile.tornado,
+.slider__hourly-temperature-mobile.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 100;
 }
@@ -2147,7 +2190,8 @@ body {
 .slider__hourly-icon-mobile.fog-night,
 .slider__hourly-icon-mobile.thunderstorm-day,
 .slider__hourly-icon-mobile.thunderstorm-night,
-.slider__hourly-icon-mobile.tornado {
+.slider__hourly-icon-mobile.tornado,
+.slider__hourly-icon-mobile.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
 }
 
@@ -2185,7 +2229,8 @@ body {
 .slider__hourly-icon-weather-mobile.fog-night,
 .slider__hourly-icon-weather-mobile.thunderstorm-day,
 .slider__hourly-icon-weather-mobile.thunderstorm-night,
-.slider__hourly-icon-weather-mobile.tornado {
+.slider__hourly-icon-weather-mobile.tornado,
+.slider__hourly-icon-weather-mobile.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
 }
 
@@ -2216,7 +2261,8 @@ body {
 .slider__hourly-weather-description-mobile.fog-night,
 .slider__hourly-weather-description-mobile.thunderstorm-day,
 .slider__hourly-weather-description-mobile.thunderstorm-night,
-.slider__hourly-weather-description-mobile.tornado {
+.slider__hourly-weather-description-mobile.tornado,
+.slider__hourly-weather-description-mobile.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 100;
 }
@@ -2366,7 +2412,8 @@ body {
   );
 }
 
-.slider__bottom-panel.tornado {
+.slider__bottom-panel.tornado,
+.slider__bottom-panel.squall-day-night {
   background: #3d72b48c;
   background: -webkit-linear-gradient(to bottom, #3d72b48c, #3d72b48c);
   background: linear-gradient(to bottom, #3d72b48c, #3d72b48c);
@@ -2402,7 +2449,8 @@ body {
 .slider__bottom-btn.fog-night,
 .slider__bottom-btn.thunderstorm-day,
 .slider__bottom-btn.thunderstorm-night,
-.slider__bottom-btn.tornado {
+.slider__bottom-btn.tornado,
+.slider__bottom-btn.squall-day-night {
   color: rgba(255, 255, 255, 0.82);
 }
 
@@ -2504,13 +2552,14 @@ body {
   background: linear-gradient(to bottom, #928dab94, #928dab94);
 }
 
-.slider__dot.thunderstorm-night.thunderstorm-night {
+.slider__dot.thunderstorm-night {
   background: #516395a8;
   background: -webkit-linear-gradient(to bottom, #61438585, #61438585);
   background: linear-gradient(to bottom, #61438585, #61438585);
 }
 
-.slider__dot.thunderstorm-night.tornado {
+.slider__dot.tornado,
+.slider__dot.squall-day-night {
   background: #3d72b48c;
   background: -webkit-linear-gradient(to bottom, #3d72b48c, #3d72b48c);
   background: linear-gradient(to bottom, #3d72b48c, #3d72b48c);
@@ -3054,7 +3103,8 @@ body {
     background: linear-gradient(to right, #516395a8, #61438585);
   }
 
-  .slider__inner-box:nth-child(1).tornado {
+  .slider__inner-box:nth-child(1).tornado,
+  .slider__inner-box:nth-child(1).squall-day-night {
     background: #3d72b48c;
     background: -webkit-linear-gradient(to right, #525252c7, #3d72b48c);
     background: linear-gradient(to right, #525252c7, #3d72b48c);
@@ -3214,7 +3264,8 @@ body {
     background: linear-gradient(to right, #516395a8, #61438585);
   }
 
-  .slider__inner-box:nth-child(3).tornado {
+  .slider__inner-box:nth-child(3).tornado,
+  .slider__inner-box:nth-child(3).squall-day-night {
     background: #3d72b48c;
     background: -webkit-linear-gradient(to right, #525252c7, #3d72b48c);
     background: linear-gradient(to right, #525252c7, #3d72b48c);
@@ -3375,7 +3426,8 @@ body {
     color: rgba(255, 255, 255, 0.82);
   }
 
-  .search-bar__button-search.tornado {
+  .search-bar__button-search.tornado,
+  .search-bar__button-search.squall-day-night {
     background: #3d72b48c;
     background: -webkit-linear-gradient(to right, #525252c7, #3d72b48c);
     background: linear-gradient(to right, #525252c7, #3d72b48c);
@@ -3407,7 +3459,8 @@ body {
     color: rgba(255, 255, 255, 0.82);
   }
 
-  .search-bar__button-remove.tornado {
+  .search-bar__button-remove.tornado,
+  .search-bar__button-remove.squall-day-night {
     background: #3d72b48c;
     background: -webkit-linear-gradient(to right, #3d72b48c, #3d72b48c);
     background: linear-gradient(to right, #3d72b48c, #3d72b48c);
