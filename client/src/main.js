@@ -317,6 +317,10 @@ const handleContentLoaded = () => {
       bgImageContainer.className = "bgiContainer time-night";
       bgImageContainer.style.filter = "initial";
       bgImageContainer.style.webkitFilter = "initial";
+      searchInputCity.style.borderBottomColor = "#2C5364";
+      searchInputCountry.style.borderBottomColor = "#2C5364";
+      buttonSearch.style.background = "#2C5364";
+      buttonRemove.style.background = "#2C5364";
     }
 
     buttonRemove.className = "search-bar__button-remove";
@@ -348,6 +352,57 @@ const handleContentLoaded = () => {
     return todayDate;
   };
 
+  const getCurrentChartColors = (description) => {
+    switch (description) {
+      case "clear-sky-day":
+        return "rgba(255,255,255,0.82)";
+        break;
+      case "clear-sky-night":
+        return "rgba(255,255,255,0.82)";
+        break;
+      case "clouds-day":
+        return "rgba(255,255,255,0.82)";
+        break;
+      case "clouds-night":
+        return "rgba(255,255,255,0.82)";
+        break;
+      case "rain-day":
+        return "rgba(0,0,0,0.82)";
+        break;
+      case "rain-night":
+        return "rgba(255,255,255,0.82)";
+        break;
+      case "snow-day":
+        return "rgba(255,255,255,0.82)";
+        break;
+      case "snow-night":
+        return "rgba(255,255,255,0.82)";
+        break;
+      case "fog-day":
+        return "rgba(0,0,0,0.82)";
+        break;
+      case "fog-night":
+        return "rgba(255,255,255,0.82)";
+        break;
+      case "thunderstorm-day":
+        return "rgba(255,255,255,0.82)";
+        break;
+      case "thunderstorm-night":
+        return "rgba(255,255,255,0.82)";
+        break;
+      case "tornado":
+        return "rgba(255,255,255,0.82)";
+        break;
+      case "squall-day-night":
+        return "rgba(255,255,255,0.82)";
+        break;
+      default:
+        "clouds-day";
+        return "rgba(255,255,255,0.82)";
+        break;
+    }
+  };
+
   const getChartData = (result, timezone) => {
     const tempHourly = result.hourly.map((item) => item.temp);
     const labelHourly = result.hourly.map((item) => {
@@ -361,13 +416,26 @@ const handleContentLoaded = () => {
       return timeHourly;
     });
 
+    console.log(result, "result getChart data");
+
+    const { isDayOrNight } = checkCurrentDayOrNight(
+      timezone,
+      result.current.sunrise,
+      result.current.sunset
+    );
+
+    const iconId = result.current.idIcon;
+    const iconName = getCurrentImage(iconId, isDayOrNight, ",");
+    const nameIcon = iconName.split(" ")[1];
+    const colorChart = getCurrentChartColors(nameIcon);
+
     const data = {
       labels: labelHourly,
       datasets: [
         {
           label: "Temperature",
           backgroundColor: "rgb(255,255,255)",
-          borderColor: "rgb(255,255,255)",
+          borderColor: `${colorChart}`,
           data: tempHourly,
           cubicInterpolationMode: "monotone",
           borderWidth: 0.7,
@@ -388,19 +456,25 @@ const handleContentLoaded = () => {
             position: "top",
             align: "end",
             labels: {
-              color: "rgb(255,255,255)",
+              color: "rgba(255,255,255,0.82)",
             },
           },
         },
         scales: {
           xAxes: {
             ticks: {
-              color: "#ffffff", // this here
+              color: `${colorChart}`,
+              font: {
+                weight: "lighter",
+              },
             },
           },
           yAxes: {
             ticks: {
-              color: "#ffffff", // this here
+              color: `${colorChart}`,
+              font: {
+                weight: "lighter",
+              },
             },
           },
         },
@@ -2217,10 +2291,12 @@ const handleContentLoaded = () => {
         const detailsLocation = {
           city: result.city,
           country: result.country,
+          current: result.current,
           hourly: result.hourly,
           timezone: result.timezone,
           nameClass: nameClass.split(" ")[1],
         };
+
         weathersArray = [...weathersArray, detailsLocation];
 
         // tu juz nie musze dodawac gdy cos jest w localstorage poniewaz to sie nie zmienia potem do czasu klik dot swipe
@@ -2253,8 +2329,12 @@ const handleContentLoaded = () => {
 
         // setClassActiveStyles(iconId, isDayOrNight, result);
 
+        searchInputCity.removeAttribute("style");
+        searchInputCountry.removeAttribute("style");
+        buttonSearch.removeAttribute("style");
+        buttonRemove.removeAttribute("style");
+
         if (localStorageWeather.length > 0) {
-          console.log(localStorageWeather[0].nameClass, " local");
           bgImageContainer.className = `${currentClass} ${localStorageWeather[0].nameClass}`;
           infoMessage.className = `${classMessage} ${localStorageWeather[0].nameClass}`;
           weathersArray = [...localStorageWeather, detailsLocation];
