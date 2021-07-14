@@ -1,37 +1,39 @@
 import { utcToZonedTime, format } from "date-fns-tz";
 
-let weathersArray = [];
-const widthDiv = 100;
-let counter = 1;
-let localCounter = 0;
-let initialX;
-let initialY;
-let num = 0;
-let indexWeather = 0;
-let box3HourCelsius = [];
-let box3HourTime = [];
-let box3HourTemp = [];
-let box3HourIcon = [];
-let box3HourDescription = [];
-let box4CurrentIcons = [];
-let box4CurrentTemp = [];
-let box4CurrentDescription = [];
-let box4DaysLable = [];
-let box4DayTimes = [];
-let box4NightTimes = [];
-let box4TempDay = [];
-let box4TempNight = [];
-let box4IconsDay = [];
-let box4IconsNight = [];
-let box4HourTimes = [];
-let box4HourTemps = [];
-let box4HourIcons = [];
-let box4HourDescription = [];
-let box4HourCelsious = [];
-let buttons = [];
-let flag = true;
-
 const handleContentLoaded = () => {
+  let weathersArray = [];
+  const widthDiv = 100;
+  let counter = 1;
+  let localCounter = 0;
+  let initialX;
+  let initialY;
+  let num = 0;
+  let indexWeather = 0;
+  let box3HourCelsius = [];
+  let box3HourTime = [];
+  let box3HourTemp = [];
+  let box3HourIcon = [];
+  let box3HourDescription = [];
+  let box4CurrentIcons = [];
+  let box4CurrentTemp = [];
+  let box4CurrentDescription = [];
+  let box4DaysLable = [];
+  let box4DayTimes = [];
+  let box4NightTimes = [];
+  let box4TempDay = [];
+  let box4TempNight = [];
+  let box4IconsDay = [];
+  let box4IconsNight = [];
+  let box4HourTimes = [];
+  let box4HourTemps = [];
+  let box4HourIcons = [];
+  let box4HourDescription = [];
+  let box4HourCelsious = [];
+  let buttons = [];
+  let flag = true;
+
+  const svgWrapper = document.querySelector(".slider__svg-wrapper");
+  const svgLoader = document.querySelector(".svg-loader");
   const bgImageContainer = document.querySelector(".bgiContainer");
   const buttonRemove = document.querySelector(".search-bar__button-remove");
   const buttonSearch = document.querySelector(".search-bar__button-search");
@@ -43,23 +45,11 @@ const handleContentLoaded = () => {
   const searchInputCountry = document.querySelector(
     ".search-bar__input.search-bar__input--country"
   );
-
-  // ---------
   const msgAlert = document.querySelector(".input-message");
   const appWrapper = document.querySelector(".app-wrapper");
   const logoStart = document.querySelector(".slider__wrapper-img");
   const sliderContent = document.querySelector(".slider__content");
   const dotsWrapper = document.querySelector(".slider__dots-inner-wrapper");
-
-  //   DO usuniecia
-
-  const getAppElements = () => {
-    const innerBox1 = document.querySelector(".slider__inner-box:nth-child(1)");
-    const boxes1 = document.querySelectorAll(".slider__inner-box:nth-child(1)");
-    console.log(boxes1, " all innerBoxes 1");
-
-    return { innerBox1 };
-  };
 
   const getElementsApp = (result) => {
     const dotsWrapper = document.querySelector(".slider__dots-inner-wrapper");
@@ -237,8 +227,6 @@ const handleContentLoaded = () => {
       box3HourCelsius.push({ iconsCelsius: cutArray20 });
       buttons.push({ buttons: cutArray21 });
       flag = false;
-
-      console.log(buttons, "buttons po push");
     }
 
     return {
@@ -305,15 +293,12 @@ const handleContentLoaded = () => {
   };
 
   const setDefaultLogoPage = () => {
-    console.log("default page");
     const dayTime = checkPeriodOfCurrentDay();
     if (dayTime) {
-      console.log("default page day");
       bgImageContainer.className = "bgiContainer time-day";
       bgImageContainer.style.filter = "initial";
       bgImageContainer.style.webkitFilter = "initial";
     } else {
-      console.log("default page night");
       bgImageContainer.className = "bgiContainer time-night";
       bgImageContainer.style.filter = "initial";
       bgImageContainer.style.webkitFilter = "initial";
@@ -415,8 +400,6 @@ const handleContentLoaded = () => {
       let timeHourly = hours + period;
       return timeHourly;
     });
-
-    console.log(result, "result getChart data");
 
     const { isDayOrNight } = checkCurrentDayOrNight(
       timezone,
@@ -617,10 +600,10 @@ const handleContentLoaded = () => {
         const firstSlide = sliderContent.children[0].cloneNode(true);
 
         firstSlide.setAttribute("id", "first");
-        firstSlide.children[1].children[1].children[0].className = `myChart-${result.city.replace(
-          /\s/g,
-          "-"
-        )}-${num}`;
+        // firstSlide.children[1].children[1].children[0].className = `myChart-${result.city.replace(
+        //   /\s/g,
+        //   "-"
+        // )}-${num}`;
         const lastSlide =
           sliderContent.children[sliderContent.children.length - 1].cloneNode(
             true
@@ -629,6 +612,10 @@ const handleContentLoaded = () => {
         lastSlide.setAttribute("id", "last");
         sliderContent.insertBefore(lastSlide, sliderContent.children[0]);
         sliderContent.append(firstSlide);
+        firstSlide.children[1].children[1].children[0].className = `myChart-${result.city.replace(
+          /\s/g,
+          "-"
+        )}-${num}`;
         sliderContent.children[0].children[0].children[1].children[2].children[0].className = `slider__country-time slider__country-time-${result.city.replace(
           /\s/g,
           "-"
@@ -636,17 +623,41 @@ const handleContentLoaded = () => {
           localStorageWeather[localStorageWeather.length - 1].nameClass
         }`;
 
-        new Chart(
+        let myChart = new Chart(
           document.querySelector(
             `.myChart-${result.city.replace(/\s/g, "-")}-${num}`
           ),
           config
         );
 
-        new Chart(
+        console.log(myChart, "myChart przed destroy");
+
+        myChart.destroy();
+
+        myChart = new Chart(
+          document.querySelector(
+            `.myChart-${result.city.replace(/\s/g, "-")}-${num}`
+          ),
+          config
+        );
+
+        console.log(myChart, "myChart po destroy");
+
+        let myChart1 = new Chart(
           document.querySelector(`.myChart-${result.city.replace(/\s/g, "-")}`),
           config
         );
+
+        console.log(myChart1, "myChart1 przed destroy");
+
+        myChart1.destroy();
+
+        myChart1 = new Chart(
+          document.querySelector(`.myChart-${result.city.replace(/\s/g, "-")}`),
+          config
+        );
+
+        console.log(myChart1, "myChart1 po destroy");
 
         sliderContent.style.transitionDuration = "0s";
         sliderContent.style.transform = `translateX(-${100}%)`;
@@ -818,14 +829,9 @@ const handleContentLoaded = () => {
       classTitle3
     );
 
-    console.log(
-      box4CurrentIcons[indexWeather - 1].detailsIcons,
-      " setstylesearch"
-    );
-
     box4CurrentIcons[indexWeather - 1].detailsIcons.forEach((item) => {
       let classDetails1 = item.className.split(" ")[0];
-      console.log(classDetails1, " refresh");
+
       item.className = getCurrentImage(
         result.current.idIcon,
         isDayOrNight,
@@ -835,7 +841,7 @@ const handleContentLoaded = () => {
 
     box4CurrentTemp[indexWeather - 1].currentTemp.forEach((item) => {
       let classTemp = item.className.split(" ")[0];
-      console.log(classTemp, " refresh classTemp");
+
       item.className = getCurrentImage(
         result.current.idIcon,
         isDayOrNight,
@@ -846,7 +852,7 @@ const handleContentLoaded = () => {
     box4CurrentDescription[indexWeather - 1].currentDescription.forEach(
       (item) => {
         let classDescription = item.className.split(" ")[0];
-        console.log(classDescription, " refresh classDescription");
+
         item.className = getCurrentImage(
           result.current.idIcon,
           isDayOrNight,
@@ -857,7 +863,7 @@ const handleContentLoaded = () => {
 
     box4DaysLable[indexWeather - 1].dayLabel.forEach((item) => {
       let classLabel1 = item.className.split(" ")[0];
-      console.log(classLabel1, " refresh classLabel1");
+
       item.className = getCurrentImage(
         result.current.idIcon,
         isDayOrNight,
@@ -867,7 +873,7 @@ const handleContentLoaded = () => {
 
     box4DayTimes[indexWeather - 1].dayTime.forEach((item) => {
       let classDayTime = item.className.split(" ")[0];
-      console.log(classDayTime, " refresh classDayTime");
+
       item.className = getCurrentImage(
         result.current.idIcon,
         isDayOrNight,
@@ -877,7 +883,7 @@ const handleContentLoaded = () => {
 
     box4NightTimes[indexWeather - 1].nightTime.forEach((item) => {
       let classNightTime = item.className.split(" ")[0];
-      console.log(classNightTime, " refresh classNightTime");
+
       item.className = getCurrentImage(
         result.current.idIcon,
         isDayOrNight,
@@ -887,7 +893,7 @@ const handleContentLoaded = () => {
 
     box4TempDay[indexWeather - 1].dayTemp.forEach((item) => {
       let classDayTemp = item.className.split(" ")[0];
-      console.log(classDayTemp, " refresh classDayTemp");
+
       item.className = getCurrentImage(
         result.current.idIcon,
         isDayOrNight,
@@ -897,7 +903,7 @@ const handleContentLoaded = () => {
 
     box4TempNight[indexWeather - 1].dayNight.forEach((item) => {
       let classNightTemp = item.className.split(" ")[0];
-      console.log(classNightTemp, " refresh classNightTemp");
+
       item.className = getCurrentImage(
         result.current.idIcon,
         isDayOrNight,
@@ -907,7 +913,7 @@ const handleContentLoaded = () => {
 
     box4IconsDay[indexWeather - 1].iconDay.forEach((item) => {
       let classDayIcon = item.className.split(" ")[0];
-      console.log(classDayIcon, " refresh classDayIcon");
+
       item.className = getCurrentImage(
         result.current.idIcon,
         isDayOrNight,
@@ -917,7 +923,7 @@ const handleContentLoaded = () => {
 
     box4IconsNight[indexWeather - 1].iconNight.forEach((item) => {
       let classNightIcon = item.className.split(" ")[0];
-      console.log(classNightIcon, " refresh classNightIcon");
+
       item.className = getCurrentImage(
         result.current.idIcon,
         isDayOrNight,
@@ -927,7 +933,7 @@ const handleContentLoaded = () => {
 
     box4HourTimes[indexWeather - 1].hours.forEach((item) => {
       let classHour = item.className.split(" ")[0];
-      console.log(classHour, " refresh classHour");
+
       item.className = getCurrentImage(
         result.current.idIcon,
         isDayOrNight,
@@ -937,7 +943,6 @@ const handleContentLoaded = () => {
 
     box4HourTemps[indexWeather - 1].hoursTemps.forEach((item) => {
       let classHourTemp = item.className.split(" ")[0];
-      console.log(classHourTemp, " refresh classHourTemp");
       item.className = getCurrentImage(
         result.current.idIcon,
         isDayOrNight,
@@ -947,7 +952,6 @@ const handleContentLoaded = () => {
 
     box4HourIcons[indexWeather - 1].hoursIcons.forEach((item) => {
       let classHourIcons = item.className.split(" ")[0];
-      console.log(classHourIcons, " refresh classHourIcons");
       item.className = getCurrentImage(
         result.current.idIcon,
         isDayOrNight,
@@ -957,7 +961,6 @@ const handleContentLoaded = () => {
 
     box4HourDescription[indexWeather - 1].hoursDesc.forEach((item) => {
       let classHourDesc = item.className.split(" ")[0];
-      console.log(classHourDesc, " refresh classHourDesc");
       item.className = getCurrentImage(
         result.current.idIcon,
         isDayOrNight,
@@ -967,7 +970,6 @@ const handleContentLoaded = () => {
 
     box4HourCelsious[indexWeather - 1].hoursCelsiusIcon.forEach((item) => {
       let classHourCelsius = item.className.split(" ")[0];
-      console.log(classHourCelsius, " refresh classHourCelsious");
       item.className = getCurrentImage(
         result.current.idIcon,
         isDayOrNight,
@@ -977,7 +979,6 @@ const handleContentLoaded = () => {
 
     box3HourTime[indexWeather - 1].hours.forEach((item) => {
       let classHour = item.className.split(" ")[0];
-      console.log(classHour, " refresh classHourCelsious");
       item.className = getCurrentImage(
         result.current.idIcon,
         isDayOrNight,
@@ -987,7 +988,6 @@ const handleContentLoaded = () => {
 
     box3HourTemp[indexWeather - 1].hourTemp.forEach((item) => {
       let classHourTemp = item.className.split(" ")[0];
-      console.log(classHourTemp, " refresh classHourCelsious");
       item.className = getCurrentImage(
         result.current.idIcon,
         isDayOrNight,
@@ -997,7 +997,6 @@ const handleContentLoaded = () => {
 
     box3HourIcon[indexWeather - 1].hourIcon.forEach((item) => {
       let classHourIcon = item.className.split(" ")[0];
-      console.log(classHourIcon, " refresh classHourCelsious");
       item.className = getCurrentImage(
         result.current.idIcon,
         isDayOrNight,
@@ -1007,7 +1006,7 @@ const handleContentLoaded = () => {
 
     box3HourDescription[indexWeather - 1].hourDesc.forEach((item) => {
       let classHourDesc = item.className.split(" ")[0];
-      console.log(classHourDesc, " refresh classHourCelsious");
+
       item.className = getCurrentImage(
         result.current.idIcon,
         isDayOrNight,
@@ -1017,7 +1016,6 @@ const handleContentLoaded = () => {
 
     box3HourCelsius[indexWeather - 1].iconsCelsius.forEach((item) => {
       let classHourCelsius = item.className.split(" ")[0];
-      console.log(classHourCelsius, " refresh classHourCelsious");
       item.className = getCurrentImage(
         result.current.idIcon,
         isDayOrNight,
@@ -1027,7 +1025,6 @@ const handleContentLoaded = () => {
 
     buttons[indexWeather - 1].buttons.forEach((item) => {
       let classBtn = item.className;
-      console.log(classBtn, " refresh classHourCelsious");
       item.className = getCurrentImage(
         result.current.idIcon,
         isDayOrNight,
@@ -1038,6 +1035,7 @@ const handleContentLoaded = () => {
 
   //   --------------------------------------------------------
   const fetchWeahter = (item) => {
+    showLoader();
     const localStorageWeather = JSON.parse(
       localStorage.getItem("weather") || "[]"
     );
@@ -1070,7 +1068,7 @@ const handleContentLoaded = () => {
           logoStart.style.display = "none";
           flag = true;
 
-          console.log(result.current.idIcon, " result");
+          console.log(result, " result fetch refresh");
 
           const { city, country, current, timezone } = result;
           const { sunrise, sunset } = current;
@@ -1123,6 +1121,8 @@ const handleContentLoaded = () => {
 
           setActiveStylesWhenRefresh(result, isDayOrNight);
 
+          console.log(indexWeather, "indexWeather");
+
           if (indexWeather - 1 === 0) {
             const { isDayOrNight } = checkCurrentDayOrNight(
               timezone,
@@ -1162,12 +1162,25 @@ const handleContentLoaded = () => {
 
           const config = getChartData(result, timezone);
 
-          new Chart(
+          let chartFetch = new Chart(
             document.querySelector(
               `.myChart-${result.city.replace(/\s/g, "-")}`
             ),
             config
           );
+
+          console.log(chartFetch, " chartFetch przed destroy");
+
+          chartFetch.destroy();
+
+          chartFetch = new Chart(
+            document.querySelector(
+              `.myChart-${result.city.replace(/\s/g, "-")}`
+            ),
+            config
+          );
+
+          console.log(chartFetch, " chartFetch po destroy");
 
           //   dotsWrapper.innerHTML = "";
           //   createDots(localStorageWeather);
@@ -1225,14 +1238,32 @@ const handleContentLoaded = () => {
   };
 
   let idInterval = window.setInterval(() => {
+    console.log("download");
     if (indexWeather < localStorageWeather.length) {
+      console.log("gdy jest cos w localstorage");
       const element = localStorageWeather[indexWeather];
       fetchWeahter(element);
       indexWeather++;
     } else {
+      console.log("gdy nie ma nic w localstorage");
       window.clearInterval(idInterval);
+      let clearInt = setInterval(() => {
+        console.log("is ready");
+        if (document.readyState === "complete") {
+          const svgWrapper = document.querySelector(".slider__svg-wrapper");
+          const svgLoader = document.querySelector(".svg-loader");
+          let clearTime = setTimeout(() => {
+            clearInterval(clearInt);
+            clearTimeout(clearTime);
+            svgWrapper.className = "slider__svg-wrapper hide";
+            svgLoader.setAttribute("class", "svg-loader hide");
+          }, 3000);
+
+          console.log("doc ready");
+        }
+      }, 100);
     }
-  }, 550);
+  }, 1000);
 
   //   TODO: sprawdzemie lokalizacji by wyliczyc z paczka wschod i zachod
 
@@ -1254,8 +1285,6 @@ const handleContentLoaded = () => {
     let isDayOrNight =
       currentTimeCountry > timeSunriseMilliseconds &&
       currentTimeCountry < timeSunsetMilliseconds;
-
-    console.log(isDayOrNight, "czy dzien czy noc obecnie");
 
     return { isDayOrNight, timeSunriseMilliseconds, timeSunsetMilliseconds };
   };
@@ -1332,8 +1361,6 @@ const handleContentLoaded = () => {
     const localStorageWeather = JSON.parse(
       localStorage.getItem("weather") || "[]"
     );
-
-    console.log(localIndex, "localIndex po search");
 
     const boxClass = innerBox1All[localIndex].className;
     innerBox1All[localIndex].className = getCurrentImage(
@@ -1449,147 +1476,126 @@ const handleContentLoaded = () => {
       const boxDetails = item.className;
 
       item.className = getCurrentImage(iconId, isDayOrNight, boxDetails);
-      console.log(item.className, " boxDetails petla");
     });
 
     box4CurrentTemp[localIndex].currentTemp.forEach((item) => {
       const classTemp = item.className;
 
       item.className = getCurrentImage(iconId, isDayOrNight, classTemp);
-      console.log(item.className, " classTemp petla");
     });
 
     box4CurrentDescription[localIndex].currentDescription.forEach((item) => {
       const classDescription = item.className;
 
       item.className = getCurrentImage(iconId, isDayOrNight, classDescription);
-      console.log(item.className, "currentDescription petla");
     });
 
     box4DaysLable[localIndex].dayLabel.forEach((item) => {
       const classLabel1 = item.className;
 
       item.className = getCurrentImage(iconId, isDayOrNight, classLabel1);
-      console.log(item.className, "classLabel1 petla");
     });
 
     box4DayTimes[localIndex].dayTime.forEach((item) => {
       const classDayTime = item.className;
 
       item.className = getCurrentImage(iconId, isDayOrNight, classDayTime);
-      console.log(item.className, "classDayTime petla");
     });
 
     box4NightTimes[localIndex].nightTime.forEach((item) => {
       const classNightTime = item.className;
 
       item.className = getCurrentImage(iconId, isDayOrNight, classNightTime);
-      console.log(item.className, "classNightTime petla");
     });
 
     box4TempDay[localIndex].dayTemp.forEach((item) => {
       const classTempDay = item.className;
 
       item.className = getCurrentImage(iconId, isDayOrNight, classTempDay);
-      console.log(item.className, "classTempDay petla");
     });
 
     box4TempNight[localIndex].dayNight.forEach((item) => {
       const classTempNight = item.className;
 
       item.className = getCurrentImage(iconId, isDayOrNight, classTempNight);
-      console.log(item.className, "classTempNight petla");
     });
 
     box4IconsDay[localIndex].iconDay.forEach((item) => {
       const classIconDay = item.className;
 
       item.className = getCurrentImage(iconId, isDayOrNight, classIconDay);
-      console.log(item.className, "classTempNight petla");
     });
 
     box4IconsNight[localIndex].iconNight.forEach((item) => {
       const classIconNight = item.className;
 
       item.className = getCurrentImage(iconId, isDayOrNight, classIconNight);
-      console.log(item.className, "classTempNight petla");
     });
 
     box4HourTimes[localIndex].hours.forEach((item) => {
       const classHour = item.className;
 
       item.className = getCurrentImage(iconId, isDayOrNight, classHour);
-      console.log(item.className, "classHour petla");
     });
 
     box4HourTemps[localIndex].hoursTemps.forEach((item) => {
       const classHourTemp = item.className;
 
       item.className = getCurrentImage(iconId, isDayOrNight, classHourTemp);
-      console.log(item.className, "classHourTemp petla");
     });
 
     box4HourIcons[localIndex].hoursIcons.forEach((item) => {
       const classHourIcon = item.className;
 
       item.className = getCurrentImage(iconId, isDayOrNight, classHourIcon);
-      console.log(item.className, "classHourIcon petla");
     });
 
     box4HourDescription[localIndex].hoursDesc.forEach((item) => {
       const classHourDesc = item.className;
 
       item.className = getCurrentImage(iconId, isDayOrNight, classHourDesc);
-      console.log(item.className, "classHourDesc petla");
     });
 
     box4HourCelsious[localIndex].hoursCelsiusIcon.forEach((item) => {
       const classHourCelsius = item.className;
 
       item.className = getCurrentImage(iconId, isDayOrNight, classHourCelsius);
-      console.log(item.className, "classHourCelsius petla");
     });
 
     box3HourTime[localIndex].hours.forEach((item) => {
       const classHour = item.className;
 
       item.className = getCurrentImage(iconId, isDayOrNight, classHour);
-      console.log(item.className, "classHour petla");
     });
 
     box3HourTemp[localIndex].hourTemp.forEach((item) => {
       const classHourTemp = item.className;
 
       item.className = getCurrentImage(iconId, isDayOrNight, classHourTemp);
-      console.log(item.className, "classHourTemp petla");
     });
 
     box3HourIcon[localIndex].hourIcon.forEach((item) => {
       const classHourIcon = item.className;
 
       item.className = getCurrentImage(iconId, isDayOrNight, classHourIcon);
-      console.log(item.className, "classHourIcon petla");
     });
 
     box3HourDescription[localIndex].hourDesc.forEach((item) => {
       const classHourDesc = item.className;
 
       item.className = getCurrentImage(iconId, isDayOrNight, classHourDesc);
-      console.log(item.className, "classHourDesc petla");
     });
 
     box3HourCelsius[localIndex].iconsCelsius.forEach((item) => {
       const classHourCelsius = item.className;
 
       item.className = getCurrentImage(iconId, isDayOrNight, classHourCelsius);
-      console.log(item.className, "classHourCelsius petla");
     });
 
     buttons[localIndex].buttons.forEach((item) => {
       const classBtn = item.className;
 
       item.className = getCurrentImage(iconId, isDayOrNight, classBtn);
-      console.log(item.className, "classBtn search petla");
     });
   };
 
@@ -2213,8 +2219,160 @@ const handleContentLoaded = () => {
     swipeRight: new Event("swipeRight"),
   };
 
+  const showLoader = () => {
+    console.log(svgWrapper, "svgWrapper");
+    svgWrapper.className = "slider__svg-wrapper";
+    svgLoader.setAttribute("class", "svg-loader");
+  };
+
+  const hideLoader = () => {
+    svgWrapper.className = "slider__svg-wrapper hide";
+    svgLoader.setAttribute("class", "svg-loader hide");
+  };
+
+  const checkBackgroundLoaded = (description) => {
+    switch (description) {
+      case "clear-sky-day":
+        let img1 = new Image();
+        img1.src =
+          "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Clear-day-1.jpg?alt=media&token=8834f4e8-a226-4173-b5b2-b890025976c5";
+        img1.onload = () => {
+          console.log("Clear sky is loaded");
+          hideLoader();
+        };
+        break;
+      case "clear-sky-night":
+        let img2 = new Image();
+        img2.src =
+          "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Clear-night.jpg?alt=media&token=197080c1-f461-45b1-9b4b-d68b20967418";
+        img2.onload = () => {
+          console.log("Clear sky nigh is loaded");
+          hideLoader();
+        };
+        break;
+      case "clouds-day":
+        let img3 = new Image();
+        img3.src =
+          "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Clouds-day.jpg?alt=media&token=81afcae1-f9a5-414e-8c3f-c4244da3e1fb";
+        img3.onload = () => {
+          console.log("Clouds day is loaded");
+          hideLoader();
+        };
+        break;
+      case "clouds-night":
+        let img4 = new Image();
+        img4.src =
+          "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Clouds-night.jpg?alt=media&token=17cbae71-3f03-490f-aa63-2e08f720cffc";
+        img4.onload = () => {
+          console.log("Clouds night is loaded");
+          hideLoader();
+        };
+        break;
+      case "rain-day":
+        let img5 = new Image();
+        img5.src =
+          "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Rain-day.jpg?alt=media&token=bd119570-5618-4817-84a4-80615dc834ef";
+        img5.onload = () => {
+          console.log("rain-day is loaded");
+          hideLoader();
+        };
+        break;
+      case "rain-night":
+        let img6 = new Image();
+        img6.src =
+          "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Rain-night-1.jpg?alt=media&token=cdfd7122-a210-4286-8297-f4704afd88a2";
+        img6.onload = () => {
+          console.log("rain-night is loaded");
+          hideLoader();
+        };
+        break;
+      case "snow-day":
+        let img7 = new Image();
+        img7.src =
+          "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Snow-day.jpg?alt=media&token=442f207f-ed45-47c2-a8a9-e217a9c19f21";
+        img7.onload = () => {
+          console.log("snow-day is loaded");
+          hideLoader();
+        };
+        break;
+      case "snow-night":
+        let img8 = new Image();
+        img8.src =
+          "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Snow-night.jpg?alt=media&token=064812b3-2975-4001-bce8-dca50d2f42ca";
+        img8.onload = () => {
+          console.log("snow-night is loaded");
+          hideLoader();
+        };
+        break;
+      case "fog-day":
+        let img9 = new Image();
+        img9.src =
+          "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Fog-day.jpg?alt=media&token=201d3d94-5615-4a71-a191-94e7091b4eab";
+        img9.onload = () => {
+          console.log("fog day is loaded");
+          hideLoader();
+        };
+        break;
+      case "fog-night":
+        let img10 = new Image();
+        img10.src =
+          "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Fog-nigth.jpg?alt=media&token=10958719-f5ee-4f2b-b1d1-6c02c8a85fb1";
+        img10.onload = () => {
+          console.log("fog night is loaded");
+          hideLoader();
+        };
+        break;
+      case "thunderstorm-day":
+        let img11 = new Image();
+        img11.src =
+          "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Thunderstorm-day.jpg?alt=media&token=206107f9-9a19-4173-8759-7b704aa96fc4";
+        img11.onload = () => {
+          console.log("thunderstorm-day is loaded");
+          hideLoader();
+        };
+        break;
+      case "thunderstorm-night":
+        let img12 = new Image();
+        img12.src =
+          "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Thunderstorm-night.jpg?alt=media&token=9fcd179b-31a4-48eb-93d5-bc7f6058cfde";
+        img12.onload = () => {
+          console.log("thunderstorm-night is loaded");
+          hideLoader();
+        };
+        break;
+      case "tornado":
+        let img13 = new Image();
+        img13.src =
+          "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Tornado.jpg?alt=media&token=f78abe9e-bfd4-4af5-919c-5fc0fb516260";
+        img13.onload = () => {
+          console.log("tornado is loaded");
+          hideLoader();
+        };
+        break;
+      case "squall-day-night":
+        let img14 = new Image();
+        img14.src =
+          "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Squall-day-night.jpg?alt=media&token=4ffc0d9d-96f5-429f-95d7-6a641cdef4f6";
+        img14.onload = () => {
+          console.log("squall-day-night is loaded");
+          hideLoader();
+        };
+        break;
+      default:
+        let img15 = new Image();
+        img15.src =
+          "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Clear-day-1.jpg?alt=media&token=8834f4e8-a226-4173-b5b2-b890025976c5";
+        img15.onload = () => {
+          console.log("default is loaded");
+          hideLoader();
+        };
+        break;
+    }
+  };
+
   const handleSearchWeather = (e) => {
     e.preventDefault();
+    showLoader();
     let cityInputValue = e.target[0].value
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
@@ -2272,6 +2430,8 @@ const handleContentLoaded = () => {
         const classMessage = infoMessage.className.split(" ")[0];
         const alertClass = getCurrentImage(iconId, isDayOrNight, classMessage);
 
+        checkBackgroundLoaded(nameClass.split(" ")[1]);
+
         console.log(nameClass.split(" ")[1]);
 
         const localStorageWeather = JSON.parse(
@@ -2327,8 +2487,6 @@ const handleContentLoaded = () => {
 
         sliderContent.appendChild(slide);
 
-        // setClassActiveStyles(iconId, isDayOrNight, result);
-
         searchInputCity.removeAttribute("style");
         searchInputCountry.removeAttribute("style");
         buttonSearch.removeAttribute("style");
@@ -2366,32 +2524,6 @@ const handleContentLoaded = () => {
 
         setClassActiveStyles(iconId, isDayOrNight, result, localIndex);
 
-        // const todayDate = getCurrentDate(timezone);
-
-        // if (sliderContent.children.length > 1) {
-        //   sliderContent.style.transitionDuration = "0s";
-        //   sliderContent.children[0].remove();
-        //   sliderContent.children[sliderContent.children.length - 1].remove();
-        // }
-
-        // const weatherFourHours = result.hourly.slice(0, 4);
-
-        // const structureSlide = getStructureSlideWeather(
-        //   result,
-        //   city,
-        //   country,
-        //   current,
-        //   timezone,
-        //   todayDate,
-        //   weatherFourHours
-        // );
-
-        // const slide = document.createElement("div");
-        // slide.className = "slider__image-wrapper";
-        // slide.innerHTML = structureSlide;
-
-        // sliderContent.appendChild(slide);
-
         setInterval(() => clock(result, timezone), 1000);
 
         const sliderBox2Boxes = document.querySelector(".slider__box-2-boxes");
@@ -2407,10 +2539,12 @@ const handleContentLoaded = () => {
 
         const config = getChartData(result, timezone);
 
-        new Chart(
+        let charty = new Chart(
           document.querySelector(`.myChart-${result.city.replace(/\s/g, "-")}`),
           config
         );
+
+        console.log(charty, " charty");
 
         defaultVisiblityDetailsButton(buttonsButtom, sliderBoxes4);
 
@@ -2467,8 +2601,6 @@ const handleContentLoaded = () => {
   };
 
   form.addEventListener("submit", handleSearchWeather);
-
-  //   Tu innerbox1 inaczej tez
 
   const setClassAfterRemove = (lcnameClass) => {
     const firstClassBg = bgImageContainer.className.split(" ")[0];
@@ -2709,14 +2841,6 @@ const handleContentLoaded = () => {
       }
 
       removeElementsArray(indexSlide - 1);
-
-      //   const updateBox4CurrentIcons = box4CurrentIcons.filter(
-      //     (item, index) => index !== indexSlide - 1
-      //   );
-
-      //   console.log(updateBox4CurrentIcons, " updateBox4CurrentIcons");
-
-      //   box4CurrentIcons = updateBox4CurrentIcons;
 
       if (localStoragSlidesData.length === 0) {
         logoStart.style.display = "flex";
