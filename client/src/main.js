@@ -4,7 +4,6 @@ const handleContentLoaded = () => {
   let weathersArray = [];
   const widthDiv = 100;
   let counter = 1;
-  let localCounter = 0;
   let initialX;
   let initialY;
   let num = 0;
@@ -92,7 +91,6 @@ const handleContentLoaded = () => {
       ".slider__box-4-day-time"
     );
 
-    // -----------------------
     const sliderBox3HourCelsius = document.querySelectorAll(
       ".slider__hourly-icon-celsius"
     );
@@ -109,14 +107,12 @@ const handleContentLoaded = () => {
       ".slider__hourly-weather-description"
     );
 
-    // -----------------------
     const sliderButtons = document.querySelectorAll(
       `.slider__bottom-btn.slider__bottom-btn-${result.city.replace(
         /\s/g,
         "-"
       )}`
     );
-    // -----------------------
 
     const sliderBox4HourTimes = document.querySelectorAll(
       ".slider__hourly-time-mobile"
@@ -292,12 +288,29 @@ const handleContentLoaded = () => {
     }
   };
 
+  const setLoaderRefresh = () => {
+    const dayTime = checkPeriodOfCurrentDay();
+    if (dayTime) {
+      svgWrapper.className = "slider__svg-wrapper day";
+    } else {
+      svgWrapper.className = "slider__svg-wrapper night";
+    }
+  };
+
+  setLoaderRefresh();
+
   const setDefaultLogoPage = () => {
     const dayTime = checkPeriodOfCurrentDay();
     if (dayTime) {
       bgImageContainer.className = "bgiContainer time-day";
       bgImageContainer.style.filter = "initial";
       bgImageContainer.style.webkitFilter = "initial";
+      searchInputCity.style.borderBottom = "1px solid #56ccf2";
+      searchInputCountry.style.borderBottom = "1px solid #56ccf2";
+      buttonSearch.style.background =
+        "linear-gradient(to right, #56ccf2, #56ccf2)";
+      buttonRemove.style.background =
+        "linear-gradient(to right, #56ccf2, #56ccf2)";
     } else {
       bgImageContainer.className = "bgiContainer time-night";
       bgImageContainer.style.filter = "initial";
@@ -352,7 +365,7 @@ const handleContentLoaded = () => {
         return "rgba(255,255,255,0.82)";
         break;
       case "rain-day":
-        return "rgba(0,0,0,0.82)";
+        return "#272727";
         break;
       case "rain-night":
         return "rgba(255,255,255,0.82)";
@@ -364,7 +377,7 @@ const handleContentLoaded = () => {
         return "rgba(255,255,255,0.82)";
         break;
       case "fog-day":
-        return "rgba(0,0,0,0.82)";
+        return "#272727";
         break;
       case "fog-night":
         return "rgba(255,255,255,0.82)";
@@ -600,10 +613,6 @@ const handleContentLoaded = () => {
         const firstSlide = sliderContent.children[0].cloneNode(true);
 
         firstSlide.setAttribute("id", "first");
-        // firstSlide.children[1].children[1].children[0].className = `myChart-${result.city.replace(
-        //   /\s/g,
-        //   "-"
-        // )}-${num}`;
         const lastSlide =
           sliderContent.children[sliderContent.children.length - 1].cloneNode(
             true
@@ -630,8 +639,6 @@ const handleContentLoaded = () => {
           config
         );
 
-        console.log(myChart, "myChart przed destroy");
-
         myChart.destroy();
 
         myChart = new Chart(
@@ -641,14 +648,10 @@ const handleContentLoaded = () => {
           config
         );
 
-        console.log(myChart, "myChart po destroy");
-
         let myChart1 = new Chart(
           document.querySelector(`.myChart-${result.city.replace(/\s/g, "-")}`),
           config
         );
-
-        console.log(myChart1, "myChart1 przed destroy");
 
         myChart1.destroy();
 
@@ -656,8 +659,6 @@ const handleContentLoaded = () => {
           document.querySelector(`.myChart-${result.city.replace(/\s/g, "-")}`),
           config
         );
-
-        console.log(myChart1, "myChart1 po destroy");
 
         sliderContent.style.transitionDuration = "0s";
         sliderContent.style.transform = `translateX(-${100}%)`;
@@ -1033,7 +1034,6 @@ const handleContentLoaded = () => {
     });
   };
 
-  //   --------------------------------------------------------
   const fetchWeahter = (item) => {
     showLoader();
     const localStorageWeather = JSON.parse(
@@ -1067,8 +1067,6 @@ const handleContentLoaded = () => {
         .then((result) => {
           logoStart.style.display = "none";
           flag = true;
-
-          console.log(result, " result fetch refresh");
 
           const { city, country, current, timezone } = result;
           const { sunrise, sunset } = current;
@@ -1121,8 +1119,6 @@ const handleContentLoaded = () => {
 
           setActiveStylesWhenRefresh(result, isDayOrNight);
 
-          console.log(indexWeather, "indexWeather");
-
           if (indexWeather - 1 === 0) {
             const { isDayOrNight } = checkCurrentDayOrNight(
               timezone,
@@ -1160,6 +1156,11 @@ const handleContentLoaded = () => {
           )}`;
           sliderBox2Boxes.appendChild(elementCanvas);
 
+          searchInputCity.removeAttribute("style");
+          searchInputCountry.removeAttribute("style");
+          buttonSearch.removeAttribute("style");
+          buttonRemove.removeAttribute("style");
+
           const config = getChartData(result, timezone);
 
           let chartFetch = new Chart(
@@ -1168,8 +1169,6 @@ const handleContentLoaded = () => {
             ),
             config
           );
-
-          console.log(chartFetch, " chartFetch przed destroy");
 
           chartFetch.destroy();
 
@@ -1180,10 +1179,6 @@ const handleContentLoaded = () => {
             config
           );
 
-          console.log(chartFetch, " chartFetch po destroy");
-
-          //   dotsWrapper.innerHTML = "";
-          //   createDots(localStorageWeather);
           defaultVisiblityDetailsButton(buttonsButtom, sliderBoxes4);
 
           buttonsButtom.forEach((item, index) => {
@@ -1238,34 +1233,31 @@ const handleContentLoaded = () => {
   };
 
   let idInterval = window.setInterval(() => {
-    console.log("download");
     if (indexWeather < localStorageWeather.length) {
-      console.log("gdy jest cos w localstorage");
       const element = localStorageWeather[indexWeather];
       fetchWeahter(element);
       indexWeather++;
     } else {
-      console.log("gdy nie ma nic w localstorage");
       window.clearInterval(idInterval);
       let clearInt = setInterval(() => {
-        console.log("is ready");
         if (document.readyState === "complete") {
-          const svgWrapper = document.querySelector(".slider__svg-wrapper");
           const svgLoader = document.querySelector(".svg-loader");
           let clearTime = setTimeout(() => {
             clearInterval(clearInt);
             clearTimeout(clearTime);
-            svgWrapper.className = "slider__svg-wrapper hide";
+            const dayTime = checkPeriodOfCurrentDay();
+            const svgWrapper = document.querySelector(".slider__svg-wrapper");
+
+            dayTime
+              ? (svgWrapper.className = "slider__svg-wrapper day hide")
+              : (svgWrapper.className = "slider__svg-wrapper night hide");
+
             svgLoader.setAttribute("class", "svg-loader hide");
           }, 3000);
-
-          console.log("doc ready");
         }
       }, 100);
     }
   }, 1000);
-
-  //   TODO: sprawdzemie lokalizacji by wyliczyc z paczka wschod i zachod
 
   const checkCurrentDayOrNight = (timezone, sunrise, sunset) => {
     const currentDateUtc = utcToZonedTime(new Date(), timezone);
@@ -2220,14 +2212,27 @@ const handleContentLoaded = () => {
   };
 
   const showLoader = () => {
-    console.log(svgWrapper, "svgWrapper");
-    svgWrapper.className = "slider__svg-wrapper";
+    const dayTime = checkPeriodOfCurrentDay();
+    if (dayTime) {
+      svgWrapper.className = "slider__svg-wrapper day";
+    } else {
+      svgWrapper.className = "slider__svg-wrapper night";
+    }
     svgLoader.setAttribute("class", "svg-loader");
   };
 
   const hideLoader = () => {
-    svgWrapper.className = "slider__svg-wrapper hide";
-    svgLoader.setAttribute("class", "svg-loader hide");
+    const dayTime = checkPeriodOfCurrentDay();
+    let timeClean = setTimeout(() => {
+      if (dayTime) {
+        svgWrapper.className = "slider__svg-wrapper hide";
+      } else {
+        svgWrapper.className = "slider__svg-wrapper hide";
+      }
+
+      svgLoader.setAttribute("class", "svg-loader hide");
+      clearTimeout(timeClean);
+    }, 500);
   };
 
   const checkBackgroundLoaded = (description) => {
@@ -2237,7 +2242,6 @@ const handleContentLoaded = () => {
         img1.src =
           "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Clear-day-1.jpg?alt=media&token=8834f4e8-a226-4173-b5b2-b890025976c5";
         img1.onload = () => {
-          console.log("Clear sky is loaded");
           hideLoader();
         };
         break;
@@ -2246,7 +2250,6 @@ const handleContentLoaded = () => {
         img2.src =
           "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Clear-night.jpg?alt=media&token=197080c1-f461-45b1-9b4b-d68b20967418";
         img2.onload = () => {
-          console.log("Clear sky nigh is loaded");
           hideLoader();
         };
         break;
@@ -2255,7 +2258,6 @@ const handleContentLoaded = () => {
         img3.src =
           "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Clouds-day.jpg?alt=media&token=81afcae1-f9a5-414e-8c3f-c4244da3e1fb";
         img3.onload = () => {
-          console.log("Clouds day is loaded");
           hideLoader();
         };
         break;
@@ -2264,7 +2266,6 @@ const handleContentLoaded = () => {
         img4.src =
           "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Clouds-night.jpg?alt=media&token=17cbae71-3f03-490f-aa63-2e08f720cffc";
         img4.onload = () => {
-          console.log("Clouds night is loaded");
           hideLoader();
         };
         break;
@@ -2273,7 +2274,6 @@ const handleContentLoaded = () => {
         img5.src =
           "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Rain-day.jpg?alt=media&token=bd119570-5618-4817-84a4-80615dc834ef";
         img5.onload = () => {
-          console.log("rain-day is loaded");
           hideLoader();
         };
         break;
@@ -2282,7 +2282,6 @@ const handleContentLoaded = () => {
         img6.src =
           "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Rain-night-1.jpg?alt=media&token=cdfd7122-a210-4286-8297-f4704afd88a2";
         img6.onload = () => {
-          console.log("rain-night is loaded");
           hideLoader();
         };
         break;
@@ -2291,7 +2290,6 @@ const handleContentLoaded = () => {
         img7.src =
           "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Snow-day.jpg?alt=media&token=442f207f-ed45-47c2-a8a9-e217a9c19f21";
         img7.onload = () => {
-          console.log("snow-day is loaded");
           hideLoader();
         };
         break;
@@ -2300,7 +2298,6 @@ const handleContentLoaded = () => {
         img8.src =
           "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Snow-night.jpg?alt=media&token=064812b3-2975-4001-bce8-dca50d2f42ca";
         img8.onload = () => {
-          console.log("snow-night is loaded");
           hideLoader();
         };
         break;
@@ -2309,7 +2306,6 @@ const handleContentLoaded = () => {
         img9.src =
           "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Fog-day.jpg?alt=media&token=201d3d94-5615-4a71-a191-94e7091b4eab";
         img9.onload = () => {
-          console.log("fog day is loaded");
           hideLoader();
         };
         break;
@@ -2318,7 +2314,6 @@ const handleContentLoaded = () => {
         img10.src =
           "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Fog-nigth.jpg?alt=media&token=10958719-f5ee-4f2b-b1d1-6c02c8a85fb1";
         img10.onload = () => {
-          console.log("fog night is loaded");
           hideLoader();
         };
         break;
@@ -2327,7 +2322,6 @@ const handleContentLoaded = () => {
         img11.src =
           "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Thunderstorm-day.jpg?alt=media&token=206107f9-9a19-4173-8759-7b704aa96fc4";
         img11.onload = () => {
-          console.log("thunderstorm-day is loaded");
           hideLoader();
         };
         break;
@@ -2336,7 +2330,6 @@ const handleContentLoaded = () => {
         img12.src =
           "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Thunderstorm-night.jpg?alt=media&token=9fcd179b-31a4-48eb-93d5-bc7f6058cfde";
         img12.onload = () => {
-          console.log("thunderstorm-night is loaded");
           hideLoader();
         };
         break;
@@ -2345,7 +2338,6 @@ const handleContentLoaded = () => {
         img13.src =
           "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Tornado.jpg?alt=media&token=f78abe9e-bfd4-4af5-919c-5fc0fb516260";
         img13.onload = () => {
-          console.log("tornado is loaded");
           hideLoader();
         };
         break;
@@ -2354,7 +2346,6 @@ const handleContentLoaded = () => {
         img14.src =
           "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Squall-day-night.jpg?alt=media&token=4ffc0d9d-96f5-429f-95d7-6a641cdef4f6";
         img14.onload = () => {
-          console.log("squall-day-night is loaded");
           hideLoader();
         };
         break;
@@ -2363,7 +2354,6 @@ const handleContentLoaded = () => {
         img15.src =
           "https://firebasestorage.googleapis.com/v0/b/weather-app-79d32.appspot.com/o/Clear-day-1.jpg?alt=media&token=8834f4e8-a226-4173-b5b2-b890025976c5";
         img15.onload = () => {
-          console.log("default is loaded");
           hideLoader();
         };
         break;
@@ -2372,7 +2362,12 @@ const handleContentLoaded = () => {
 
   const handleSearchWeather = (e) => {
     e.preventDefault();
-    showLoader();
+    if (
+      e.target[0].value !== "" &&
+      e.target[1].value !== "" &&
+      e.target[1].value.length > 2
+    )
+      showLoader();
     let cityInputValue = e.target[0].value
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
@@ -2412,7 +2407,6 @@ const handleContentLoaded = () => {
         const { city, country, current, timezone } = result;
         logoStart.style.display = "none";
         flag = true;
-        console.log(result);
 
         const { isDayOrNight } = checkCurrentDayOrNight(
           result.timezone,
@@ -2420,19 +2414,14 @@ const handleContentLoaded = () => {
           result.current.sunset
         );
 
-        console.log(isDayOrNight, "checkerkDayOrNight gdy szukamy");
-
         const iconId = result.current.idIcon;
 
-        // głowny bgimage
         const currentClass = bgImageContainer.className.split(" ")[0];
         const nameClass = getCurrentImage(iconId, isDayOrNight, currentClass);
         const classMessage = infoMessage.className.split(" ")[0];
         const alertClass = getCurrentImage(iconId, isDayOrNight, classMessage);
 
         checkBackgroundLoaded(nameClass.split(" ")[1]);
-
-        console.log(nameClass.split(" ")[1]);
 
         const localStorageWeather = JSON.parse(
           localStorage.getItem("weather") || "[]"
@@ -2458,8 +2447,6 @@ const handleContentLoaded = () => {
         };
 
         weathersArray = [...weathersArray, detailsLocation];
-
-        // tu juz nie musze dodawac gdy cos jest w localstorage poniewaz to sie nie zmienia potem do czasu klik dot swipe
 
         const todayDate = getCurrentDate(timezone);
 
@@ -2539,12 +2526,10 @@ const handleContentLoaded = () => {
 
         const config = getChartData(result, timezone);
 
-        let charty = new Chart(
+        new Chart(
           document.querySelector(`.myChart-${result.city.replace(/\s/g, "-")}`),
           config
         );
-
-        console.log(charty, " charty");
 
         defaultVisiblityDetailsButton(buttonsButtom, sliderBoxes4);
 
@@ -2589,7 +2574,6 @@ const handleContentLoaded = () => {
 
         createCopySlides(result, config);
 
-        localCounter = 0;
         counter = 1;
         e.target[0].value = "";
         e.target[1].value = "";
@@ -2704,28 +2688,6 @@ const handleContentLoaded = () => {
 
     const updatedButtons = buttons.filter((item, index) => index !== indexNum);
 
-    console.log(updateBox4CurrentIcons, " updateBox4CurrentIcons");
-    console.log(updateBox4CurrentTemp, " updateBox4CurrentTemp");
-    console.log(updatedBox4CurrentDesc, " updatedBox4CurrentDesc");
-    console.log(updatedBox4DaysLabel, " updatedBox4DaysLabel");
-    console.log(updatedBox4DaysTimes, " updatedBox4DaysTimes");
-    console.log(updatedBox4NightTimes, " updatedBox4NightTimes");
-    console.log(updatedBox4TempDay, " updatedBox4TempDay");
-    console.log(updatedBox4TempNight, " updatedBox4TempNight");
-    console.log(updatedBox4IconsDay, " updatedBox4IconsDay");
-    console.log(updatedBox4IconsNight, " updatedBox4IconsNight");
-    console.log(updatedBox4HourTimes, " updatedBox4HourTimes");
-    console.log(updatedBox4HourTemps, " updatedBox4HourTemps");
-    console.log(updatedBox4HourIcons, " updatedBox4HourIcons");
-    console.log(updatedBox4HourDesc, " updatedBox4HourDesc");
-    console.log(updatedBox4HourCelsius, " updatedBox4HourCelsius");
-    console.log(updatedBox3HourTime, " updatedBox3HourTime");
-    console.log(updatedBox3HourTemp, " updatedBox3HourTemp");
-    console.log(updatedBox3HourIcon, " updatedBox3HourIcon");
-    console.log(updatedBox3HourDesc, " updatedBox3HourDesc");
-    console.log(updatedBox3HourCelsius, " updatedBox3HourCelsius");
-    console.log(updatedButtons, " updatedButtons");
-
     box4CurrentIcons = updateBox4CurrentIcons;
     box4CurrentTemp = updateBox4CurrentTemp;
     box4CurrentDescription = updatedBox4CurrentDesc;
@@ -2817,7 +2779,6 @@ const handleContentLoaded = () => {
       if (localStoragSlidesData.length > 0) {
         setClassAfterRemove(localStoragSlidesData[0].nameClass);
       } else {
-        console.log("remove default");
         setDefaultLogoPage();
       }
 
@@ -2826,7 +2787,6 @@ const handleContentLoaded = () => {
         createCopySlides(result, config);
       }
 
-      localCounter = 0;
       counter = 1;
       dotsWrapper.innerHTML = "";
       createDots(localStoragSlidesData);
@@ -2952,7 +2912,6 @@ const handleContentLoaded = () => {
     searchInputCity.className = `${oneClassCity} ${twoClassCity} ${lcClassName}`;
     searchInputCountry.className = `${oneClassCountry} ${twoClassCountry} ${lcClassName}`;
     const sliderDots = document.querySelectorAll(".slider__dot");
-    console.log(sliderDots, " slide");
 
     sliderDots.forEach((item) => {
       const classDot = item.className.split(" ")[0];
@@ -2974,14 +2933,15 @@ const handleContentLoaded = () => {
       localStorage.getItem("weather") || "[]"
     );
 
-    localCounter++;
-    if (localCounter >= localStoragSlidesData.length) localCounter = 0;
-    setClassSingleSlide(localStoragSlidesData[localCounter].nameClass);
+    if (counter > localStoragSlidesData.length - 1) {
+      setClassSingleSlide(localStoragSlidesData[0].nameClass);
+    } else {
+      setClassSingleSlide(localStoragSlidesData[counter].nameClass);
+    }
 
     if (counter >= sliderContent.children.length - 1) return;
-    console.log(counter, " counter left  before ++");
+
     counter++;
-    console.log(counter, " counter left after ++ ");
 
     slideTransition();
   };
@@ -2991,12 +2951,17 @@ const handleContentLoaded = () => {
       localStorage.getItem("weather") || "[]"
     );
 
-    localCounter--;
-    if (localCounter < 0) localCounter = localStoragSlidesData.length - 1;
-    setClassSingleSlide(localStoragSlidesData[localCounter].nameClass);
-
     if (counter <= 0) return;
     counter--;
+
+    if (counter === 0) {
+      setClassSingleSlide(
+        localStoragSlidesData[localStoragSlidesData.length - 1].nameClass
+      );
+    } else {
+      setClassSingleSlide(localStoragSlidesData[counter - 1].nameClass);
+    }
+
     slideTransition();
   };
 
