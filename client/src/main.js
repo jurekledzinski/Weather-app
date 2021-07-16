@@ -549,6 +549,28 @@ const handleContentLoaded = () => {
     e.preventDefault();
     e.stopPropagation();
 
+    const box4Title = [...document.querySelectorAll(".slider__box-4-title")];
+    const box4All = [...document.querySelectorAll(`.slider__box-4`)];
+    const boxesDays4 = [...document.querySelectorAll(`.slider__box-4-days`)];
+    const boxes3Mobile = [
+      ...document.querySelectorAll(`.slider__box-3-mobile`),
+    ];
+    const buttons = [...document.querySelectorAll(`.slider__bottom-btn`)];
+
+    let sliderBox4AllLast = box4All.slice(0, 6);
+    let sliderBox4AllFirst = box4All.slice(-6);
+    let sliderBoxesDays4Last = boxesDays4.slice(0, 6);
+    let sliderBoxesDays4First = boxesDays4.slice(-6);
+    let sliderBoxes3MobileLast = boxes3Mobile.slice(0, 6);
+    let sliderBoxes3MobileFirst = boxes3Mobile.slice(-6);
+    const boxFour = document.querySelectorAll(`.slider__inner-box-4`);
+    let panelLast = boxFour[0];
+    let panelFirst = boxFour[boxFour.length - 1];
+    let titleLast = box4Title[0];
+    let titleFirst = box4Title[box4Title.length - 1];
+    let buttonsLast = buttons.slice(0, 3);
+    let buttonsfirst = buttons.slice(-3);
+
     if (detailsWeather.length > 0) {
       buttonsButtom.forEach((item) => {
         item.classList.remove("active-btn-bottom");
@@ -561,9 +583,69 @@ const handleContentLoaded = () => {
       btn.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
       btn.style.fontWeight = 400;
 
+      if (counter - 1 === 0) {
+        titleFirst.innerHTML = btn.innerHTML;
+        panelFirst.style.transform = `translateX(-${indexBtn}00%)`;
+
+        buttonsfirst.forEach((item) => {
+          item.classList.remove("active-btn-bottom");
+          item.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+          item.style.fontWeight = 300;
+        });
+
+        buttonsfirst[indexBtn].classList.add("active-btn-bottom");
+        buttonsfirst[indexBtn].style.backgroundColor =
+          "rgba(255, 255, 255, 0.2)";
+        buttonsfirst[indexBtn].style.fontWeight = 400;
+      }
+
+      if (counter + 2 === sliderContent.children.length) {
+        titleLast.innerHTML = btn.innerHTML;
+        panelLast.style.transform = `translateX(-${indexBtn}00%)`;
+
+        buttonsLast.forEach((item) => {
+          item.classList.remove("active-btn-bottom");
+          item.style.backgroundColor = "rgba(255, 255, 255, 0.1)";
+          item.style.fontWeight = 300;
+        });
+
+        buttonsLast[indexBtn].classList.add("active-btn-bottom");
+        buttonsLast[indexBtn].style.backgroundColor =
+          "rgba(255, 255, 255, 0.2)";
+        buttonsLast[indexBtn].style.fontWeight = 400;
+      }
+
       innerBoxFour.style.transform = `translateX(-${indexBtn}00%)`;
 
       detailsWeather.forEach((item, index) => {
+        if (counter - 1 === 0) {
+          sliderBox4AllFirst.forEach((item, index) => {
+            item.classList.remove("details-visible");
+          });
+
+          sliderBoxesDays4First.forEach((item, index) => {
+            item.classList.remove("details-visible");
+          });
+
+          sliderBoxes3MobileFirst.forEach((item, index) => {
+            item.classList.remove("details-visible");
+          });
+        }
+
+        if (counter + 2 === sliderContent.children.length) {
+          sliderBox4AllLast.forEach((item, index) => {
+            item.classList.remove("details-visible");
+          });
+
+          sliderBoxesDays4Last.forEach((item, index) => {
+            item.classList.remove("details-visible");
+          });
+
+          sliderBoxes3MobileLast.forEach((item, index) => {
+            item.classList.remove("details-visible");
+          });
+        }
+
         sliderBoxes3Mobile.forEach((item, index) => {
           item.classList.remove("details-visible");
         });
@@ -581,16 +663,55 @@ const handleContentLoaded = () => {
             sliderBoxes4.forEach((item, index) => {
               item.classList.add("details-visible");
             });
+
+            if (counter - 1 === 0) {
+              sliderBox4AllFirst.forEach((item, index) => {
+                item.classList.add("details-visible");
+              });
+            }
+
+            if (counter + 2 === sliderContent.children.length) {
+              sliderBox4AllLast.forEach((item, index) => {
+                item.classList.add("details-visible");
+              });
+            }
+
             break;
           case 1:
             sliderBoxesDays4.forEach((item, index) => {
               item.classList.add("details-visible");
             });
+
+            if (counter - 1 === 0) {
+              sliderBoxesDays4First.forEach((item, index) => {
+                item.classList.add("details-visible");
+              });
+            }
+
+            if (counter + 2 === sliderContent.children.length) {
+              sliderBoxesDays4Last.forEach((item, index) => {
+                item.classList.add("details-visible");
+              });
+            }
+
             break;
           case 2:
             sliderBoxes3Mobile.forEach((item, index) => {
               item.classList.add("details-visible");
             });
+
+            if (counter - 1 === 0) {
+              sliderBoxes3MobileFirst.forEach((item, index) => {
+                item.classList.add("details-visible");
+              });
+            }
+
+            if (counter + 2 === sliderContent.children.length) {
+              sliderBoxes3MobileLast.forEach((item, index) => {
+                item.classList.add("details-visible");
+              });
+            }
+
             break;
           default:
             break;
