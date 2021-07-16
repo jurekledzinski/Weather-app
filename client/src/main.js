@@ -1,6 +1,7 @@
 import { utcToZonedTime, format } from "date-fns-tz";
 
 const handleContentLoaded = () => {
+  emitter.setMaxListeners(15);
   let weathersArray = [];
   const widthDiv = 100;
   let counter = 1;
@@ -158,13 +159,11 @@ const handleContentLoaded = () => {
     const sliderBox2Title = document.querySelectorAll(".slider__box-2-title");
     const sliderBox3Title = document.querySelectorAll(".slider__box-3-title");
     const sliderBox4Title = document.querySelectorAll(".slider__box-4-title");
-
     const sliderCelsius1 = document.querySelectorAll(".slider__celsius-icon");
     const sliderDesc1 = document.querySelectorAll(".slider__image-description");
     const sliderDots = document.querySelectorAll(".slider__dot");
     const sliderIcon1 = document.querySelectorAll(".slider__weather-icon");
     const sliderTemp1 = document.querySelectorAll(".slider__temperature");
-
     const detailsTitle = document.querySelector(".slider__box-4-title");
     const detailsWeather = document.querySelectorAll(
       ".slider__box-4-boxes,.slider__box-4-boxes--days-forecast,.slider__box-4-boxes--hourly-weather"
@@ -365,7 +364,7 @@ const handleContentLoaded = () => {
         return "rgba(255,255,255,0.82)";
         break;
       case "rain-day":
-        return "#272727";
+        return "#575757";
         break;
       case "rain-night":
         return "rgba(255,255,255,0.82)";
