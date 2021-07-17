@@ -20,7 +20,7 @@ app.disable("x-powered-by");
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:1234",
+    origin: "https://lit-sands-29020.herokuapp.com",
   })
 );
 
