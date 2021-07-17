@@ -499,6 +499,12 @@ const handleContentLoaded = () => {
     second = second < 10 ? `0${second}` : second;
     let time = `${hour}:${minute}:${second}:${period}`;
 
+    const lcStorage = JSON.parse(localStorage.getItem("weather") || "[]");
+
+    const timeCountry = [...document.querySelectorAll(".slider__country-time")];
+    let timeLast = timeCountry[0];
+    let timeFirst = timeCountry[timeCountry.length - 1];
+
     if (
       document.querySelector(
         `.slider__country-time-${result.city.replace(/\s/g, "-")}`
@@ -507,6 +513,24 @@ const handleContentLoaded = () => {
       document.querySelector(
         `.slider__country-time-${result.city.replace(/\s/g, "-")}`
       ).innerHTML = time;
+    }
+
+    if (
+      counter - 1 === 0 &&
+      lcStorage.length > 0 &&
+      lcStorage[0].city === result.city
+    ) {
+      timeFirst.innerHTML = "";
+      timeFirst.innerHTML = time;
+    }
+
+    if (
+      counter + 2 === sliderContent.children.length &&
+      lcStorage.length > 0 &&
+      lcStorage[lcStorage.length - 1].city === result.city
+    ) {
+      timeLast.innerHTML = "";
+      timeLast.innerHTML = time;
     }
 
     return time;
@@ -1257,7 +1281,14 @@ const handleContentLoaded = () => {
             bgImageContainer.className = nameClassBg;
           }
 
-          setInterval(() => clock(result, timezone), 1000);
+          let timeClearTwo = setInterval(() => {
+            const lcStorage = JSON.parse(localStorage.getItem("weather") || []);
+
+            clock(result, timezone);
+            if (lcStorage.length === 0) {
+              clearInterval(timeClearTwo);
+            }
+          }, 1000);
 
           const sliderBox2Boxes = document.querySelector(
             ".slider__box-2-boxes"
@@ -2630,7 +2661,14 @@ const handleContentLoaded = () => {
 
         setClassActiveStyles(iconId, isDayOrNight, result, localIndex);
 
-        setInterval(() => clock(result, timezone), 1000);
+        let clearOne = setInterval(() => {
+          const lcStorage = JSON.parse(localStorage.getItem("weather") || []);
+
+          if (lcStorage.length === 0) {
+            clearInterval(clearOne);
+          }
+          clock(result, timezone);
+        }, 1000);
 
         const sliderBox2Boxes = document.querySelector(".slider__box-2-boxes");
         sliderBox2Boxes.className = `slider__box-2-boxes-${result.city}`;
