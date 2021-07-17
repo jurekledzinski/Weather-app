@@ -112,8 +112,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.listen(port, () => {
-  console.log(`Server nasłuchuje na porcie ${port}`);
-});
+app.listen(port);
 
 module.exports = app;
