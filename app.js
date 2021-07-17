@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(function (req, res, next) {
   res.setHeader(
     "Content-Security-Policy",
-    "default-src 'self' firebasestorage.googleapis.com *.firebasestorage.googleapis.com; img-src * 'self' data: https:;font-src *; object-src 'self';script-src 'self' cdn.jsdelivr.net *cdn.jsdelivr.net;style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com *cdnjs.cloudflare.com fontawesome.com *.fontawesome.com fonts.google.com *.fonts.google.com fonts.googleapis.com *.fonts.googleapis.com;"
+    "default-src 'self' firebasestorage.googleapis.com *.firebasestorage.googleapis.com; img-src * 'self' data: https:;font-src *; object-src 'self';script-src 'self' cdn.jsdelivr.net *.cdn.jsdelivr.net;style-src 'self' 'unsafe-inline' cdnjs.cloudflare.com *.cdnjs.cloudflare.com fontawesome.com *.fontawesome.com fonts.google.com *.fonts.google.com fonts.googleapis.com *.fonts.googleapis.com;"
   );
   next();
 });
