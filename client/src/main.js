@@ -1,7 +1,6 @@
 import { utcToZonedTime, format } from "date-fns-tz";
 
 const handleContentLoaded = () => {
-  emitter.setMaxListeners(15);
   let weathersArray = [];
   const widthDiv = 100;
   let counter = 1;
@@ -2190,7 +2189,7 @@ const handleContentLoaded = () => {
                   <div class="slider__box-4-part3">
                     <p class="slider__box-details-text">${
                       current.visibility > 1000
-                        ? current.visibility / 1000 + "/km"
+                        ? (current.visibility / 1000).toFixed(1) + "/km"
                         : current.visibility + "/m"
                     }</p>
                   </div>
