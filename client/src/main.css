@@ -627,16 +627,11 @@ body {
 }
 
 .slider__wrapper-img {
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
 }
 
 .slider__svg-wrapper {
@@ -2489,6 +2484,15 @@ body {
   background: linear-gradient(to bottom, #3d72b48c, #3d72b48c);
 }
 
+@media (min-width: 0) and (orientation: portrait) {
+  .slider__wrapper-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
 @media (min-width: 260px) and (orientation: portrait) {
   body {
     min-height: initial;
@@ -3208,7 +3212,6 @@ body {
   .slider__box-3-boxes {
     width: 100%;
     grid-template-columns: repeat(2, 1fr);
-    /* grid-template-rows: 95px 95px; */
     column-gap: 5px;
     row-gap: 5px;
     padding: 10px 5px 5px 5px;
@@ -3412,17 +3415,18 @@ body {
     height: 100vh;
     min-height: initial;
   }
+
+  .slider__wrapper-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 
-@media (orientation: landscape) and (max-width: 854px) {
+@media (orientation: landscape) and (max-width: 767px) {
   body {
     min-height: 100vh;
-  }
-
-  .slider__wrapper-img,
-  .slider__svg-wrapper {
-    position: absolute;
-    top: 55%;
   }
 
   .slider__img-logo {
@@ -3486,6 +3490,11 @@ body {
   .slider__box-details-icon {
     font-size: 2.2rem;
   }
+
+  .main {
+    height: 105px;
+    align-items: initial;
+  }
 }
 
 @media (orientation: landscape) and (max-width: 767px) {
@@ -3493,10 +3502,8 @@ body {
     min-height: 100vh;
   }
 
-  .slider__wrapper-img,
-  .slider__svg-wrapper {
-    position: absolute;
-    top: 55%;
+  .slider__wrapper-img {
+    margin-top: 30px;
   }
 
   .slider__img-logo {
@@ -3582,12 +3589,6 @@ body {
     min-height: 100vh;
   }
 
-  .slider__wrapper-img,
-  .slider__svg-wrapper {
-    position: absolute;
-    top: 65%;
-  }
-
   .slider__img-logo {
     max-width: 20%;
   }
@@ -3633,12 +3634,6 @@ body {
 @media (orientation: landscape) and (max-width: 320px) {
   body {
     min-height: 100vh;
-  }
-
-  .slider__wrapper-img,
-  .slider__svg-wrapper {
-    position: absolute;
-    top: 65%;
   }
 
   .slider__img-logo {
