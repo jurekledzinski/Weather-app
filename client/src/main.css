@@ -1188,7 +1188,7 @@ body {
 .slider__box-3-title.clear-sky-day,
 .slider__box-4-title.clear-sky-day {
   color: white;
-  font-weight: 100;
+  font-weight: 300;
 }
 
 .slider__box-2-title.clear-sky-night,
@@ -1653,7 +1653,7 @@ body {
 
 .slider__box-details-text.clear-sky-day {
   color: white;
-  font-weight: 100;
+  font-weight: 300;
 }
 
 .slider__box-details-text.clear-sky-night,
@@ -1692,7 +1692,7 @@ body {
 
 .slider__box-details-description.clear-sky-day {
   color: white;
-  font-weight: 100;
+  font-weight: 300;
 }
 
 .slider__box-details-description.clear-sky-night,
@@ -1788,7 +1788,7 @@ body {
 
 .slider__box-4-day-time.clear-sky-day {
   color: white;
-  font-weight: 100;
+  font-weight: 300;
 }
 
 .slider__box-4-day-time.clear-sky-night,
@@ -1813,7 +1813,7 @@ body {
 
 .slider__box-4-day-night.clear-sky-day {
   color: white;
-  font-weight: 100;
+  font-weight: 300;
 }
 
 .slider__box-4-day-night.clear-sky-night,
@@ -1852,7 +1852,7 @@ body {
 .slider__box-4-days-details-text-day.clear-sky-day,
 .slider__box-4-days-details-text-night.clear-sky-day {
   color: white;
-  font-weight: 100;
+  font-weight: 300;
 }
 
 .slider__box-4-days-details-text-day.clear-sky-night,
@@ -2085,7 +2085,7 @@ body {
 
 .slider__hourly-temperature-mobile.clear-sky-day {
   color: white;
-  font-weight: 100;
+  font-weight: 300;
 }
 
 .slider__hourly-temperature-mobile.clear-sky-night,
@@ -2181,7 +2181,7 @@ body {
 
 .slider__hourly-weather-description-mobile.clear-sky-day {
   color: white;
-  font-weight: 100;
+  font-weight: 300;
 }
 
 .slider__hourly-weather-description-mobile.clear-sky-night,
