@@ -3363,6 +3363,18 @@ body {
     height: 7px;
     background-color: rgba(95, 95, 95, 0.78);
   }
+
+  .slider__current-date.clear-sky-day,
+  .slider__image-description.clear-sky-day,
+  .slider__city.clear-sky-day,
+  .slider__country-time.clear-sky-day,
+  .slider__box-details-text.clear-sky-day,
+  .slider__box-details-description.clear-sky-day,
+  .slider__box-2-title.clear-sky-day,
+  .slider__box-3-title.clear-sky-day,
+  .slider__box-4-title.clear-sky-day {
+    font-weight: 100;
+  }
 }
 
 @media (orientation: portrait) and (min-width: 768px) and (max-width: 855px) {
