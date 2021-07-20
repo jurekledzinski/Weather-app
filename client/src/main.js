@@ -351,7 +351,7 @@ const handleContentLoaded = () => {
   const getCurrentChartColors = (description) => {
     switch (description) {
       case "clear-sky-day":
-        return "rgba(255,255,255,0.82)";
+        return "rgba(255,255,255,1)";
         break;
       case "clear-sky-night":
         return "rgba(255,255,255,0.82)";
@@ -1204,7 +1204,7 @@ const handleContentLoaded = () => {
           if (response.ok) {
             return response.json();
           }
-
+          hideLoader();
           throw new Error("Can't find location");
         })
         .then((result) => {
@@ -2550,7 +2550,7 @@ const handleContentLoaded = () => {
         if (response.ok) {
           return response.json();
         }
-
+        hideLoader();
         throw new Error("Can't find location");
       })
       .then((result) => {
