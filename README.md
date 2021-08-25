@@ -1,4 +1,4 @@
-# ![Weather app](https://jurekledzinski.github.io/Weather-app/imageGit/Find-weather.jpg)
+# ![Weather app](https://github.com/jurekledzinski/Weather-app/blob/main/imageGit/Find-weather.jpg)
 
 # Find Weather
 
