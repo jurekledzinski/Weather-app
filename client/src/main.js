@@ -739,8 +739,11 @@ const handleContentLoaded = () => {
             break;
         }
 
+        let detailsTitle =
+          e.target.parentElement.previousSibling.previousSibling.children[0];
+
         if (index === indexBtn) {
-          e.path[2].children[3].children[0].innerHTML = btn.innerHTML;
+          detailsTitle.innerHTML = btn.innerHTML;
         }
       });
     }
@@ -2219,8 +2222,10 @@ const handleContentLoaded = () => {
                 <div class="slider__box-4-part2">
                   <div class="slider__box-4-part3">
                     <p class="slider__box-details-text">${
-                      current.visibility > 1000
+                      current.visibility >= 10000
                         ? current.visibility / 1000 + "/km"
+                        : current.visibility >= 1000
+                        ? (current.visibility / 1000).toFixed(1) + "/km"
                         : current.visibility + "/m"
                     }</p>
                   </div>
@@ -2232,6 +2237,7 @@ const handleContentLoaded = () => {
                 </div>
               </div>
             </div>
+
 
             <div class="slider__box-4-boxes--days-forecast">
         
@@ -2873,13 +2879,13 @@ const handleContentLoaded = () => {
       localStorage.getItem("weather") || "[]"
     );
 
-    if (
-      e.path[3].childNodes[7].firstElementChild.attributes[1] &&
-      localStorageData.length > 0
-    ) {
+    let styleSliderContent =
+      e.target.parentElement.parentElement.nextSibling.nextSibling.firstChild
+        .nextSibling.attributes[1];
+
+    if (styleSliderContent && localStorageData.length > 0) {
       buttonRemove.disabled = true;
-      const elementStyle =
-        e.path[3].childNodes[7].firstElementChild.attributes[1].nodeValue;
+      const elementStyle = styleSliderContent.nodeValue;
       const partElementStyle = elementStyle.slice(
         elementStyle.lastIndexOf("(")
       );
