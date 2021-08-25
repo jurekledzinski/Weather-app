@@ -77,4 +77,4 @@ Application should run :)
 
 ## License
 
-MIT
+MIT © [Jurek Ledziński](https://github.com/jurekledzinski)
