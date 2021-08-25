@@ -1,8 +1,6 @@
-# ![WebApp](https://github.com/jurekledzinski/Weather-app/imageGit/Find-weather.jpg)
+# ![Weather app](https://jurekledzinski.github.io/Weather-app/imageGit/Find-weather.jpg)
 
 # Find Weather
-
----
 
 Weather application to find weather according to city and country.
 
