@@ -67,13 +67,13 @@ const handleContentLoaded = () => {
     const innerBox1CityAll = document.querySelectorAll(".slider__city");
     const innerBox1DateAll = document.querySelectorAll(".slider__current-date");
     const sliderBoxes3Mobile = document.querySelectorAll(
-      `.slider__box-3-mobile-${result.city.replace(/\s/g, "-")}`
+      `.slider__box-3-mobile-${result.city.replace(/\s|&/g, "-")}`
     );
     const sliderBoxes4 = document.querySelectorAll(
-      `.slider__box-4-${result.city.replace(/\s/g, "-")}`
+      `.slider__box-4-${result.city.replace(/\s|&/g, "-")}`
     );
     const sliderBoxesDays4 = document.querySelectorAll(
-      `.slider__box-4-days-${result.city.replace(/\s/g, "-")}`
+      `.slider__box-4-days-${result.city.replace(/\s|&/g, "-")}`
     );
     const sliderBox4DetailsIcon = document.querySelectorAll(
       ".slider__box-details-icon"
@@ -109,7 +109,7 @@ const handleContentLoaded = () => {
 
     const sliderButtons = document.querySelectorAll(
       `.slider__bottom-btn.slider__bottom-btn-${result.city.replace(
-        /\s/g,
+        /\s|&/g,
         "-"
       )}`
     );
@@ -168,10 +168,10 @@ const handleContentLoaded = () => {
       ".slider__box-4-boxes,.slider__box-4-boxes--days-forecast,.slider__box-4-boxes--hourly-weather"
     );
     const innerBoxFour = document.querySelector(
-      `.slider__inner-box-4-panel-${result.city.replace(/\s/g, "-")}`
+      `.slider__inner-box-4-panel-${result.city.replace(/\s|&/g, "-")}`
     );
     const buttonsButtom = document.querySelectorAll(
-      `.slider__bottom-btn-${result.city.replace(/\s/g, "-")}`
+      `.slider__bottom-btn-${result.city.replace(/\s|&/g, "-")}`
     );
 
     const timesCountry = document.querySelectorAll(".slider__country-time");
@@ -507,11 +507,11 @@ const handleContentLoaded = () => {
 
     if (
       document.querySelector(
-        `.slider__country-time-${result.city.replace(/\s/g, "-")}`
+        `.slider__country-time-${result.city.replace(/\s|&/g, "-")}`
       )
     ) {
       document.querySelector(
-        `.slider__country-time-${result.city.replace(/\s/g, "-")}`
+        `.slider__country-time-${result.city.replace(/\s|&/g, "-")}`
       ).innerHTML = time;
     }
 
@@ -768,11 +768,11 @@ const handleContentLoaded = () => {
         sliderContent.insertBefore(lastSlide, sliderContent.children[0]);
         sliderContent.append(firstSlide);
         firstSlide.children[1].children[1].children[0].className = `myChart-${result.city.replace(
-          /\s/g,
+          /\s|&/g,
           "-"
         )}-${num}`;
         sliderContent.children[0].children[0].children[1].children[2].children[0].className = `slider__country-time slider__country-time-${result.city.replace(
-          /\s/g,
+          /\s|&/g,
           "-"
         )}-${num} ${
           localStorageWeather[localStorageWeather.length - 1].nameClass
@@ -780,7 +780,7 @@ const handleContentLoaded = () => {
 
         let myChart = new Chart(
           document.querySelector(
-            `.myChart-${result.city.replace(/\s/g, "-")}-${num}`
+            `.myChart-${result.city.replace(/\s|&/g, "-")}-${num}`
           ),
           config
         );
@@ -789,20 +789,24 @@ const handleContentLoaded = () => {
 
         myChart = new Chart(
           document.querySelector(
-            `.myChart-${result.city.replace(/\s/g, "-")}-${num}`
+            `.myChart-${result.city.replace(/\s|&/g, "-")}-${num}`
           ),
           config
         );
 
         let myChart1 = new Chart(
-          document.querySelector(`.myChart-${result.city.replace(/\s/g, "-")}`),
+          document.querySelector(
+            `.myChart-${result.city.replace(/\s|&/g, "-")}`
+          ),
           config
         );
 
         myChart1.destroy();
 
         myChart1 = new Chart(
-          document.querySelector(`.myChart-${result.city.replace(/\s/g, "-")}`),
+          document.querySelector(
+            `.myChart-${result.city.replace(/\s|&/g, "-")}`
+          ),
           config
         );
 
@@ -1194,7 +1198,7 @@ const handleContentLoaded = () => {
         .toLowerCase();
       let countryInputValue = item.country.toLowerCase();
 
-      fetch("https://lit-sands-29020.herokuapp.com", {
+      fetch("http://localhost:5000", {
         method: "POST",
         mode: "cors",
         headers: {
@@ -1296,7 +1300,11 @@ const handleContentLoaded = () => {
           const sliderBox2Boxes = document.querySelector(
             ".slider__box-2-boxes"
           );
-          sliderBox2Boxes.className = `slider__box-2-boxes-${result.city}`;
+          sliderBox2Boxes.className = `slider__box-2-boxes-${result.city.replace(
+            /\s|&/g,
+            "-"
+          )}`;
+
           sliderBox2Boxes.style.position = "relative";
           sliderBox2Boxes.style.margin = "auto";
           sliderBox2Boxes.style.height = `calc(${80}% - ${9}px)`;
@@ -1304,7 +1312,7 @@ const handleContentLoaded = () => {
 
           const elementCanvas = document.createElement("canvas");
           elementCanvas.className = `myChart-${result.city.replace(
-            /\s/g,
+            /\s|&/g,
             "-"
           )}`;
           sliderBox2Boxes.appendChild(elementCanvas);
@@ -1318,7 +1326,7 @@ const handleContentLoaded = () => {
 
           let chartFetch = new Chart(
             document.querySelector(
-              `.myChart-${result.city.replace(/\s/g, "-")}`
+              `.myChart-${result.city.replace(/\s|&/g, "-")}`
             ),
             config
           );
@@ -1327,7 +1335,7 @@ const handleContentLoaded = () => {
 
           chartFetch = new Chart(
             document.querySelector(
-              `.myChart-${result.city.replace(/\s/g, "-")}`
+              `.myChart-${result.city.replace(/\s|&/g, "-")}`
             ),
             config
           );
@@ -2056,7 +2064,7 @@ const handleContentLoaded = () => {
                 </div>
                 <div class="slider__time-wrapper">
                     <p class="slider__country-time slider__country-time-${result.city.replace(
-                      /\s/g,
+                      /\s|&/g,
                       "-"
                     )}"></p>
               </div>
@@ -2111,12 +2119,12 @@ const handleContentLoaded = () => {
         <div class="slider__inner-box">
           <h3 class="slider__box-4-title">Details</h3>
           <div class="slider__inner-box-4 slider__inner-box-4-panel-${result.city.replace(
-            /\s/g,
+            /\s|&/g,
             "-"
           )}">
             <div class="slider__box-4-boxes">
               <div class="slider__box-4 slider__box-4-${result.city.replace(
-                /\s/g,
+                /\s|&/g,
                 "-"
               )}">
                 <span class="slider__box-details-icon">
@@ -2139,7 +2147,7 @@ const handleContentLoaded = () => {
                 </div>
               </div>
               <div class="slider__box-4 slider__box-4-${result.city.replace(
-                /\s/g,
+                /\s|&/g,
                 "-"
               )}">
                 <span class="slider__box-details-icon">
@@ -2157,7 +2165,7 @@ const handleContentLoaded = () => {
                 </div>
               </div>
               <div class="slider__box-4 slider__box-4-${result.city.replace(
-                /\s/g,
+                /\s|&/g,
                 "-"
               )}">
                 <span class="slider__box-details-icon">
@@ -2175,7 +2183,7 @@ const handleContentLoaded = () => {
                 </div>
               </div>
               <div class="slider__box-4 slider__box-4-${result.city.replace(
-                /\s/g,
+                /\s|&/g,
                 "-"
               )}">
                 <span class="slider__box-details-icon">
@@ -2193,7 +2201,7 @@ const handleContentLoaded = () => {
                 </div>
               </div>
               <div class="slider__box-4 slider__box-4-${result.city.replace(
-                /\s/g,
+                /\s|&/g,
                 "-"
               )}">
                 <span class="slider__box-details-icon">
@@ -2213,7 +2221,7 @@ const handleContentLoaded = () => {
                 </div>
               </div>
               <div class="slider__box-4 slider__box-4-${result.city.replace(
-                /\s/g,
+                /\s|&/g,
                 "-"
               )}">
                 <span class="slider__box-details-icon">
@@ -2246,7 +2254,7 @@ const handleContentLoaded = () => {
                 (
                   item
                 ) => `<div class="slider__box-4-days slider__box-4-days-${result.city.replace(
-                  /\s/g,
+                  /\s|&/g,
                   "-"
                 )}">
               <p class="slider__box-4-days-day">${new Date(item.data * 1000)
@@ -2286,7 +2294,7 @@ const handleContentLoaded = () => {
                     (
                       item
                     ) => `<div class="slider__box-3-mobile slider__box-3-mobile-${result.city.replace(
-                      /\s/g,
+                      /\s|&/g,
                       "-"
                     )}">
                             <p class="slider__hourly-time-mobile">${new Date(
@@ -2330,19 +2338,19 @@ const handleContentLoaded = () => {
           </div>
         </div>
         <div class="slider__bottom-panel slider__bottom-panel-${result.city.replace(
-          /\s/g,
+          /\s|&/g,
           "-"
         )}">
           <button class="slider__bottom-btn slider__bottom-btn-${result.city.replace(
-            /\s/g,
+            /\s|&/g,
             "-"
           )}">Details</button
           ><button class="slider__bottom-btn slider__bottom-btn-${result.city.replace(
-            /\s/g,
+            /\s|&/g,
             "-"
           )}">6 days forecast</button
           ><button class="slider__bottom-btn slider__bottom-btn-${result.city.replace(
-            /\s/g,
+            /\s|&/g,
             "-"
           )}">Hourly forecast</button>
         </div>`;
@@ -2543,7 +2551,7 @@ const handleContentLoaded = () => {
       return;
     }
 
-    fetch("https://lit-sands-29020.herokuapp.com", {
+    fetch("http://localhost:5000", {
       method: "POST",
       mode: "cors",
       headers: {
@@ -2677,20 +2685,28 @@ const handleContentLoaded = () => {
         }, 1000);
 
         const sliderBox2Boxes = document.querySelector(".slider__box-2-boxes");
-        sliderBox2Boxes.className = `slider__box-2-boxes-${result.city}`;
+        sliderBox2Boxes.className = `slider__box-2-boxes-${result.city.replace(
+          /\s|&/g,
+          "-"
+        )}`;
         sliderBox2Boxes.style.position = "relative";
         sliderBox2Boxes.style.margin = "auto";
         sliderBox2Boxes.style.height = `calc(${80}% - ${9}px)`;
         sliderBox2Boxes.style.width = 99 + "%";
 
         const elementCanvas = document.createElement("canvas");
-        elementCanvas.className = `myChart-${result.city.replace(/\s/g, "-")}`;
+        elementCanvas.className = `myChart-${result.city.replace(
+          /\s|&/g,
+          "-"
+        )}`;
         sliderBox2Boxes.appendChild(elementCanvas);
 
         const config = getChartData(result, timezone);
 
         new Chart(
-          document.querySelector(`.myChart-${result.city.replace(/\s/g, "-")}`),
+          document.querySelector(
+            `.myChart-${result.city.replace(/\s|&/g, "-")}`
+          ),
           config
         );
 
