@@ -1198,7 +1198,7 @@ const handleContentLoaded = () => {
         .toLowerCase();
       let countryInputValue = item.country.toLowerCase();
 
-      fetch("http://localhost:5000", {
+      fetch("https://lit-sands-29020.herokuapp.com", {
         method: "POST",
         mode: "cors",
         headers: {
@@ -2551,7 +2551,7 @@ const handleContentLoaded = () => {
       return;
     }
 
-    fetch("http://localhost:5000", {
+    fetch("https://lit-sands-29020.herokuapp.com", {
       method: "POST",
       mode: "cors",
       headers: {
